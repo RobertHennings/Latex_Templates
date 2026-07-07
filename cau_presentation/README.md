@@ -64,15 +64,15 @@ Add bibliography resources in the document:
 \hypersetup{pdfauthor={Author}, pdftitle={Title}}
 ```
 
-The style package loads `biblatex` with the `biber` backend. Use `latexmk -pdf` so the bibliography tool is run automatically.
+The style package loads `biblatex` with the `biber` backend. Use `latexmk -xelatex` so the bibliography tool is run automatically.
 
 ## Build
 
 Use `latexmk` from inside `cau_presentation/`:
 
 ```sh
-latexmk -pdf main.tex
-latexmk -pdf examples/presentation-example.tex
+latexmk -xelatex main.tex
+latexmk -xelatex examples/presentation-example.tex
 ```
 
 ## Folder Structure

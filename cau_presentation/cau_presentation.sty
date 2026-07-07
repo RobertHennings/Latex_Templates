@@ -20,10 +20,18 @@
 %------------------------------------------------------------------------------------
 \graphicspath{
     {./}
-    {./figures/}
-    {./logos/}
-    {../cau_thesis/logos/}
-    {./tables/}
+        {./figures/}
+        {./logos/}
+        {./tables/}
+        {cau_presentation/figures/}
+        {cau_presentation/logos/}
+        {cau_presentation/tables/}
+        {cau-presentation/figures/}
+        {cau-presentation/logos/}
+        {cau-presentation/tables/}
+        {../cau_thesis/logos/}
+        {cau_thesis/logos/}
+        {cau-thesis/logos/}
 }
 %------------------------------------------------------------------------------------
 %                  BASIC SETTINGS
@@ -106,11 +114,11 @@
     \item \hyperlink{#1}{Table \ref{#1}: #2} (Slide \pageref{#1})%
 }
 \newcommand{\caupresentationclickablefigure}[4][]{%
-  \begin{figure}
-    \centering
-    \href{#4}{\includegraphics[#1]{#2}}%
-    \caption{#3}%
-  \end{figure}%
+    \begin{figure}
+        \centering
+        \href{#4}{\includegraphics[#1]{#2}}%
+        \caption{#3}%
+    \end{figure}%
 }
 
 % Backwards-compatible aliases for existing presentations.

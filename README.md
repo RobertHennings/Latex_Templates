@@ -110,14 +110,14 @@ The easiest way to get started is to compile one of the full example projects.
 
 ```sh
 cd cau_thesis
-latexmk -pdf main.tex
+latexmk -xelatex main.tex
 ```
 
 For the presentation example:
 
 ```sh
 cd cau_presentation
-latexmk -pdf main.tex
+latexmk -xelatex main.tex
 ```
 
 The repository includes `latexmkrc`, which sets XeLaTeX mode, uses `biber`, and cleans common auxiliary files.
@@ -183,7 +183,7 @@ The full thesis skeleton keeps content in `cau_thesis/chapters/` and bibliograph
 \input{chapters/09-references}
 ```
 
-The class loads `biblatex` with the `biber` backend. Use `latexmk -pdf main.tex` so bibliography passes are handled automatically.
+The class loads `biblatex` with the `biber` backend. Use `latexmk -xelatex main.tex` so bibliography passes are handled automatically.
 
 ## Quick Start: Edit a Presentation
 
@@ -266,25 +266,25 @@ Compile compact thesis and presentation examples from their project folders:
 
 ```sh
 cd cau_thesis
-latexmk -pdf examples/thesis-example.tex
+latexmk -xelatex examples/thesis-example.tex
 
 cd ../cau_presentation
-latexmk -pdf examples/presentation-example.tex
+latexmk -xelatex examples/presentation-example.tex
 ```
 
 Compile root-level title-page and design examples from their source folders:
 
 ```sh
 cd examples/cover_page_samples/latex_sources
-latexmk -pdf titlepage_sample.tex
-latexmk -pdf hard_cover_titlepage_sample.tex
-latexmk -pdf titlepage_alt_sample.tex
-latexmk -pdf titlepage_alt_math_sample.tex
-latexmk -pdf titlepage_submission_sample.tex
+latexmk -xelatex titlepage_sample.tex
+latexmk -xelatex hard_cover_titlepage_sample.tex
+latexmk -xelatex titlepage_alt_sample.tex
+latexmk -xelatex titlepage_alt_math_sample.tex
+latexmk -xelatex titlepage_submission_sample.tex
 
 cd ../../design_examples/latex_sources
-latexmk -pdf design_example_classic.tex
-latexmk -pdf design_example_minimal.tex
+latexmk -xelatex design_example_classic.tex
+latexmk -xelatex design_example_minimal.tex
 ```
 
 If an example uses a bibliography, run `biber` between LaTeX passes or use `latexmk`.
@@ -324,7 +324,7 @@ The thesis manual source and built PDF live in `doc/`.
 Rebuild the manual from the repository root with:
 
 ```sh
-latexmk -cd -pdf doc/cau-thesis-doc.tex
+latexmk -cd -xelatex doc/cau-thesis-doc.tex
 ```
 
 Generated auxiliary files such as `.aux`, `.bcf`, `.log`, `.out`, `.toc`, `.xdv`, `.fls`, `.fdb_latexmk`, `.run.xml`, `.nav`, `.snm`, and `.vrb` should not be included in final release archives.
@@ -350,7 +350,7 @@ For packaging details, see `PACKAGING.md`.
 Use `latexmk` from this repository so `latexmkrc` selects XeLaTeX:
 
 ```sh
-latexmk -pdf main.tex
+latexmk -xelatex main.tex
 ```
 
 If you build manually, run `xelatex` instead of `pdflatex`.
@@ -360,7 +360,7 @@ If you build manually, run `xelatex` instead of `pdflatex`.
 Run `biber`, or let `latexmk` do it:
 
 ```sh
-latexmk -pdf main.tex
+latexmk -xelatex main.tex
 ```
 
 For a manual build:
@@ -386,7 +386,7 @@ Clean generated files and rebuild:
 
 ```sh
 latexmk -C main.tex
-latexmk -pdf main.tex
+latexmk -xelatex main.tex
 ```
 
 ## License and Maintainers

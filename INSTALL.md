@@ -20,7 +20,7 @@ cd ../kiel_working_paper
 latexmk -xelatex -bibtex -interaction=nonstopmode example_article.tex
 ```
 
-Note: replace `-bibtex` with `-pdf`/`-xelatex` flags as appropriate; when using `biber` run `latexmk -xelatex -pdf -interaction=nonstopmode -use-biber example_article.tex`.
+Note: replace `-bibtex` with `-pdf`/`-xelatex` flags as appropriate; when using `biber` run `latexmk -xelatex -interaction=nonstopmode -use-biber example_article.tex`.
 
 ## Installing system-wide (TDS layout)
 
@@ -34,8 +34,8 @@ Note: replace `-bibtex` with `-pdf`/`-xelatex` flags as appropriate; when using 
 ## Bundled fonts policy
 
 - The repository excludes proprietary fonts from the CTAN-distributable tree. The following fonts are NOT distributed with the package and must be installed by the user if required by a template:
- 	- `Cambria Math` (`cambria-math.ttf`) — proprietary (Microsoft).
- 	- `Suisse` family — commercial; obtain from the design supplier or your institution's asset library.
+  - `Cambria Math` (`cambria-math.ttf`) — proprietary (Microsoft).
+  - `Suisse` family — commercial; obtain from the design supplier or your institution's asset library.
 
 If you require the exact corporate fonts for publication, install them into your local texmf tree under `~/texmf/fonts/opentype/` (or system-wide as your OS requires). Example:
 

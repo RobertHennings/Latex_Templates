@@ -71,10 +71,10 @@ A complete minimal example is available in `examples/thesis-example.tex`. The pa
 Use `latexmk` from inside `cau_thesis/` for normal builds:
 
 ```sh
-latexmk -pdf main.tex
-latexmk -pdf examples/thesis-example.tex
+latexmk -xelatex main.tex
+latexmk -xelatex examples/thesis-example.tex
 cd ..
-latexmk -cd -pdf doc/cau-thesis-doc.tex
+latexmk -cd -xelatex doc/cau-thesis-doc.tex
 ```
 
 `main.tex` is the full thesis template entry point. `examples/thesis-example.tex` is the reusable class smoke test and avoids project-specific title pages or assets.
