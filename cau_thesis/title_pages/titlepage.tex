@@ -1,0 +1,65 @@
+\begin{titlepage}
+    \voffset-40mm
+    \parbox{1.5cm}{\resizebox*{110pt}{!}{\includegraphics{logos/cau_logo.pdf}}}\hspace{310pt}
+    \parbox{1.5cm}{\resizebox*{90pt}{!}{\includegraphics{logos/cau_kiel_wiso.pdf}}}\hspace{310pt}
+    \parbox{1.5cm}{\resizebox*{110pt}{!}{\includegraphics{logos/vattenfall.pdf}}}\hspace{310pt}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[opacity=0.08, inner sep=0pt, anchor=south east]
+        at ([xshift=4.2cm, yshift=1.8cm] current page.south east)
+        {\includegraphics[width=0.58\paperwidth, height=0.60\paperheight]{logos/siegel_color.pdf}};
+    \end{tikzpicture}
+    % \begin{tikzpicture}[remember picture,overlay]
+    %     \node[opacity=0.08, inner sep=0pt, anchor=south east]
+    %         at ([xshift=6.2cm, yshift=-0.8cm] current page.south east)
+    %         {\includegraphics[width=0.80\paperwidth, height=0.80\paperheight]{logos/siegel.pdf}};
+    % \end{tikzpicture}
+    \begin{center}
+        \vspace*{0.5in}
+        \makeatletter
+        {\Huge \textbf{\@title}} \\[0.5in]
+        \makeatother
+        {\Large by} \\[0.2in]
+        \makeatletter
+        {\Large \thesisauthor} \\[0.5in]
+        \makeatother
+        {\small Submitted to the} \\[0.2in]
+        {\normalsize \chair} \\[0.1in]
+        {\normalsize \institute} \\[0.3in]
+        {\normalsize \faculty} \\[0.4in]
+        {\centering \cooperation\\[0.6in]}
+        {\Large \typedocument} \\[0.2in]
+        {\fontsize{14}{16}\selectfont \programme} \\[0.2in]
+        {\fontsize{14}{16}\selectfont Christian-Albrechts-University of Kiel} \\[0.5in]
+        {\fontsize{14}{16}\selectfont \submissiondateCover} \\[0.1in]
+        \makeatletter
+        {\normalsize \textcopyright{} {\thesisauthor}, 2026. All rights reserved.} \\[0.1in]
+        \makeatother
+        {\small \maybehref{\thesislicenseURL}{\thesislicenseText}}\\[0.03in]
+        {\small \maybehref{\thesisgiturl}{\thesisgitlabel}}\\[0.03in]
+        % \vspace{0.3cm}
+        \pagebreak
+        % ---------------------------------------------------------------
+        %                     ASSESSMENT COMMITTEE PAGE
+        % ---------------------------------------------------------------
+        \begin{center}
+            \textbf{First Assessor:} \\[0.2in]
+            {\large \firstsupervisorname} \\[0.2in]
+            {\large \firstsupervisortitle} \\[0.2in]
+            {\large \firstsupervisordepartment} \\[0.5in]
+            \textbf{Second Assessor:} \\[0.2in]
+            {\large \secondsupervisorname} \\[0.2in]
+            {\large \secondsupervisortitle} \\[0.2in]
+            {\large \secondsupervisordepartment}
+        \end{center}
+        \begin{flushleft}
+            \vspace{9.5cm}
+            \makeatletter
+            \textbf{Author:} \textnormal{\mdseries \thesisauthor} \\[0.1in]
+            \makeatother
+            \textbf{Matriculation number:} \textnormal{\mdseries \stunumber} \\[0.1in]
+            \textbf{Stu-Mail:} \textnormal{\mdseries \stuemail} \\[0.1in]
+            \textbf{Mail:} \textnormal{\mdseries \privatemail} \\[0.1in]
+            \textbf{Submitted:} \textnormal{\mdseries \submissiondate} \\[0.1in]
+        \end{flushleft}
+    \end{center}
+\end{titlepage}

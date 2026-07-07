@@ -1,0 +1,139 @@
+\documentclass[11pt,a4paper]{../cau_thesis/cau_thesis}
+
+\linkboxcolor{CAU_MAIN}
+\showlinkboxes{true}
+
+\title{The \texttt{cau\_thesis} Class}
+\author{The \texttt{cau\_thesis} maintainers}
+\thesisauthor{The \texttt{cau\_thesis} maintainers}
+\submissiondate{07.07.2026}
+\submissiondateCover{Version 1.0 -- 2026-07-07}
+\pdfsubject{Documentation for the CAU Kiel thesis template}
+\pdfkeywords{CAU Kiel, LaTeX, thesis, template, documentation}
+\chair{Template Documentation}
+\institute{CAU Kiel LaTeX Templates}
+\faculty{Christian-Albrechts-University of Kiel}
+\typedocument{Class Documentation}
+\programme{Reusable Thesis Template}
+\cooperation{Documentation for maintainers and template users}
+\location{Kiel, Germany}
+\license{LPPL 1.3c}{https://www.latex-project.org/lppl/}
+\githubrepo{Project Repository}{https://example.org/repository}
+\firstsupervisorname{Not applicable}
+\firstsupervisortitle{Documentation build}
+\firstsupervisordepartment{CAU Kiel LaTeX Templates}
+\secondsupervisorname{Not applicable}
+\secondsupervisortitle{Documentation review}
+\secondsupervisordepartment{CAU Kiel LaTeX Templates}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    columns=fullflexible,
+    frame=single,
+    rulecolor=\color{CAU_MAIN},
+    keywordstyle=\color{CAU_MAIN}\bfseries,
+    commentstyle=\color{gray},
+    showstringspaces=false
+}
+
+\begin{document}
+\sloppy
+\hfuzz=\maxdimen
+\vfuzz=\maxdimen
+\hbadness=10000
+\vbadness=10000
+\pagestyle{empty}
+\makethesistitlepage
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\pagestyle{fancy}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Overview}
+\texttt{cau\_thesis} is a reusable thesis class based on LaTeX's standard
+\texttt{report} class. It provides thesis metadata commands, a generic title
+page, link styling, bibliography helpers, theorem environments,
+algorithm/listing support, and project-compatible title-page hooks.
+
+\chapter{Minimal Example}
+\begin{lstlisting}[language=TeX]
+\documentclass[12pt,a4paper]{cau_thesis}
+\title{A Minimal Thesis}
+\author{Ada Lovelace}
+\thesisauthor{Ada Lovelace}
+\submissiondate{01.09.2026}
+\faculty{Faculty Name}
+\institute{Institute Name}
+\typedocument{Master Thesis}
+\programme{M.Sc. Programme}
+\location{Kiel, Germany}
+\license{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+\githubrepo{Project Repository}{https://example.org/repository}
+\addbibresource{examples/bibliography.bib}
+\begin{document}
+\sloppy
+\hfuzz=\maxdimen
+\hbadness=10000
+\makethesistitlepage
+\hypersetup{pageanchor=true}
+\tableofcontents
+\chapter{Introduction}
+Hello world.
+\printbibliography
+\end{document}
+\end{lstlisting}
+
+\chapter{Metadata Commands}
+The class uses setter/getter commands for thesis metadata. Calling a command
+with an argument stores the value; calling it without an argument prints the
+stored value where supported by existing title pages.
+
+\begin{lstlisting}[language=TeX]
+\thesisauthor{<name>}
+\stunumber{<number>}
+\stuemail{<email>}
+\privatemail{<email>}
+\submissiondate{DD.MM.YYYY}
+\submissiondateCover{<text>}
+\pdfsubject{<text>}
+\pdfkeywords{<comma-separated keywords>}
+\chair{<text>}
+\institute{<text>}
+\faculty{<text>}
+\typedocument{<text>}
+\programme{<text>}
+\cooperation{<text>}
+\location{<text>}
+\license{<label>}{<url>}
+\licencse{<label>}{<url>}
+\githubrepo{<label>}{<url>}
+\GitHubRepo{<label>}{<url>}
+\end{lstlisting}
+
+The misspelled \verb|\licencse| command is retained as a deprecated compatibility alias.
+
+\chapter{Title Pages}
+Use \verb|\makethesistitlepage| for a generic title page that does not require
+private institutional images. Project-specific title-page files can still be
+included manually when their assets are available and legally redistributable.
+
+\chapter{Link Options}
+\begin{lstlisting}[language=TeX]
+\linkboxcolor{<color>}
+\showlinkboxes{true}
+\showlinkboxes{false}
+\frontmatterpageanchor{true}
+\hypersetup{pageanchor=true}
+\end{lstlisting}
+
+\verb|\linkboxcolor| changes visible link border colors. The class starts with
+\verb|pageanchor=false| for front matter; re-enable anchors after title pages
+with \verb|\hypersetup{pageanchor=true}| when needed.
+
+\chapter{License}
+The class is intended for distribution under the LaTeX Project Public License,
+version 1.3c or later.
+\end{document}

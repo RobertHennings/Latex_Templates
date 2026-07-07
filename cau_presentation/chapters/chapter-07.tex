@@ -1,0 +1,127 @@
+%----------------------------------------------------------------------------------------
+%	NEW CHAPTER TITLE SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Chapter 3)}
+	\begin{tikzpicture}[remember picture, overlay]
+        \caupresentationheaderlogoright
+		\node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {
+            \tikz\node[opacity=0.15] {
+                \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}
+            };
+        };
+    \end{tikzpicture}
+	% \begin{block}{} % Empty block title % Set background color (adjust 'blue!20' as needed)
+    %     \centering
+    %     {\large \textbf{Theoretical Framework}} % Slightly smaller text
+    % \end{block}
+	\begin{center}
+        \begin{minipage}{0.6\textwidth} % Adjust the width of the block
+            \begin{block}{} % Empty block title
+                \centering
+                {\large \textbf{Model Results}} % Slightly smaller text
+            \end{block}
+        \end{minipage}
+    \end{center}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\subsection{Regime identification - Model comparison and selection}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Model comparison and selection}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_model_comparison_bar_plot.html}{\includegraphics[width=0.97\linewidth]{chap_07_model_comparison_bar_plot.pdf}}
+		\caption{\tiny Figure 7: Model comparison using the silhouette score for various regime identification model configurations.\footnote{Own Illustration based on \cite{jahanian2024introducing}, page 9 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_model_comparison_bar_plot}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Evolution over time with highlighted Crisis Periods}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.5\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted.pdf}}
+		\caption{\tiny Figure 8: Time-series of predicted regimes with highlighted crisis periods.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Some excerpts (I)}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted_I.pdf}}
+		\caption{\tiny Figure 9: Time-series of predicted regimes with highlighted crisis periods, exemplary algorithm: GaussianMixture.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted_I}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Some excerpts (II)}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted_II.pdf}}
+		\caption{\tiny Figure 10: Time-series of predicted regimes with highlighted crisis periods, exemplary algorithm: GaussianMixture.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted_II}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Some excerpts (III)}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted_III.pdf}}
+		\caption{\tiny Figure 11: Time-series of predicted regimes with highlighted crisis periods, exemplary algorithm: KMeans.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted_III}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Some excerpts (IV)}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted_IV.pdf}}
+		\caption{\tiny Figure 12: Time-series of predicted regimes with highlighted crisis periods, exemplary algorithm: AgglomerativeClustering.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted_IV}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Some excerpts (V)}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_with_crisis_periods_highlighted.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_with_crisis_periods_highlighted_V.pdf}}
+		\caption{\tiny Figure 13: Time-series of predicted regimes with highlighted crisis periods, exemplary algorithm: KMeans.\footnote{Own Illustration based on \cite{ayodeji2016three}, page 5 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_with_crisis_periods_highlighted_V}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Overlapping Comparison}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_rel_share_overlap.html}{\includegraphics[width=0.9\linewidth]{chap_07_predicted_model_regimes_rel_share_overlap.pdf}}
+		\caption{\tiny Figure 14: Relative share of regime classification per features per clustering algorithm.\footnote{Own Illustration based on \cite{maciel2021functional}, page 764 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_rel_share_overlap}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Predicted Regimes - Overlapping Comparison with theoretical crisis periods}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_predicted_model_regimes_rel_share_overlap_theo_crisis_regimes.html}{\includegraphics[width=0.7\linewidth]{chap_07_predicted_model_regimes_rel_share_overlap_theo_crisis_regimes.pdf}}
+		\caption{\tiny Figure 15: Relative share of observations classified into class 1 and falling into a defined theoretical crisis period per features per clustering algorithm.\footnote{Own Illustration based on \cite{maciel2021functional}, page 764 and data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations.}\label{fig:chap_07_predicted_model_regimes_rel_share_overlap_theo_crisis_regimes}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{UIP estimation - benchmark models}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_uip_estimation_benchmark_models.html}{\includegraphics[width=0.8\linewidth]{chap_07_uip_estimation_benchmark_models.pdf}}
+		\caption{\tiny Figure 16: UIP estimation results for benchmark models - standard linear regression and Markov-Switching models.\footnote{Own Illustration based on data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations (used MacKinnon and White's (1985) HC1 heteroscedasticity robust standard errors \cite{mackinnon1985some}).}\label{fig:chap_07_uip_estimation_benchmark_models}}
+	\end{figure}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{UIP estimation - identified regimes}\begin{figure}
+		\href{https://roberthennings.github.io/Seminar/chap_07_uip_estimation_identified_regimes.html}{\includegraphics[width=0.8\linewidth]{chap_07_uip_estimation_identified_regimes.pdf}}
+		\caption{\tiny Figure 17: UIP estimation results for identified regimes using clustering algorithms.\footnote{Own Illustration based on data taken from \cite{fred_2025_federal_reserve_data}, last accessed 24.10.25, own calculations (used MacKinnon and White's (1985) HC1 heteroscedasticity robust standard errors \cite{mackinnon1985some}).}\label{fig:chap_07_uip_estimation_identified_regimes}}
+	\end{figure}
+\end{frame}

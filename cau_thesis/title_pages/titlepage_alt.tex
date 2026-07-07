@@ -1,0 +1,57 @@
+\begin{titlepage}
+    \voffset-40mm
+    \begin{center}
+        \vspace*{0.3in} % Leicht reduziert von 0.5in
+        \makeatletter
+        {\Huge \textbf{\@title}} \\[0.4in] % Leicht reduziert von 0.5in
+        \makeatother
+        {\Large by} \\[0.15in] % Leicht reduziert von 0.2in
+        {\Large \thesisauthor} \\[0.4in] % Leicht reduziert von 0.5in
+        {\small Submitted to the} \\[0.15in]
+        {\normalsize \chair} \\[0.1in]
+        {\normalsize \institute} \\
+        \vspace*{-1.2cm}
+        \begin{center}
+            {\includegraphics[width=0.28\paperwidth, height=0.30\paperheight]{logos/siegel.pdf}}
+        \end{center}
+        \vspace*{-1.4cm}
+        {\normalsize \faculty} \\[0.15in]
+        {\Large \typedocument} \\[0.15in]
+        {\fontsize{14}{16}\selectfont \programme} \\[0.2in]
+        {\fontsize{14}{16}\selectfont Christian-Albrechts-University of Kiel} \\[0.5in]
+
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[anchor=south, yshift=6.0cm] at (current page.south) {%
+                \begin{tabular}{c}
+                    {\fontsize{14}{16}\selectfont \submissiondateCover}                      \\[0.1in]
+                    {\normalsize \textcopyright{} \thesisauthor, 2026. All rights reserved.} \\[0.1in]
+                    {\small \maybehref{\thesislicenseURL}{\thesislicenseText}}               \\[0.03in]
+                    {\small \maybehref{\thesisgiturl}{\thesisgitlabel}}
+                \end{tabular}
+            };
+        \end{tikzpicture}
+        % \vspace{0.3cm}
+        \pagebreak
+        % ---------------------------------------------------------------
+        %                     ASSESSMENT COMMITTEE PAGE
+        % ---------------------------------------------------------------
+        \begin{center}
+            \textbf{First Assessor:} \\[0.2in]
+            {\large \firstsupervisorname} \\[0.2in]
+            {\large \firstsupervisortitle} \\[0.2in]
+            {\large \firstsupervisordepartment} \\[0.5in]
+            \textbf{Second Assessor:} \\[0.2in]
+            {\large \secondsupervisorname} \\[0.2in]
+            {\large \secondsupervisortitle} \\[0.2in]
+            {\large \secondsupervisordepartment}
+        \end{center}
+        \vfill
+        \begin{flushleft}
+            \textbf{Author: \thesisauthor} \\[0.1in]
+            \textbf{Matriculation number: \stunumber} \\[0.1in]
+            \textbf{Stu-Mail: \stuemail} \\[0.1in]
+            \textbf{Mail: \privatemail} \\[0.1in]
+            \textbf{Submitted: \submissiondate} \\[0.1in]
+        \end{flushleft}
+    \end{center}
+\end{titlepage}

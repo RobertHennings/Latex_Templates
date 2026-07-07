@@ -1,0 +1,1270 @@
+%------------------------------------------------------------------------------------
+%	                   DOCUMENT CONFIGURATIONS
+%------------------------------------------------------------------------------------
+\documentclass[12pt,a4paper]{cau_thesis}
+%------------------------------------------------------------------------------------
+%	                  CLASS SETTINGS
+%------------------------------------------------------------------------------------
+\linkboxcolor{CAU_MAIN}
+\showlinkboxes{true}
+% ---------------------------------------------------------------
+%                     COVER PAGE SETTINGS
+% ---------------------------------------------------------------
+\title{Optimal Market Making in Intraday Electricity Markets via Hawkes Process Modeling}
+\pdfsubject{Deep Reinforcement Learning for Intra-day Electricity Market Trading}
+\pdfkeywords{Deep Reinforcement Learning, Electricity Market, Trading, Quantitative Finance}
+\author{Robert Hennings}
+\thesisauthor{Robert Hennings}
+\stunumber{1169810}
+\stuemail{stu236320@uni-kiel.de}
+\privatemail{hennings.robert@web.de}
+\submissiondate{XX.09.2026}
+\chair{Chair of Financial Economics at the}
+\institute{Institute for Quantitative Business and Economic Research}
+\faculty{Faculty of Business, Economics and Social Science}
+\cooperation{in cooperation with Vattenfall Energy Trading GmbH}
+\location{Kiel $\bullet$ Germany}
+\typedocument{Masterthesis}
+\programme{Master of Science in Quantitative Finance}
+\licencse{CC BY-NC-ND 4.0}{https://creativecommons.org/licenses/by-nc-nd/4.0/}
+\GitHubRepo{Public GitHub Repository}{https://github.com/RobertHennings/MasterThesis}
+% ---------------------------------------------------------------
+%                     ASSESSMENT COMMITTEE PAGE
+% ---------------------------------------------------------------
+\firstsupervisorname{Your Supervisor’s Name}
+\firstsupervisortitle{Title of Your Supervisor}
+\firstsupervisordepartment{Department of Your Supervisor’s Department}
+\secondsupervisorname{Second Reader’s Name}
+\secondsupervisortitle{Title of Second Reader}
+\secondsupervisordepartment{Department of Second Reader’s Department}
+%------------------------------------------------------------------------------------
+%	                  REFERENCES
+%------------------------------------------------------------------------------------
+\addbibresource{bibliography.bib}
+%------------------------------------------------------------------------------------
+%	                  DOCUMENT START
+%------------------------------------------------------------------------------------
+\begin{document}
+\hfuzz=\maxdimen
+\vfuzz=\maxdimen
+\hbadness=10000
+\vbadness=10000
+\pagestyle{empty}
+%------------------------------------------------------------------------------------
+%	                  HARD COVER TITLE PAGE
+%------------------------------------------------------------------------------------
+\input{title_pages/hard_cover_titlepage}
+%------------------------------------------------------------------------------------
+%	                  TITLE PAGE
+%------------------------------------------------------------------------------------
+% \input{title_pages/titlepage}
+% \input{title_pages/titlepage_submission}
+\input{title_pages/titlepage_alt}
+% \input{title_pages/titlepage_alt_math}
+%------------------------------------------------------------------------------------
+%	                  ABSTRACT
+%------------------------------------------------------------------------------------
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\pagestyle{plain}
+\chapter*{Abstract} % by using * we are not showing this chapter in the table of contents
+\input{chapters/00-abstract}
+%------------------------------------------------------------------------------------
+%	                  ACKNOWLEDGEMENTS
+%------------------------------------------------------------------------------------
+\pagestyle{plain}
+\chapter*{Acknowledgements} % by using * we are not showing this chapter in the table of contents
+As a fairly storable commodity, data is often cited as the new oil,
+therefore I would like to express my sincere gratitude to Leon von
+Essen, ETD Product Designer at the EUREX, for providing me with access to
+the EPEX SPOT data, without this project would not have been possible.
+I am truly thankful for his support and collaboration, even though my
+internship dates back almost four years. As he is, in fact, a \textit{market maker},
+him supporting research devoted to this topic is a well rounded circle.
+May the volume be with him.
+
+\clearpage
+% \input{chapters/00-acknowledgements}
+%------------------------------------------------------------------------------------
+%	                  TABLE OF CONTENTS
+%------------------------------------------------------------------------------------
+\hypersetup{linktoc=all}
+\tableofcontents
+\markboth{~}{} % Clear header for the table of contents
+%------------------------------------------------------------------------------------
+%	                  LIST OF ABBREVIATIONS
+%------------------------------------------------------------------------------------
+\chapter*{List of Abbreviations} % by using * we are not showing this chapter in the table of contents
+\markboth{~}{} % Clear header for the table of contents
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\vfill
+\begin{tabular}{@{}l l@{}}
+    % Order Book and Trading Mechanics related abbreviations
+    \textbf{LOB}       & Limit Order Book                                  \\
+    \textbf{LO}        & Limit Order                                       \\
+    \textbf{MO}        & Market Order                                      \\
+    \textbf{OI}        & Open Interest                                     \\
+    \textbf{API}       & Application Programming Interface                 \\
+    \textbf{MM}        & Market Maker                                      \\
+    \textbf{NHPP}      & Non-Homogeneous Poisson Process                   \\
+    % Stats related abbreviations
+    \textbf{ACF}       & Autocorrelation Function                          \\
+    \textbf{PACF}      & Partial Autocorrelation Function                  \\
+    \textbf{PDF}       & Probability Density Function                      \\
+    \textbf{CDF}       & Cumulative Probability Density Function           \\
+    \textbf{ECDF}      & Empirical Cumulative Probability Density Function \\
+    \textbf{QQ}        & Quantile-Quantile                                 \\
+    \textbf{MLE}       & Maximum Likelihood Estimation                     \\
+    % Power Markets related abbreviations
+    \textbf{RES}       & Renewable Energy Sources                          \\
+    \textbf{EPEX SPOT} & European Power Exchange Spot Market               \\
+    \textbf{EEX}       & European Energy Exchange                          \\
+    \textbf{CID}       & Continuous Intraday                               \\
+    \textbf{IDA}       & Intraday Auction                                  \\
+    \textbf{EEG}       & Erneuerbare Energien Gesetz                       \\
+    % Machine Learning related abbreviations
+    \textbf{AI}        & Artificial Intelligence                           \\
+    \textbf{RL}        & Reinforcement Learning                            \\
+    \textbf{DRL}       & Deep Reinforcement Learning                       \\
+    \textbf{DQN}       & Deep Q-Network                                    \\
+    \textbf{DDPG}      & Deep Deterministic Policy Gradient                \\
+    \textbf{PPO}       & Proximal Policy Optimization                      \\
+    \textbf{A2C}       & Advantage Actor-Critic                            \\
+    \textbf{A3C}       & Asynchronous Advantage Actor-Critic               \\
+    \textbf{TD3}       & Twin Delayed Deep Deterministic Policy Gradient   \\
+    \textbf{SAC}       & Soft Actor-Critic                                 \\
+    \textbf{RNN}       & Recurrent Neural Network                          \\
+    \textbf{LSTM}      & Long Short-Term Memory                            \\
+    \textbf{GRU}       & Gated Recurrent Unit                              \\
+    \textbf{CNN}       & Convolutional Neural Network                      \\
+\end{tabular}
+\vfill
+%------------------------------------------------------------------------------------
+%	                  LIST OF SYMBOLS
+%------------------------------------------------------------------------------------
+\chapter*{List of Symbols} % by using * we are not showing this chapter in the table of contents
+\markboth{~}{} % Clear header for the table of contents
+\addcontentsline{toc}{chapter}{List of Symbols}
+\vfill
+\begin{tabular}{@{}l l@{}}
+    % Order Book and Trading Mechanics related abbreviations
+    \textit{t}    & discrete time index t                \\
+    \textit{T}    & discrete terminal time index T       \\
+    $\delta$      & order book depth                     \\
+    $\Delta p$    & tick size                            \\
+    $P(\delta)$   & fill-probability of order book depth \\
+    \textit{V}    & order volume                         \\
+    \textit{q}    & inventory level                      \\
+    $\mathcal{A}$ & Set of Admissible Strategies         \\
+    $\phi$        & (Running) Inventory penalty          \\
+    $\lambda$     & (Conditional) Intensity              \\
+    $\mathcal{F}$ & Filtration                           \\
+    \textit{S}    & Midprice                             \\
+    \textit{X}    & Cash-Process                         \\
+    \textit{W}    & Brownian Motion                      \\
+\end{tabular}
+\vfill
+%------------------------------------------------------------------------------------
+%	                  LIST OF FIGURES
+%------------------------------------------------------------------------------------
+\chapter*{List of Figures}
+\markboth{~}{}
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+%------------------------------------------------------------------------------------
+%	                  LIST OF TABLES
+%------------------------------------------------------------------------------------
+\chapter*{List of Tables}
+\markboth{~}{}
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+%------------------------------------------------------------------------------------
+%	                  LIST OF ALGORITHMS
+%------------------------------------------------------------------------------------
+\chapter*{List of Algorithms}
+\markboth{~}{} % Clear header for the table of contents
+\addcontentsline{toc}{chapter}{List of Algorithms}
+% \listofalgorithms
+\listofalgorithmshere
+%------------------------------------------------------------------------------------
+%	                  INTRODUCTION
+%------------------------------------------------------------------------------------
+\chapter{Introduction}\label{ch:introduction}
+\pagenumbering{arabic}
+\input{chapters/01-introduction}
+The ever increasing power generation attributed to renewable energy sources (RES),
+predominantly in Germany within Europe, with a current share of 57,2 \% of produced
+gross-electricity by RES (2025)\footnote{See Data from \cite{ageb_bruttostromerzeugung_2026}, last accessed: 2026-05-13 19:08.}, highlights the rapid decarbonization of the energy sector.
+By regulatory design, RES have a feed-in priority\footnote{See \cite{eu_red_2018} for the relevant EU directive and \cite{ec_recommendation_supportschemes_2024} for the support scheme recommendation, as well as the national EEG \cite{eeg_2023_feed_in}.}, meaning that they are guaranteed to be
+integrated into the electricity grid and are given priority over other sources of electricity
+generation, thereby directly impacting the price formation process.
+
+As the RES production is heavily weather dependent, this uncertainty
+is transferred into the (european) electricity markets, resulting in
+increased price volatility and a growing demand for balancing the
+short term imbalances as well as forecasting errors in the continuous
+intraday markets (CID), where the financial trading of these
+positions can be carried out.
+%------------------------------------------------------------------------------------
+\section{The financialization of the electricity market}\label{sec:financialization}
+% \section{Electronic markets for electricity}\label{sec:electronic_markets}
+%------------------------------------------------------------------------------------
+In Europe, the main exchanges for trading electricity are the
+Intercontinental Exchange (ICE), the NordPool, the European Energy
+Exchange (EEX) and the European Power Exchange (EPEX SPOT). The
+latter one, acting as the reference spot market, where the short term
+trading of electricity takes place, what this thesis focuses on.
+
+These exchanges provide a platform for trading electricity contracts,
+including futures, options, and spot contracts. The spot trading is
+organized in a CID market and three intraday auctions (IDA), where
+the CID allows for trading of electricity contracts with delivery
+within the next 24 hours, while the IDA is a single auction that
+takes place at a specific times each day, allowing for trading of
+electricity contracts with delivery on the following day. The CID
+market offers 1-hour contracts, 30-Minute contracts, and the most
+granular 15-Minute contracts, covering the entire 24-hour period of
+the next following day. The IDA, on the other hand, focuses on 1-hour
+contracts for the next day, providing a platform for market
+participants to adjust their positions based on updated information
+and forecasts. More details about the market structure and trading
+mechanics of the EPEX SPOT will be provided in chapter
+\hyperref[sec:structure_european_power_market]{2.1 The structure of
+    the European Power Market}.
+
+The trading in these contracts is facilitated through a limit order
+book (LOB), where buyers and sellers submit their orders, which are
+then matched based on price and time priority. The LOB provides a
+transparent view of the market, allowing participants to see the
+available liquidity and make informed trading decisions. This
+\textit{order-driven market} structure is a key feature of the
+electricity markets, as it allows for efficient price discovery and
+facilitates the trading of electricity contracts in a competitive
+environment, in contrast to a \textit{quote-driven market} structure,
+where market makers provide liquidity by quoting buy and sell prices
+for the contracts. The dynamics of the LOB are influenced by various
+factors, including the arrival of limit orders and market orders,
+cancellations, and modifications of existing orders. In order for a
+smooth operating and liquid market, it is crucial to have a
+sufficient number of market participants, including so called market
+makers, who provide liquidity by continuously quoting buy and sell
+prices for the contracts, making sure incoming orders can be executed
+efficiently at all times. Liquidity provision is carried out by these
+market makers at a rapid speed pocketing the bid-ask spread, which is
+the difference between the highest price a buyer is willing to pay
+and the lowest price a seller is willing to accept. As the bid-ask
+spread is usually only a few cents wide, at best, earning this gap
+has to be done several thousands of times a day, which is only
+possible through the use of algorithmic trading strategies, which are
+often based on statistical and machine learning techniques, designed
+to quickly analyze huge amounts of market data, identify trading
+opportunities, and execute trades at high speeds. With an average
+daily order volume of 1,242,762 orders in the EPEX SPOT CID market in
+2019, this leaves no real other options, as to make use of
+algorithmic trading strategies, to be able to compete in this
+market.\footnote{2019 figures, see \cite{epexspot_annual_report_2019}
+    for more details.} This process is essential for maintaining an
+efficient and liquid market, as it allows for quick execution of
+trades and helps to reduce price volatility. The presence of market
+makers also encourages more participants to enter the market, as they
+can be assured of liquidity and competitive pricing. In recent years,
+the role of market makers has become increasingly important in the
+electricity markets, with many participants often using algorithmic
+trading strategies, what is also evident in the share of submitted
+orders to the EPEX SPOT via Application Programming Interfaces
+(APIs), that is around 65\% and represents around 47\% of traded
+volume.\footnote{2019 figures, see \cite{epexspot_annual_report_2019}
+    for more details, as of 20-05-2026 455 Exchange Members are
+    registered and 4XX APIs.}
+
+The discrepancy between automatically and human interacted manual
+trading volume is due that the automatically submitted orders are
+often smaller in size, but more frequent, while the manually
+submitted orders are often larger in size, but less frequent, what
+later motivates modelling decisisons with respect to variable order
+sizes.
+
+This financialization highlights the economic importance of efficient
+trading strategies and risk management techniques in the electricity
+markets, as market participants seek to optimize their returns while
+managing the risks associated with price volatility and uncertainty.
+The unique characteristics of the electricity markets, such as the
+non-storability of electricity and the influence of weather
+conditions on supply and demand, further emphasize the need for
+sophisticated modeling approaches that can capture these dynamics
+effectively. In this context, the application of Hawkes processes for
+optimal market making in intraday electricity markets offers a
+promising avenue for developing advanced trading strategies that can
+adapt to the complex and dynamic nature of these markets, what this
+thesis essentially covers.
+
+Here the main overall approach resembles around the idea that the LOB
+can be treated as stochastic system, also referred to as
+\textit{zero-intelligence model} but will be enhanced by including
+some priors like non-constant order intensities or dependency
+structures \footnote{See \cite{jain2024limit}.}, in contrast to the
+often used second main approach, treating the LOB as a strategic game
+between market participants, where the actions of one participant can
+influence the actions of others, leading to a complex interplay of
+strategies and counter-strategies, also known as \textit{perfect
+    rational agent-based model}. By modeling the LOB as a stochastic
+queueing system, we can also allow for flexible modelling techniques
+for the involved order types, that can be submitted \textbf{market
+    orders} (MO), \textbf{Limit Orders} (LO) and \textbf{cancellations},
+which are the main drivers of the LOB dynamics and are explained in
+more detail in \hyperref[sub_sec:order_types]{2.2.1 Order
+    Types}.\footnote{See \cite{gould2013limit}.}
+
+% The financialization of the electricity market has led to an increase in the number of financial instruments available for trading, as well as an increase in trading volumes. This has been driven by several factors
+
+Increasing trading volumes, Increasing renewables energy production,
+increasing uncertainty through renewables through weather induced
+volatility flexible planning and balancing through intraday market
+mechanism, cite volume increase, connection to financial markets and
+LOB, efficient price discovery, high share of algorithmic trading
+unique stylized facts that need to be modelled,
+
+% Todays electricity markets are increasingly financialized, with a
+% growing number of (financial) instruments and traded volumes to manage risk,
+% optimize returns and most and for all balance supply and demand to guarantee
+% a stable transmission system. This financialization has been driven by several factors,
+% including the liberalization of electricity markets, the increasing
+% volatility of electricity prices, and the growing demand for
+% renewable energy sources.
+%------------------------------------------------------------------------------------
+\section{Main Research Objectives of the Thesis}\label{sec:main_research_objectives}
+%------------------------------------------------------------------------------------
+The main objective of this thesis is to explore the application of
+Hawkes processes for optimal market making in intraday electricity
+markets. Specifically, we aim to develop a modeling framework that
+captures the dynamics of the limit order book (LOB) and the
+interactions between different order types, such as limit orders,
+market orders, and cancellations. By leveraging the self-exciting
+nature of Hawkes processes, we seek to model the arrival of orders
+and their impact on the LOB, allowing us to develop trading
+strategies that can adapt to the evolving market conditions. Through
+empirical analysis and numerical simulations, we aim to evaluate the
+performance of our proposed approach and compare it with traditional
+market making strategies, ultimately contributing to the advancement
+of trading techniques in the context of intraday electricity markets.
+Taking into account the often not properly considered dynamics of
+Cross excitation, time varying baseline intensities and general
+intensities, external excitement through updated forecasts and
+external variables, we seek to develop a comprehensive modeling
+framework that can effectively capture the complex dynamics of the
+LOB and provide insights into optimal market making strategies in the
+context of intraday electricity markets. The main research questions
+that this thesis seeks to address are:
+\begin{itemize}
+    \item How can Hawkes processes be effectively applied to model the dynamics
+          of the limit order book in intraday electricity markets?
+    \item What are the key stylized facts of the limit order book in the EPEX
+          SPOT CID market, and how can they be incorporated into the modeling
+          framework?
+    \item How does the performance of the proposed Hawkes process-based market
+          making strategy compare to traditional market making strategies in
+          terms of profitability and risk management?
+    \item What are the implications of the findings for practitioners in the
+          energy trading sector, and how can they be used to inform trading
+          strategies and risk management techniques in intraday electricity
+          markets?
+\end{itemize}
+
+In answering the above objectives, the main contributions are
+
+This thesis is aimed at obtaining the optimal, dynamic quote
+distances from the best bid/ask using stochastic optimal control
+theory solving the Hamilton-Jacobi-Bellman (HJB) equation. This is
+done, proposing different, extending modelling frameworks, all making
+use of the multivariate marked Hawkes model with time-varying
+baseline intensities. The bid and ask side will be modelled
+separately, allowing for interactions, as well as per side, then the
+three main components, affecting price building, namely Market Order
+Arrivals, Limit Order Arrivals and Cancellations.By starting from
+this baseline model framework with six (interaction) channels, it
+will be extended to the main model by also incorporating the first
+three price levels per side. Two additional extensions will be
+reviewed, namely the \textit{state-dependent} and the \textit{marked}
+one. In the state-dependent extension, the intensities will be
+dependent on parameters like imbalance, spread, queue size,
+inventory, time to delivery and time of day. In the marked extension,
+order size and price impact will be used as marks, especially for MO
+and LO. A possible optional extension could be the use of Deep
+Reinforcement Learning (DRL), since especially in the state-dependent
+extensions, we face a rich state space, which can be hard to solve
+through traditional methods, but is well suited for DRL, which can be
+used to learn optimal policies. For the estimation strategy, the
+maximum likelihood estimation (MLE) will be the main workhorse, but
+we will consider also non-parametric spline based estimation for the
+excitation kernel functions.
+%------------------------------------------------------------------------------------
+\section{Structure of the Thesis}\label{sec:thesis_structure}
+%------------------------------------------------------------------------------------
+The thesis is organised as follows, after having laid out the
+motivation for the chosen research topic along with its main research
+objectives and their added new insights in
+\hyperref[ch:introduction]{1 Introduction} the theoretical background
+follows. In chapter \hyperref[ch:theoretical_background]{2
+    Theoretical Background} we provide the necessary theoretical details
+on the structure of the european power market, its organization,
+functional mechanics and the key problem of market making, what this
+thesis focuses on. Following in
+\hyperref[ch:empirical_characteristics]{3 Empirical LOB
+    Characteristics} we present the empirical characteristics, or
+\textit{stylized facts}, of the LOB in the EPEX SPOT CID market,
+which act as the main orientation basis and benchmark for the
+modelling approach in the later chapters.\footnote{See
+    \cite{jain2024limit}.} Being equipped with the needed background
+knowledge about the market mechanics and typical patterns, the
+central modelling aspcets are covered in
+\mbox{\hyperref[ch:mathematical_modelling]{4 Mathematical
+        Modelling}}. There the Hawkes process, along with its underlying
+mathematical theory, is introduced and the modelling approach for
+optimal market making is discussed. As the proposed modelling is put
+to test in chapter \hyperref[ch:numerical_analysis]{5 Numerical
+    Analysis and Simulation} being used on actual, empirical data from
+the EPEX SPOT CID market, where the performance of the optimal market
+making framework is evaluated, the discussion is carried out in
+chapter \hyperref[ch:discussion]{6 Discussion}. Final conclusions are
+drawn in chapter \hyperref[ch:conclusion]{7 Conclusion}, where the
+main findings of the thesis are summarized, their implications are
+discussed, and avenues for future research are suggested.
+
+% Essentially, a LOB and all of its states, can be modelled by the two
+% central inputs, that are the arrival of limit orders and market
+% orders. Limit orders are orders to buy or sell a certain quantity of
+% an asset at a specified price or better, while market orders are
+% orders to buy or sell a certain quantity of an asset immediately at
+% the best available price. The dynamics of the LOB are driven by the
+% interactions between these two types of orders, as well as
+% cancellations and modifications of existing orders. By analyzing the
+% patterns and behaviors of limit and market order arrivals, we can
+% gain insights into the underlying market dynamics and develop
+% strategies for trading and risk management.
+%------------------------------------------------------------------------------------
+%	                  THEORETICAL BACKGROUND
+%------------------------------------------------------------------------------------
+\chapter{Theoretical Background}\label{ch:theoretical_background}
+We begin by introducing the structure of the European Power Market,
+with a particular focus on the EPEX SPOT market, which serves as the
+primary context for our study. We then delve into the organization of
+trading which is based on the LOB system, where the main
+order-variants and the matching mechanism will be discussed. The
+chapter will be closed by analysing the key problem of market making,
+which is the main focus of this work.
+%------------------------------------------------------------------------------------
+\section{The structure of the European Power Market}\label{sec:structure_european_power_market}
+%------------------------------------------------------------------------------------
+The core structure of the european power market is fourfold,
+consisting of the Derivatives Market, the Day-Ahead or Forward
+Market, the Intraday Market, and the Balancing Market. Their
+(chronological) order can be seen in
+\hyperref[fig:european_power_market_design]{Figure 2.1}, where a
+special emphasis is put on the timely ordering of the different
+markets and their events, as this plays a crucial role for modelling.
+Their order follows the time-to-delivery of the traded contracts,
+with the Derivatives Market being the furthest away from delivery,
+followed by the Day-Ahead Market, the Intraday Market, and finally
+the Balancing Market, which is closest to delivery.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{8cm}{PowerMarkets_SchematicOverview.png}
+    \captionfootcite{Schematic Overview of the European Power Market Design with exemplary hourly products in chronological order.}{Based on \cite{kiesel_efc19_2019}, as of 16.05.2026.}\label{fig:european_power_market_design}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the following, these components will be briefly discussed in their
+chronological order, that also resembles the markets importance based
+on the Trading Volume, that can be seen in
+\hyperref[fig:european_power_market_volumes]{Figure 2.2}.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+% This must be split apart so that we can label the figures a) and b) separately
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{8cm}{PowerMarketVolumeCombined.png}
+    \footnotesize{Panel a): Annual Trading Volume in GWh of the year 2025, split into the core structural sub-markets. Panel b): Historic development of the trading volume for the two categories Derivatives Market and Spot Market, where the latter one includes the Day-Ahead and Intraday Market volumes.}
+    \captionfootcite{European Power Market Trading Volume: Historic (panel b, right) and Year 2025 (panel a, left) Figures.}{Based on \cite{kiesel_efc19_2019}, as of 16.05.2026.}\label{fig:european_power_market_volumes}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the left panel of
+\hyperref[fig:european_power_market_volumes]{Figure 2.2}, we can see
+the annual Trading Volume in GWh of the year 2025, split into the
+core structural sub-markets, where the clear dominance of the
+Derivatives Market is evident, where around 91\% of traded volumes is
+concentrated. In the right panel of
+\hyperref[fig:european_power_market_volumes]{Figure 2.2}, we can see
+the historic development of the trading volume for the two categories
+Derivatives Market and Spot Market, where the latter one includes the
+Day-Ahead and Intraday Market volumes. From the historic development,
+the nearly 10:1 relation of the volumes is verified.
+%------------------------------------------------------------------------------------
+\subsection{The Derivatives Market}\label{sub_sec:derivatives_market}
+%------------------------------------------------------------------------------------
+The derivatives market of the EEX is the most one in terms of trading
+volume, where the traded contracts are primarily settled financially,
+meaning that the contracts are not necessarily linked to a physical
+delivery of electricity, but rather serve as financial instruments
+for hedging and speculation over the medium term.\footnote{A full
+    list of all tradable instruments and their specifications can be
+    found
+    \href{https://www.eex.com/fileadmin/EEX/Downloads/Trading/Specifications/Contract_Details/eex-contract-details-xls-data_20260407.xlsx}{here}.}
+The product range includes futures, options, and other derivatives
+based on electricity prices, that can be traded for various delivery
+periods, such as respective next 11 days and the next 2 weekends, the
+current and the next 4 weeks, the current and the next 24 months, 11
+quarters and 10 years. Exchange trading can be conducted from 8:00 am
+to 6:00 pm (CET).
+%------------------------------------------------------------------------------------
+\subsection{The Day-Ahead Market}\label{sub_sec:day_ahead_market}
+%------------------------------------------------------------------------------------
+In contrast to the Derivatives Market of the EEX, where the traded
+contracts are primarily settled financially, a physical delivery is
+mandatory on the Day-Ahead Market (also referred to as \textit{Spot
+    Market}). The main purpose of the Day-Ahead Market is to already lock
+in certain volumes for the next day (D). Based on newly arrived
+forecasts, updated information and the need to balance out the supply
+and demand, market participants can adjust their positions in the
+Intraday Market. Market participants can submit so-called bidding
+curves, stating precisely how much power they would want to generate
+or consume at each price tick between the minimum and maximum prices
+at each operational subperiod of the next following day, i.e. 24
+hours, 30 Minutes and 15 Minutes, resulting in 96 subperiods in
+total. Submitted prices at which the produces would want to sell
+power is by regulatory design set to the marginal cost of production,
+that dictates a natural merit-order hierarchy of the different
+production technologies. RES naturally operate at the lowest marginal
+costs, often assumed to be zero, therefore occupying the lowest price
+levels and the left side of the supply curve, while conventional
+power plants, such as coal, gas and nuclear, operate at higher
+marginal costs, occupying the higher price levels and the right side
+of the supply curve. These biddingcurves have to be submitted up
+until the gate closure time, which is typically around 12:00 CET on
+the day before delivery (D-1), allowing them to react to the latest
+information. Most general Market areas are further divided into
+bidding zones, which are defined by the transmission system operators
+(TSOs) and represent areas with similar supply and demand conditions.
+The geographical area of Germany is divided into four control areas,
+according to the four TSOs, which are TenneT (DE1), 50Hertz (DE2),
+Amprion (DE3) and TransnetBW (DE4), that are encoded in the send
+orders as can be seen in the data. The price formation is then
+carried out through a uniform price auction, where the market
+clearing price is determined by the intersection of the aggregated
+supply and demand curves, which are formed by the submitted orders
+(for every granularity of the next following day, i.e. 96 15-Min
+subperiods). The market clearing price is the price at which the
+total quantity of electricity demanded equals the total quantity
+supplied, and all transactions are executed at this price. It also
+serves as a reference price for the Intraday Market and the Balancing
+Market, as it reflects the market's expectations for the next day.
+All power producers that have submitted orders at or below the market
+clearing price will be scheduled to produce electricity, and are
+awarded the market clearing price for their production. An exemplary
+supply and demand curve for the market area DE-LU can be seen in
+\hyperref[fig:day_ahead_curves]{Figure 2.3}, for the delivery date of
+the 28th of May, 00:00-00:15. To enhance european coupling,
+optimizing cross border flow and ultimately welfare, the Day-Ahead
+Market is coupled across the different bidding zones (Single Day
+Ahead Coupling - SDAC), meaning that the market clearing price is
+determined simultaneously across all bidding zones\footnote{Exact
+    pricing is carried out by the EUPHEMIA algorithm.}, taking into
+account the cross-border transmission capacities and the supply and
+demand conditions in each zone, which is a crucial aspect for the
+price formation process and the resulting price dynamics in the
+Intraday Market, as the latter one is directly linked to the
+Day-Ahead Market through the trading of the same contracts.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{DayAheadCurves.png}
+    \captionfootcite{Day-Ahead Aggregated Supply and Demand Curves for the Market Area DE-LU, for the Delivery Date: 28th of May, 00:00-00.15.}{Based on \cite{kiesel_efc19_2019}, as of 27.05.2026, 13:19:50 CET/CEST.}\label{fig:day_ahead_curves}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+\subsection{The Intraday Market}\label{sub_sec:intraday_market}
+%------------------------------------------------------------------------------------
+As the physical delivery of the traded contracts is also mandatory on
+the intraday market, purely financially motivated participants seek
+to avoid not-netted positions heavily, as they would have to be
+balanced out in the balancing market, which is the most expensive
+market, as it is the last market before delivery. The main purpose of
+the Intraday Market is to balance out the previously locked in
+Day-Ahead positions that may deviate due to Power Plant Outages,
+optimisation of power plant usage (generator), optimisation of demand
+(costumer), renewable energy producer – changes of
+forecasts\cite{kiesel_efc16_2016}. The CID Market starts on the day
+before delivery (D-1) at 15:00 CET after closing of the Day-Ahead
+Market with opening the order books for all 24 hours of the next
+following day resulting in 24 books in parallel (with the hour 01:
+00:00 - 01:00 being the first), 30 Minutes and 15 Minutes. The single
+resolutions can be traded up until 5 Minutes before delivery. Due to
+this nature the contract lifetime lasts from 8 hours and 55 Minutes
+(for the first hour of the next following day D) up until 31 hours
+and 55 Minutes (for the last hour of the next following day D). This
+natural ordering of the hours over the course of the day, also groups
+them inherently into ``peak' and ``off-peak' hours, stressing their
+different dynamics during their contract lifetime for trading.
+Simplified examples for hourly products can be seen in
+\hyperref[fig:european_power_market_design]{Figure 2.1}, a detailed
+table listing all hourly specificas can be found in the appendix in
+\hyperref[tab:epex_parallel_durations]{Table A.1}. The main CID
+market parameters are summarized below in
+\hyperref[tab:epex_cid_parameters]{Table 2.1}. The CID market is
+accompanied by three intraday auctions (IDA), which are single
+auctions, similar to the Day-Ahead market, that take place at
+specific times each day:
+\begin{itemize}
+    \item \textbf{IDA 1}: At 15:00 CET on the day before delivery (D-1).
+    \item \textbf{IDA 2}: At 22:00 CET on the day before delivery (D-1).
+    \item \textbf{IDA 3}: At 10:00 CET on the day of delivery (D).
+\end{itemize}
+These IDA serve the purpose of supporting transparency and liquidity pooling, to
+provide reference prices along the CID contract lifetimes. Similar as the
+Day-Ahead market, the CID market is also coupled across the different bidding
+zones, through the so-called Single Intraday Coupling (SIDC), which is a continuous
+trading mechanism that is based on the XBID architecture, operating on
+the M7 system of the EPEX SPOT. The IDA auctions are already part of this mechanism,
+where the XBID architecture collects all orders in a Shared Order Book (SOB).
+In a window of 20 Minutes before and after, as well as during the IDA gate-closure the continuous
+XBID market is shut down.
+Trading on it for a specific contract is finally shut down 30 Minutes before delivery,
+still leaving trading open for participants of the same delivery-area up until 5 Minutes before delivery.
+Its official chronological start is therefore at 15:20 CET at the day before delivery D-1.
+The XBID related market closing times each day:
+\begin{itemize}
+    \item \textbf{Around IDA 1}: From 14:40 to 15:20 CET on the day before delivery (D-1).
+    \item \textbf{Around IDA 2}: From 21:40 to 22:20 CET on the day before delivery (D-1).
+    \item \textbf{Around IDA 3}: From 09:40 to 10:20 CET on the day of delivery (D).
+\end{itemize}
+
+These periods are specifically important, since this harsh reductions
+in volumes can be also seen in volume plots later on.
+%------------------------------------------------------------------------------------
+%	                  TABLE - START
+%------------------------------------------------------------------------------------
+\begin{table}[htbp]
+    \centering
+    \scriptsize
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}X@{}}
+        \toprule
+        \textbf{Parameter}  & \textbf{Value}                                                                               \\
+        \midrule
+        Tick Size           & 0.01 EUR/MWh                                                                                 \\
+        Minimum Price       & -9999.9 EUR/MWh                                                                              \\
+        Maximum Price       & 9999.9 EUR/MWh                                                                               \\
+        Minimum Order Size  & 0.1 MWh                                                                                      \\
+        Maximum Order Size  & 1000 MWh                                                                                     \\
+        Trading Hours       & 24/7 (with specific gate closure times)                                                      \\
+        Trading Days        & All calendar days (including weekends and holidays)                                          \\
+        Settlement Process  & Financial settlement based on the market price at delivery time                              \\
+        Price Grid          & Discrete price levels determined by the tick size                                            \\
+        Time Grid           & Hourly, 30-minute, and 15-minute contracts available for trading                             \\
+        Gate Closure Times  & Varying based on the delivery hour, with earlier closures for earlier hours (see Figure 2.1) \\
+        Order Types Allowed & Limit Orders, Market Orders, and Cancellations                                               \\
+        % Add more parameters as needed
+    \end{tabularx}
+    \captionfootcite{Key Parameters of the EPEX SPOT CID Market.}{Based on: .}\label{tab:epex_cid_parameters}
+\end{table}
+%------------------------------------------------------------------------------------
+%	                  TABLE - END
+%------------------------------------------------------------------------------------
+% Describe the key parameters that form the trading: Tick size, minimum
+% order size, maximum order size, trading hours, trading days,
+% settlement process, etc. Price grid, time grid, trading hours,
+% trading days, settlement process, etc. For further details see
+% \hyperref[sub_sec:balancing_market]{Figure 2.1}.
+
+%------------------------------------------------------------------------------------
+\subsection{The Balancing Market}\label{sub_sec:balancing_market}
+%------------------------------------------------------------------------------------
+As bridge to the previous subchapter: Balancing market exists as to
+balance out the deviations from the locked in Intraday Market volumes
+
+The following table will be provided in the Appendix: Test
+%------------------------------------------------------------------------------------
+\section{Organisation of Intraday Power Trading}\label{sec:organisation_of_power_trading}
+%------------------------------------------------------------------------------------
+As the main trading takes place on-exchange and is not
+broker-facilitated, the core price building mechanism is represented
+by the LOB.\footnote{See \cite{bnetza_monitoringreport_energy_2025},
+    where only 0.2 TWh of Intraday Trading was traded on broker platforms
+    vs. 102 TWh on EPEX Spot.} Most academic research is centered around
+data from highly liquid markets, such as equity or forex markets,
+where the bid-ask spread is usually only the tick-size as the minimum
+price-increment, that is possible. Therefore these models often only
+concern the best bid and aks prices, as there is most volume and a
+huge market-depth, often not entirely depleted by incoming market
+orders. In stark contrast, the electricity markets are characterized
+by a much wider bid-ask spread, that can be several times the
+tick-size, and a much lower market depth, where incoming market
+orders often deplete the entire volume at the best bid or ask price,
+leading to a mid-price movement. This unique characteristic of the
+electricity markets necessitates a different modeling approach that
+can effectively capture the dynamics of the LOB and the resulting
+price movements, which is what this thesis focuses on.
+%------------------------------------------------------------------------------------
+\subsection{Limit Order Books and Trading Mechanics}\label{sub_sec:limit_order_books_and_trading_mechanics}
+%------------------------------------------------------------------------------------
+The LOB is defined on a fixed discrete grid of prices (price levels),
+where the step size of each price level is called \textit{tick or
+    tick-size}. This tick-size in the CID market is 0.01 EUR/MWh, which
+means that the price levels are discretized in increments of 0.01
+EUR/MWh. The \textit{tick-size} will be denoted by $\Delta p$. The
+respective minimum and maximum volumes for submitted orders are 0.1
+MWh and 1000 MWh, which means that market participants can submit
+orders for quantities within this range. The order-size will be
+denoted by $V$.
+
+The trading hours are 24/7, with specific gate closure times that
+vary based on the delivery hour, as illustrated in
+\hyperref[fig:european_power_market_design]{Figure 2.1}. All together
+these parameters are called the resolution parameters of a LOB and
+are summarised in \hyperref[tab:epex_cid_parameters]{Table 2.1}.
+
+Starting from a basic market setup, participants can submit either
+Limit Orders (LO) or Market Orders (MO). Participants, sending a MO
+wish to immediately buy or sell their submitted volume at the best
+price currently available. Due to this unconditional specification,
+MOs are also referred to as \textit{aggressive orders}, as they are
+willing to accept the current market price and reduce the resting
+volumes at the best bid or ask price. Across the multiple, discrete
+price levels, the best bid price is the highest price at which there
+is a buy order, while the best ask price is the lowest price at which
+there is a sell order.
+
+\begin{definition}[Best bid and ask prices]
+    \begin{equation}
+        \text{Best Bid}(t) = \max\{p_i | q_i > 0, p_i < \text{Best Ask}(t)\}
+    \end{equation}
+    \begin{equation}
+        \text{Best Ask}(t) = \min\{p_i | q_i > 0, p_i > \text{Best Bid}(t)\}
+    \end{equation}
+    \label{def:best_bid_ask_prices}
+\end{definition}
+
+The natural difference between the best bid and ask prices is called
+the \textit{bid-ask spread}, which represents the cost of trading and
+is a key indicator of market liquidity. The bid-ask spread is defined
+as the difference between the best ask price and the best bid price,
+and it reflects the cost that market participants incur when
+executing a trade. A narrower bid-ask spread indicates a more liquid
+market, where there is a smaller cost to trading, while a wider
+bid-ask spread indicates a less liquid market, where there is a
+larger cost to trading.
+
+\begin{definition}[(Quoted) Bid-ask spread]
+    \begin{equation}
+        \text{Bid-ask spread}_{t} = P^{\text{bid}}_{t} - P^{\text{ask}}_{t}
+    \end{equation}
+    \label{def:bid_ask_spread}
+\end{definition}
+From the full bid-ask spread, the half spread can be derived, which
+represents the cost of trading for a single side of the market, either
+buying or selling.
+\begin{definition}[(Quoted) Half spread]
+    \begin{equation}
+        \text{Half spread}_{t} = \frac{1}{2} \cdot \text{Bid-ask spread}_{t}
+    \end{equation}
+    \label{def:half_spread}
+\end{definition}
+
+This means that incoming MOs can potentially deplete the entire
+volume at the best bid or ask price, leading to a subsequent
+mid-price movement. The mid-price is defined as the arithmetic
+average of the best bid and ask prices and often treated as a proxy
+for the true underlying price of the asset.
+
+\begin{definition}[Mid-price]
+    \begin{equation}
+        \text{Mid-price}_{t} = \frac{1}{2}\cdot(P^{\text{bid}}_{t} + P^{\text{ask}}_{t})
+    \end{equation}
+    \label{def:mid_price}
+\end{definition}
+
+\begin{definition}[Market Order (MO)]
+    A \textit{buy} (respective \textit{sell}) market order is
+    \label{def:market_order}
+\end{definition}
+
+In contrast, participants sending a LO specify a price at which they
+are willing to buy or sell a certain quantity of electricity, and
+these orders are added to the LOB and wait for a matching
+counterparty to execute the trade. LOs are also referred to as
+\textit{passive orders}, as they provide liquidity to the market by
+adding volume to the LOB, rather than immediately executing against
+existing orders.
+
+\begin{definition}[Limit Order (LO)]
+    A \textit{buy} (respective \textit{sell}) limit order is
+    \label{def:limit_order}
+\end{definition}
+
+How the incoming MO are matched with resting LO to result in a trade,
+is determined by the matching mechanism of the exchange system. Often
+this algorithm is based on the price-time priority principle,
+according to which orders are ranked based on their price and the
+time they were submitted, just as the name already suggests
+\cite{cartea2015algorithmic}. Then the MO is matched with the best
+available LO in the LOB, which is the LO with the highest price for a
+buy MO and the LO with the lowest price for a sell MO. If there are
+multiple LO at the same price level, the MO is matched with the LO
+that was submitted first, following the time priority principle. This
+process continues until the MO is fully executed or there are no more
+matching LO available in the LOB. When the volume of the MO exceeds
+the available volume at the best price level, the remaining volume of
+the MO is then matched with the next best price level, and this
+process continues until the entire MO is executed or there are no
+more matching LO available in the LOB. This process is also referred
+to as \textit{walking the book}.
+
+If a sell-MO is executed against a buy-LO, it is said to \textit{hit
+    the bid}, while if a buy-MO is executed against a sell-LO, it is said
+to \textit{lift the ask}.
+
+Besides the discussed basic order types, there are also other
+modalities available:
+\begin{itemize}
+    \item \textbf{Iceberg Orders}: These are large orders that are split into smaller visible portions, allowing traders to hide the true size of their order from the market.
+    \item \textbf{Stop Orders}: These are orders that become active only when a certain price level is reached, allowing traders to limit their losses or lock in profits.
+    \item \textbf{Fill or Kill (FOK) Orders}: These are orders that must be executed immediately in their entirety or not at all, ensuring that traders either get the full quantity they want or no trade occurs.
+    \item \textbf{Immediate or Cancel (IOC) Orders}: These are orders that must be executed immediately, but any portion of the order that cannot be filled is canceled, allowing traders to get as much of their order filled as possible without waiting for the entire order to be executed.
+    \item \textbf{All or None (AON) Orders}: These are orders that must be executed in their entirety, but they do not have to be executed immediately, allowing traders to ensure that they get the full quantity they want without having to worry about partial fills.
+    \item \textbf{Market Sweep Orders}: These are orders that are designed to quickly execute against multiple price levels in the LOB, allowing traders to quickly fill large orders without having to worry about the time it takes for the order to be executed.
+\end{itemize}
+
+Here the table of the EU Report with Percentages
+
+The LOB in every state, can essentially be modelled by the two
+central inputs, that are the arrival of limit orders and market
+orders, as these trigger the resting LOs and result in trade
+executions.
+
+Here the mathematical definition of the LOB:
+\begin{definition}[LOB]
+    \begin{equation}
+        \text{LOB}(t) = \{(p_i, q_i, t_i) | i = 1, 2, ..., N(t)\}
+    \end{equation}
+    \label{def:lob}
+\end{definition}
+
+\begin{equation}
+    \text{LOB}(t) = \{(p_i, q_i, t_i) | i = 1, 2, ..., N(t)\}
+\end{equation}
+where \(p_i\) is the price level of the \(i\)-th order,
+\(q_i\) is the quantity of the \(i\)-th order, \(t_i\) is the time of arrival of the \(i\)-th order, and
+\(N(t)\) is the total number of orders in the LOB at time \(t\).
+
+Here the derived optimal depths with a surrounding solid line box:
+
+\boxedequationblock{eq:optimal_depths_box}{%
+    \delta^{*}_{b}(q,t) & = \arg\max_{\delta>0} \mathbb{E}\big[U(\mathrm{PNL}_T) \mid q_t=q\big] \\
+    \delta^{*}_{a}(q,t) & = \arg\max_{\delta>0} \mathbb{E}\big[U(\mathrm{PNL}_T) \mid q_t=q\big]
+}
+
+%------------------------------------------------------------------------------------
+\subsection{Order types and classification}\label{sub_sec:order_types}
+%------------------------------------------------------------------------------------
+As already described earlier, orders can be classified into two main
+categories, market orders and limit orders, based on their execution
+characteristics. However, within these two broad classes, the ones of
+special interest for modelling purposes are those that actually move
+the mid price. To this \textit{aggressive type}, also cancellations
+belong, as with a cancellation, the respective order loses its
+position in the price-time priority queue, leaving the next order in
+line to become the new best bid or ask price.
+
+Here the categorization into 12 types, where we focus on those types
+tha actually move the mid price, see also the descriptive breakdown
+or orders of a day and their percentage share.
+
+According to \cite{law2019market}, the main order types in a limit
+order book (LOB) can be categorized as can be seen in the table
+below:
+\begin{table}[htbp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|c|c|}
+        \hline
+        Order Type & Order Arrival Event                    & Bid Price Effect & Ask Price Effect \\
+        \hline
+        1          & aggressive market buy                  & 0                & +                \\
+        2          & aggressive market sell                 & -                & 0                \\
+        3          & aggressive limit buy                   & +                & 0                \\
+        4          & aggressive limit sell                  & 0                & -                \\
+        5          & aggressive limit buy cancellation      & -                & 0                \\
+        6          & aggressive limit sell cancellation     & 0                & +                \\
+        \hline
+        7          & non-aggressive market buy              & 0                & 0                \\
+        8          & non-aggressive market sell             & 0                & 0                \\
+        9          & non-aggressive limit buy               & 0                & 0                \\
+        10         & non-aggressive limit sell              & 0                & 0                \\
+        11         & non-aggressive limit buy cancellation  & 0                & 0                \\
+        12         & non-aggressive limit sell cancellation & 0                & 0                \\
+        \hline
+    \end{tabular}}
+    \vfill
+    \footnotesize\textit{+/0/- indicate whether the order type causes an increase, no change, or decrease in the bid or ask price, respectively.}
+    \captionfootcite{Main Order Types in a Limit Order Book.}{Based on \cite{law2019market}, as of 16.05.2026.}\label{tab:order_types}
+\end{table}
+%------------------------------------------------------------------------------------
+\subsection{Matching Mechanism}\label{sub_sec:matching_mechanism}
+%------------------------------------------------------------------------------------
+\section{The Market Making Problem}\label{sec:market_making_problem}
+%------------------------------------------------------------------------------------
+Here also the different risk sources, adverse selection, inventory,
+etc. The classical problem formulation based on Ho \& Stoll (1981) is
+to choose the optimal depth size for posting LO into the book (See
+\cite{cartea2015algorithmic}, page 29)
+
+Also mention the advantage of potentially getting a fee rebate from
+the exchange in contrast to the taker fee that liquidity takers have
+to pay for their orders
+
+Key problem: Balancing the optimal limit order posting depth and the
+fill probabilities
+
+Use stochastic optimal control to tackle the classical problem of
+solving for the optimal depth as distance from the midprice for
+posting limit orders, also core problem: how to get the fill
+probabilities or approximate them
+%------------------------------------------------------------------------------------
+%	                  EMPIRICAL LOB CHARACTERISTICS
+%------------------------------------------------------------------------------------
+\chapter{Empirical LOB Characteristics and Market Quality}\label{ch:empirical_characteristics}
+%------------------------------------------------------------------------------------
+In the following chapter, so called \textit{quality-parameters} of
+the LOB will be analyzed, which are the key empirical characteristics
+of the LOB, that will be used to calibrate the mathematical model and
+to derive the optimal market making strategy. These
+quality-parameters include
+
+%------------------------------------------------------------------------------------
+\section{Data and Data Processing}\label{sec:data}
+%------------------------------------------------------------------------------------
+Here comes a table with the single data columns that can be found:
+
+Here comes a table with the columns: Hour, Year, Number of Days,
+Average Events per Day:
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Hour & Year & Number of (Trading) Days & Average Events per Day \\
+        \hline
+        0    & 2019 & 365                      & X                      \\
+        1    & 2019 & 365                      & X                      \\
+        ...  & ...  & ...                      & ...                    \\
+        23   & 2019 & 365                      & X                      \\
+        \hline
+    \end{tabular}
+    \caption{Data Overview: Hourly Event Counts and Averages.}\label{tab:data_overview}
+\end{table}
+%------------------------------------------------------------------------------------
+\section{The Intraday activity pattern: Volumes and Volatilty}\label{sec:intraday_activity_pattern}
+%------------------------------------------------------------------------------------
+Samuleson Effect here From previous intraday pattern: Baseline
+intensity has to be dependent on the remaining contract lifetime,
+therefore being non-stationary
+
+Percentage table for the different order types to stress that onyl
+few types are relevant and also focus on only the best 3 price levels
+because mostly only 1 tick moved (?).
+%------------------------------------------------------------------------------------
+\chapter{Mathematical Modelling}\label{ch:mathematical_modelling}
+%------------------------------------------------------------------------------------
+In order to realistically model the LOB dynamics and derive the
+optimal market making strategy, we need to choose a suitable
+mathematical framework that can replicate the key empirical
+characteristics of the LOB. A natural framework is offered by the
+Hawkes-Process family, which is a class of self-exciting point
+processes that can capture the clustering and dependence structure of
+order arrivals in the LOB. By also including cross-excitation among
+different order types, this process family also offers modelling
+capabilities for complex interactions.
+
+In the following sections, we will first introduce the basic concepts
+of Hawkes processes, and then describe how we can use this framework
+to model the order arrivals and mid-price dynamics in the electricity
+markets, ultimately leading to the derivation of the optimal market
+making strategy.
+%------------------------------------------------------------------------------------
+\section{The Point Process Family}\label{sec:point_process_family}
+%------------------------------------------------------------------------------------
+\subsection{One Dimensional Hawkes Processes}\label{sub_sec:one_dimensional_hawkes_processes}
+%------------------------------------------------------------------------------------
+\subsection{Multi Dimensional Hawkes Processes}\label{sub_sec:multi_dimensional_hawkes_processes}
+%------------------------------------------------------------------------------------
+\section{The Hawkes Process based framework for optimal market making}\label{sec:hawkes_process_framework}
+%------------------------------------------------------------------------------------
+\subsection{Excitation Kernels}\label{sub_sec:excitation_kernels}
+%------------------------------------------------------------------------------------
+In the Hawkes-Poission Process, the probability drop-off of an event
+triggered bya past event is called ''kernel''.
+
+Here also a plot comparing the different popular choices for the
+exciattion kernels, but also showing the spline based non-parametric
+kernel estimation variant.
+%------------------------------------------------------------------------------------
+\subsection{Time-inhomogeneous (Baseline) Intensities}\label{sub_sec:time_inhomogeneous_baseline_intensities}
+%------------------------------------------------------------------------------------
+As we have seen in the empirical analysis, the intraday activity
+pattern is not constant, but rather follows a certain pattern, with
+higher activity during certain hours of the day, which is also known
+as the Samuleson effect. This means that the baseline intensity of
+the Hawkes process, which represents the underlying rate of order
+arrivals, has to be dependent on the remaining contract lifetime,
+therefore being non-stationary. By incorporating time-inhomogeneous
+baseline intensities into our modeling framework, we can better
+capture the dynamics of order arrivals and improve the performance of
+our market making strategy.
+%------------------------------------------------------------------------------------
+\section{Midprice Dynamics}\label{sec:midprice_dynamics}
+%------------------------------------------------------------------------------------
+Here the mathematical definition of the midprice dynamics, which is
+the central variable of interest in our modeling framework. The
+
+In reference to the before mentioned order type classification, only
+informed traders post aggressive order types that move the mid price,
+here from the data again measure the shares of these information
+carrying order types and show if this problem is immanent and how we
+can obtain the frequencies from these stats
+
+We need to have the midprice impacted by incoming MO due to realism,
+cause a certain jump of the process, jump size and direction have to
+be realistic (in their direction, foresign and magnitude).
+
+%------------------------------------------------------------------------------------
+\section{Modelling Order arrivals}\label{sec:modelling_order_arrivals}
+%------------------------------------------------------------------------------------
+Since the LOB and every state can essentially be reconstructed by the
+two main input parameters, that are the arrival of limit orders and
+market orders, we can focus on the modelling of these two main order
+types, as well as cancellations, which are the main drivers of the
+LOB dynamics. From these general order types, we further focus on
+those that are actually relevant, i.e. those that move the mid price,
+which are the so called \textit{aggressive orders}, according to the
+detailed order-categorization based on XYZ laid out earlier in
+chapter XYZ. Another central and shaping input is the volume depth of
+the LOB.\cite{choi2021optimal}
+%------------------------------------------------------------------------------------
+\subsection{Market Order Arrivals}\label{sub_sec:mo_arrivals}
+%------------------------------------------------------------------------------------
+\subsection{Limit Order Arrivals}\label{sub_sec:lo_arrivals}
+%------------------------------------------------------------------------------------
+\subsection{Cancelations}\label{sub_sec:cancellations}
+%------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------------
+\subsection{The role of Order Imbalance}\label{sub_sec:order_imbalance}
+%------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------------
+\subsection{The Complete Model}\label{sub_sec:complete_model}
+%------------------------------------------------------------------------------------
+Although possible in theory, the modelling of cross-excitement among
+various hourly products is not pursued in this thesis, as the
+in-parallel lifetime of the contracts differs (See Table) what makes
+it hard to calculate the cross-excitation, and [Zweiter Grund].
+
+Ignoring the external influence of updated forecasts and other
+external variables, can be partly defended by seeing that fundamental
+drivers are partly not relevenat for the liquidity, see here:
+\cite{hagemann2013empirical}.
+
+Also the idea, i.e when we refit daily, we could use these values as
+prior for the next fit making use of Bayesian updating, see
+\cite{jain2024limit}
+
+%------------------------------------------------------------------------------------
+\section{Deriving the optimal strategy: the optimal depths}\label{sub_sec:optimal_depths}
+%------------------------------------------------------------------------------------
+Here the derivation and solution of the stochastic optimal control
+problem for the optimal depths, which is
+
+%------------------------------------------------------------------------------------
+\chapter{Numerical Analysis and Simulation}\label{ch:numerical_analysis}
+%------------------------------------------------------------------------------------
+Since we have to model the midprice dynamics with some form of
+process, we simulate this process and let the agent follow the
+optimally derived strategy and then evaluate this simulation study
+based results
+
+%------------------------------------------------------------------------------------
+\section{Exchange Latency}\label{sec:exchange_latency}
+%------------------------------------------------------------------------------------
+Here the exact calculation of the exchange latency is provided, which
+is the time it takes for an order to be processed and executed on the
+exchange after it has been submitted. This includes the time taken
+for the order to reach the exchange, be processed by the exchange's
+matching engine, and receive a confirmation of execution. The
+exchange latency can vary based on several factors, including the
+type of order, the current market conditions, and the specific
+exchange being used. Understanding and minimizing exchange latency is
+crucial for developing effective trading strategies, particularly in
+high-frequency trading environments where even small delays can
+impact profitability. important for sampling and fitting durations
+etc.
+
+%------------------------------------------------------------------------------------
+\section{Goodness of Fit Evaluation}\label{sec:goodness_of_fit_evaluation}
+%------------------------------------------------------------------------------------
+QQ Plots here, AIC table, etc.
+%------------------------------------------------------------------------------------
+\section{Optimal Strategy Backtests}\label{sec:optimal_strategy_backtests}
+%------------------------------------------------------------------------------------
+Here some example graph that is shown in the List of Figures:
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{siegel_maths.png}
+    \captionfootcite{Example Figure.}{Test cite \cite{law2019market}, as of 16.05.2026.}\label{fig:example_figure}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \blendfigure{8cm}{8cm}{siegel_maths.png}
+    % \caption{Example Figure with blended background}\label{fig:example_figure_blended}
+    \captionfootcite{Some text.}{See first: \cite{eeg_2023_feed_in}.}
+\end{figure}
+
+Here some example table that will be shown in the List of Tables
+section:
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Column 1 & Column 2 & Column 3 \\
+        \hline
+        Data 1   & Data 2   & Data 3   \\
+        Data 4   & Data 5   & Data 6   \\
+        \hline
+    \end{tabular}
+    \caption{Example Table}\label{tab:example_table}
+\end{table} listing example that will be shown in the List of Algorithms section:
+\begin{lstlisting}[language=Python, caption={Example Algorithm}]
+def example_algorithm(data):
+    # Some example algorithm code
+    result = data * 2
+    return result
+\end{lstlisting}
+
+Her some example algorithm that will appear in the List of Algorithms
+section:
+\begin{algorithm}[htbp]
+    \caption{Example Algorithm}
+    \label{alg:example_algorithm}
+    \begin{algorithmic}[1]
+        \Require $data$ - Input data for the algorithm
+        \Ensure $result$ - Output result of the algorithm
+        \State Initialize $result$ to 0
+        \For{each element in $data$}
+        \State Update $result$ based on the element
+        \EndFor
+        \State \Return $result$
+    \end{algorithmic}
+\end{algorithm}
+
+Here some examples of different citation styles offered by \LaTeX:
+\textcite{antonio2022inflation}. Parenthetical citation:
+\parencite{antonio2022inflation}. Footnote citation:
+\autocite{antonio2022inflation}. Footnote citation with page number:
+\autocite[1]{antonio2022inflation}. Inline citation:
+\textcite{rosenberg_2003_exchange_rate_determination}. Inline
+citation: \textcite{antonio2022inflation}. Inline
+citation: \textcite{seabold2010statsmodels}. Inline citation:
+\textcite{seabold2010statsmodels}. Inline citation:
+\textcite{fama2016commodity}. Inline citation:
+\textcite{rosenberg_2003_exchange_rate_determination}. Inline citation:
+\textcite{fama2016commodity}. Example of a
+footnote
+citation.\footnote{\cite{fama2016commodity}}.
+
+An example of an equation (numbered and centered) is shown below:
+\begin{equation}
+    E = mc^2
+\end{equation}
+%------------------------------------------------------------------------------------
+%	                  LITERATURE REVIEW
+%------------------------------------------------------------------------------------
+\chapter{Literature Review}
+\label{ch:literature_review}
+\input{chapters/02-literature-review}
+% Here the introduction text
+Here the Literature review text.
+\section{Example Section}
+%------------------------------------------------------------------------------------
+%	                  METHODOLOGY
+%------------------------------------------------------------------------------------
+\chapter{Methodology}
+\label{ch:methodology}
+\input{chapters/03-methodology}
+% Here the introduction text
+Here the methodology text.
+%------------------------------------------------------------------------------------
+%	                  DATA
+%------------------------------------------------------------------------------------
+\chapter{Data}
+\label{ch:data}
+\input{chapters/04-data}
+% Here the introduction text
+Here the data text.
+%------------------------------------------------------------------------------------
+%	                  EXPERIMENTS
+%------------------------------------------------------------------------------------
+\chapter{Experiments}
+\label{ch:experiments}
+\input{chapters/05-experiments}
+% Here the introduction text
+Here the experiments text.
+%------------------------------------------------------------------------------------
+%	                  RESULTS
+%------------------------------------------------------------------------------------
+\chapter{Results}
+\label{ch:results}
+\input{chapters/06-results}
+% Here the introduction text
+Here the results text.
+%------------------------------------------------------------------------------------
+%	                  DISCUSSION
+%------------------------------------------------------------------------------------
+\chapter{Discussion}
+\label{ch:discussion}
+\input{chapters/07-discussion}
+% Here the introduction text
+Here the discussion text.
+%------------------------------------------------------------------------------------
+%	                  CONCLUSION
+%------------------------------------------------------------------------------------
+\chapter{Conclusion}
+\label{ch:conclusion}
+\input{chapters/08-conclusion}
+% Here the introduction text
+Here the conclusion text.
+%------------------------------------------------------------------------------------
+%	                  REFERENCES
+%------------------------------------------------------------------------------------
+\include{chapters/09-references}
+%------------------------------------------------------------------------------------
+%	                  APPENDIX
+%------------------------------------------------------------------------------------
+\input{chapters/10-appendix}
+%------------------------------------------------------------------------------------
+%	                  AFFIRMATION
+%------------------------------------------------------------------------------------
+\chapter*{Affirmation} % by using * we are not showing this chapter in the table of contents
+\markboth{~}{} % Clear header for the table of contents
+\addcontentsline{toc}{chapter}{Affirmation}
+\input{chapters/11-affirmation}
+\end{document}

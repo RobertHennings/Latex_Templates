@@ -1,0 +1,90 @@
+\begin{appendix}\label{anhang}
+    \chapter{Supplementary Market Structure Information}\label{anhang1}
+    \section{Hourly Products and Trading Durations}\label{sec:hourly_products_and_trading_durations}
+    \begin{table}[htbp]
+        \centering
+        \tiny
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{l c c c c c c c}
+            \toprule
+            \textbf{Hourly}  & \textbf{Delivery}       & \textbf{Cross-Border} & \textbf{Max Cross-Border} & \textbf{Local German} & \textbf{Max Local German} & \textbf{Next-Day Hours}   & \textbf{Duration of This} \\
+            \textbf{Product} & \textbf{Interval (CET)} & \textbf{Gate Closure} & \textbf{Trading Duration} & \textbf{Gate Closure} & \textbf{Trading Duration} & \textbf{Open in Parallel} & \textbf{Parallel Window}  \\
+            \midrule
+            Hour 01          & 00:00 -- 01:00          & 23:30 (D-1)           & 8 h 30 min                & 23:55 (D-1)           & 8 h 55 min                & 24                        & 8 h 55 min                \\
+            Hour 02          & 01:00 -- 02:00          & 00:30 (D)             & 9 h 30 min                & 00:55 (D)             & 9 h 55 min                & 23                        & 1 h 00 min                \\
+            Hour 03          & 02:00 -- 03:00          & 01:30 (D)             & 10 h 30 min               & 01:55 (D)             & 10 h 55 min               & 22                        & 1 h 00 min                \\
+            Hour 04          & 03:00 -- 04:00          & 02:30 (D)             & 11 h 30 min               & 02:55 (D)             & 11 h 55 min               & 21                        & 1 h 00 min                \\
+            Hour 05          & 04:00 -- 05:00          & 03:30 (D)             & 12 h 30 min               & 03:55 (D)             & 12 h 55 min               & 20                        & 1 h 00 min                \\
+            Hour 06          & 05:00 -- 06:00          & 04:30 (D)             & 13 h 30 min               & 04:55 (D)             & 13 h 55 min               & 19                        & 1 h 00 min                \\
+            Hour 07          & 06:00 -- 07:00          & 05:30 (D)             & 14 h 30 min               & 05:55 (D)             & 14 h 55 min               & 18                        & 1 h 00 min                \\
+            Hour 08          & 07:00 -- 08:00          & 06:30 (D)             & 15 h 30 min               & 06:55 (D)             & 15 h 55 min               & 17                        & 1 h 00 min                \\
+            Hour 09          & 08:00 -- 09:00          & 07:30 (D)             & 16 h 30 min               & 07:55 (D)             & 16 h 55 min               & 16                        & 1 h 00 min                \\
+            Hour 10          & 09:00 -- 10:00          & 08:30 (D)             & 17 h 30 min               & 08:55 (D)             & 17 h 55 min               & 15                        & 1 h 00 min                \\
+            Hour 11          & 10:00 -- 11:00          & 09:30 (D)             & 18 h 30 min               & 09:55 (D)             & 18 h 55 min               & 14                        & 1 h 00 min                \\
+            Hour 12          & 11:00 -- 12:00          & 10:30 (D)             & 19 h 30 min               & 10:55 (D)             & 19 h 55 min               & 13                        & 1 h 00 min                \\
+            Hour 13          & 12:00 -- 13:00          & 11:30 (D)             & 20 h 30 min               & 11:55 (D)             & 20 h 55 min               & 12                        & 1 h 00 min                \\
+            Hour 14          & 13:00 -- 14:00          & 12:30 (D)             & 21 h 30 min               & 12:55 (D)             & 21 h 55 min               & 11                        & 1 h 00 min                \\
+            Hour 15          & 14:00 -- 15:00          & 13:30 (D)             & 22 h 30 min               & 13:55 (D)             & 22 h 55 min               & 10                        & 1 h 00 min                \\
+            Hour 16          & 15:00 -- 16:00          & 14:30 (D)             & 23 h 30 min               & 14:55 (D)             & 23 h 55 min               & 9                         & 1 h 00 min                \\
+            Hour 17          & 16:00 -- 17:00          & 15:30 (D)             & 24 h 30 min               & 15:55 (D)             & 24 h 55 min               & 8                         & 1 h 00 min                \\
+            Hour 22          & 21:00 -- 22:00          & 20:30 (D)             & 29 h 30 min               & 20:55 (D)             & 29 h 55 min               & 3                         & 1 h 00 min                \\
+            Hour 23          & 22:00 -- 23:00          & 21:30 (D)             & 30 h 30 min               & 21:55 (D)             & 30 h 55 min               & 2                         & 1 h 00 min                \\
+            Hour 24          & 23:00 -- 24:00          & 22:30 (D)             & 31 h 30 min               & 22:55 (D)             & 31 h 55 min               & 1                         & 1 h 00 min                \\
+            \bottomrule
+        \end{tabular}}
+        \vfill
+        \footnotesize\textit{Note: All 24 next-day hours open together at 15:00 CET (D-1). The count decreases as each individual product hits its respective local gate closure.}
+        \captionfootcite{EPEX Spot CID Trading Durations and Parallel Product Counts.}{Based on \cite{kiesel_efc19_2019}, as of 16.05.2026.}\label{tab:epex_parallel_durations}
+    \end{table}
+
+    \chapter{Data}\label{anhang2}
+    \section{LOB Data Description}\label{sec:lob_data_description}
+    \begin{table}[htbp]
+        \centering
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|}
+            \hline
+            Column Name       & Description                                                                    \\
+            \hline
+            Timestamp         & The date and time of the order event                                           \\
+            Order Type        & The type of order (e.g., limit order, market order, cancellation)              \\
+            Price             & The price at which the order was placed or executed                            \\
+            Quantity          & The quantity of the order                                                      \\
+            Side              & The side of the order (buy or sell)                                            \\
+            Order ID          & A unique identifier for the order                                              \\
+            Trader ID         & A unique identifier for the trader who placed the order                        \\
+            Venue             & The trading venue where the order was placed                                   \\
+            Status            & The status of the order (e.g., filled, partially filled, canceled)             \\
+            Time in Force     & The duration for which the order is valid (e.g., GTC, IOC)                     \\
+            Execution ID      & A unique identifier for the execution event (if applicable)                    \\
+            Counterparty ID   & A unique identifier for the counterparty involved in the trade (if applicable) \\
+            Order Book State  & A snapshot of the limit order book at the time of the event (optional)         \\
+            Market Conditions & Additional market conditions at the time of the event (optional)               \\
+            Notes             & Any additional notes or comments related to the order event (optional)         \\
+            \hline
+        \end{tabular}}
+        \captionfootcite{Data Columns and Their Descriptions.}{Based on the typical structure of order book data, as of 16.05.2026.}\label{tab:data_columns}
+    \end{table}
+    % Here the first part of the appendix text
+    Here the first part of the appendix text.
+    \section{Second Part}
+    % Here the second part of the appendix text
+    Here the second part of the appendix text.
+
+    \chapter{Appendix B}\label{anhang3}
+
+    \chapter{Appendix C}\label{anhang4}
+
+    \chapter{Code}\label{anhang5}
+    Here some coding snippets:
+    \begin{lstlisting}[language=Python, caption={Example Python Code}]
+    def example_function(x):
+        return x**2
+    \end{lstlisting}
+
+    \chapter{Engineering Configurations}\label{anhang6}
+    \section{Hyperparameter Optimization}
+
+    \section{Computation Time}
+
+\end{appendix}

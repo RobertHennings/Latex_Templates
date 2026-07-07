@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{../../../cau_thesis/cau_thesis}
+
+\graphicspath{{../../../cau_thesis/}}
+\title{Design Example: Minimal Submission Thesis}
+\author{Grace Hopper}
+\thesisauthor{Grace Hopper}
+\stunumber{7654321}
+\stuemail{grace.hopper@student.uni-kiel.de}
+\privatemail{grace@example.org}
+\submissiondate{15.10.2026}
+\submissiondateCover{October 2026}
+\chair{Chair of Software Engineering}
+\institute{Institute of Informatics}
+\faculty{Faculty of Engineering}
+\typedocument{Bachelor Thesis}
+\programme{B.Sc. Computer Science}
+\cooperation{}
+\location{Kiel, Germany}
+\license{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+\githubrepo{Project Repository}{https://example.org/repository}
+\firstsupervisorname{Prof. Dr. First Examiner}
+\firstsupervisortitle{Professor of Software Engineering}
+\firstsupervisordepartment{Christian-Albrechts-University of Kiel}
+\secondsupervisorname{Dr. Second Examiner}
+\secondsupervisortitle{Research Associate}
+\secondsupervisordepartment{Christian-Albrechts-University of Kiel}
+
+\begin{document}
+\sloppy
+\hfuzz=\maxdimen
+\hbadness=10000
+\input{../../../cau_thesis/title_pages/titlepage_submission.tex}
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Overview}
+This design example uses the compact submission title page. It demonstrates a
+lighter front page followed by a complete but short thesis-like document.
+
+\section{Design Intent}
+The submission layout emphasizes essential metadata and leaves institutional
+branding more restrained than the classic cover.
+
+\chapter{Analysis}
+\section{Narrative Text}
+A paragraph of sample text is useful for checking margins, line spacing, and
+font sizes across the body pages. The template should remain readable for both
+short and long documents.
+
+\section{Enumerated Items}
+\begin{enumerate}
+  \item Prepare the metadata.
+  \item Select a title-page variant.
+  \item Add the thesis content.
+  \item Compile twice for stable references.
+\end{enumerate}
+
+\chapter{Summary}
+The minimal submission example provides a second full-document preview with a
+different cover setting.
+
+\end{document}

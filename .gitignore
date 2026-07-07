@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------
+#                           SYSTEM SPECIFIC
+# ---------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------
+#                           EDITOR SETTINGS
+# ---------------------------------------------------------------
+.vscode/
+.idea/
+
+# ---------------------------------------------------------------
+#                           LATEX BUILD FILES
+# ---------------------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fls
+*.lof
+*.lot
+*.fdb_latexmk
+*.nav
+*.snm
+*.log
+*.out
+*.vrb
+*.toc
+*.xdv
+*.run.xml
+*.synctex.gz
+*.synctex
+*.synctex(busy)
+
+# ---------------------------------------------------------------
+#                           TEMPORARY OFFICE FILES
+# ---------------------------------------------------------------
+**/~$*
+~$*
+~$*.pptx
+~$*.docx
+
+# ---------------------------------------------------------------
+#                           PYTHON CACHE / ENVIRONMENTS
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---------------------------------------------------------------
+#                           GENERATED OUTPUTS
+# ---------------------------------------------------------------
+*.pdf
+*.zip
+dist/
+template_pdf/
+*/template_pdf/
+template_word/
+*/template_word/
+
+# ---------------------------------------------------------------
+#                           TRACKED PROJECT ASSETS
+# ---------------------------------------------------------------
+!latexmkrc
+!*.png
+!*.jpg
+!*.jpeg
+!*.otf
+!*.ttf
+
+# Keep required PDF assets and generated documentation/examples
+!kielinstitute/common/logos/*.pdf
+!kielinstitute/common/covers/*.pdf
+!kielinstitute-doc/*.pdf
+!examples/latex_sources/*.pdf
+!examples/*.pdf
+!examples/previews/
+!examples/previews/*.png
+# ---------------------------------------------------------------
+#                           LOCAL ONLY
+# ---------------------------------------------------------------
+streamlit_dashboard/
+
+# Do not track bundled proprietary fonts unless licenses allow it
+# kielinstitute/common/fonts/cambria/
+# kielinstitute/common/fonts/suisse/

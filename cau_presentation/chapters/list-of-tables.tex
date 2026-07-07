@@ -1,0 +1,44 @@
+%----------------------------------------------------------------------------------------
+%	NEW CHAPTER TITLE SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Chapter 8)}
+	\begin{tikzpicture}[remember picture, overlay]
+        \caupresentationheaderlogoright
+		\node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {
+            \tikz\node[opacity=0.15] {
+                \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}
+            };
+        };
+    \end{tikzpicture}
+	% \begin{block}{} % Empty block title % Set background color (adjust 'blue!20' as needed)
+    %     \centering
+    %     {\large \textbf{References}} % Slightly smaller text
+    % \end{block}
+	\begin{center}
+        \begin{minipage}{0.6\textwidth} % Adjust the width of the block
+            \begin{block}{} % Empty block title
+                \centering
+                {\large \textbf{List of Tables}} % Slightly smaller text
+            \end{block}
+        \end{minipage}
+    \end{center}
+\end{frame}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+    \frametitle{List of Tables}
+    \tiny
+    \begin{itemize}
+        \listtable{tab:chap_06_normality_tests_raw_data}{Normality Tests for Raw Data}
+		\listtable{tab:chap_06_normality_tests_log_first_differences}{Normality Tests for Log First Differences}
+        \listtable{tab:chap_06_adf_tests_raw_data}{ADF Tests for Raw Data}
+		\listtable{tab:chap_06_adf_tests_log_first_differences}{ADF Tests for Log First Differences}
+		\listtable{tab:chap_06_cointegration_test_raw_data}{Cointegration Tests for Raw Data}
+		\listtable{tab:chap_06_cointegration_test_log_differences}{Cointegration Tests for Log First Differences}
+		\listtable{tab:exemplary_exchange_rates}{Exemplary Exchange Rate Types}
+        \listtable{tab:major_global_crisis_periods}{Major Global Crisis Periods}
+		% \listtable{}
+    \end{itemize}
+\end{frame}

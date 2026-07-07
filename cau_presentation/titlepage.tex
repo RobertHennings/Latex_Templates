@@ -1,0 +1,12 @@
+\begin{frame}[plain]
+    \titlepage{}
+    \begin{tikzpicture}[remember picture, overlay]
+        \caupresentationheaderlogoright
+		% Add the .pdf graph as a lightly shaded background
+        \node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {
+            \tikz\node[opacity=0.15] {
+                \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}
+            };
+        };
+    \end{tikzpicture}
+\end{frame}

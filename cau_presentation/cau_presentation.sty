@@ -1,0 +1,291 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cau_presentation}[2026/07/07 v0.1 CAU beamer presentation theme]
+
+%------------------------------------------------------------------------------------
+%                  PACKAGES
+%------------------------------------------------------------------------------------
+\RequirePackage{helvet}
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{booktabs}
+\RequirePackage{amsmath}
+\RequirePackage{url}
+\RequirePackage{hyperref}
+\RequirePackage{xcolor}
+\RequirePackage[font=small,labelformat=empty]{caption}
+\RequirePackage{kvoptions}
+\RequirePackage[backend=biber, style=alphabetic]{biblatex}
+%------------------------------------------------------------------------------------
+%                  ASSETS PATHS
+%------------------------------------------------------------------------------------
+\graphicspath{
+    {./}
+    {./figures/}
+    {./logos/}
+    {../cau_thesis/logos/}
+    {./tables/}
+}
+%------------------------------------------------------------------------------------
+%                  BASIC SETTINGS
+%------------------------------------------------------------------------------------
+\makeatletter
+\SetupKeyvalOptions{family=caupres,prefix=caupres@}
+\DeclareStringOption[Madrid]{theme}
+\DeclareStringOption[circles]{innertheme}
+\DeclareStringOption[9b0a7d]{maincolor}
+\DeclareStringOption[00677c]{accentcolor}
+\DeclareStringOption[B0B0B0]{neutralcolor}
+\DeclareBoolOption[true]{hidelinks}
+\DeclareBoolOption[true]{numberedcaptions}
+\ProcessKeyvalOptions*\relax
+%----------------------------------------------------------------------------------------
+%                  CUSTOM COLORS
+%----------------------------------------------------------------------------------------
+\definecolor{CAU_MAIN}{HTML}{\caupres@maincolor}
+\definecolor{CAU_WISO}{HTML}{\caupres@accentcolor}
+\definecolor{CustomGrey}{HTML}{\caupres@neutralcolor}
+\newcommand{\setmaincolor}[1]{%
+    \definecolor{CAU_MAIN}{HTML}{#1}%
+    \setbeamercolor{block title alerted}{bg=CAU_MAIN, fg=white}%
+}
+%----------------------------------------------------------------------------------------
+%                  HEADER LOGO
+%----------------------------------------------------------------------------------------
+\newcommand{\caupres@headerlogoright}{wiso_logo.png}
+\newcommand{\setheaderlogoright}[1]{%
+    \renewcommand{\caupres@headerlogoright}{#1}%
+}
+\newcommand{\caupresentationheaderlogoright}{%
+    \node[anchor=north east, xshift=-0.1cm, yshift=+0.1cm] at (current page.north east) {%
+        \includegraphics[width=1.7cm]{\caupres@headerlogoright}%
+    };%
+}
+%----------------------------------------------------------------------------------------
+%                  FOOTER
+%----------------------------------------------------------------------------------------
+\newcommand{\setfootercolor}[1]{%
+    \definecolor{CustomGrey}{HTML}{#1}%
+    \setbeamercolor{block title}{bg=CustomGrey, fg=black}%
+    \setbeamercolor{block body alerted}{bg=CustomGrey, fg=black}%
+    \setbeamercolor{footline}{bg=CustomGrey, fg=black}%
+}
+%----------------------------------------------------------------------------------------
+%                  BEAMER THEME SETUP
+%----------------------------------------------------------------------------------------
+\usetheme{\caupres@theme}
+\usefonttheme{default}
+\useinnertheme{\caupres@innertheme}
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\footnotesize}{\tiny}
+%----------------------------------------------------------------------------------------
+%                  APPLY CUSTOM COLORS
+%----------------------------------------------------------------------------------------
+\setbeamercolor{alerted text}{fg=CAU_WISO}
+\setbeamercolor{item}{fg=CAU_WISO}
+\setbeamercolor{section in toc}{fg=CAU_WISO}
+\setbeamercolor{frametitle}{bg=CAU_WISO, fg=white}
+\setbeamercolor{title}{bg=CAU_WISO, fg=white}
+\setbeamercolor{titlegraphic}{bg=CAU_WISO}
+\setbeamercolor{block title}{bg=CustomGrey, fg=black}
+\setbeamercolor{block body}{bg=CAU_WISO, fg=white}
+\setbeamercolor{block title alerted}{bg=CAU_MAIN, fg=white}
+\setbeamercolor{block body alerted}{bg=CustomGrey, fg=black}
+\setbeamercolor{footline}{bg=CustomGrey, fg=black}
+%----------------------------------------------------------------------------------------
+%                  FIGURES AND TABLE HELPERS
+%----------------------------------------------------------------------------------------
+\ifcaupres@numberedcaptions
+    \setbeamertemplate{caption}[numbered]
+\fi
+\setbeamertemplate{list of figures}[default]
+
+\newcommand{\caupresentationlistfigure}[2]{%
+    \item \hyperlink{#1}{Figure \ref{#1}: #2} (Slide \pageref{#1})%
+}
+\newcommand{\caupresentationlisttable}[2]{%
+    \item \hyperlink{#1}{Table \ref{#1}: #2} (Slide \pageref{#1})%
+}
+\newcommand{\caupresentationclickablefigure}[4][]{%
+  \begin{figure}
+    \centering
+    \href{#4}{\includegraphics[#1]{#2}}%
+    \caption{#3}%
+  \end{figure}%
+}
+
+% Backwards-compatible aliases for existing presentations.
+\providecommand{\listfigure}[2]{\caupresentationlistfigure{#1}{#2}}
+\providecommand{\listtable}[2]{\caupresentationlisttable{#1}{#2}}
+\providecommand{\clickablefigure}[4][]{\caupresentationclickablefigure[#1]{#2}{#3}{#4}}
+%----------------------------------------------------------------------------------------
+%                  PRESENTATION AUTHORS
+%----------------------------------------------------------------------------------------
+\newcounter{caupres@authorcount}
+\newcommand{\caupres@authors}{}
+\newcommand{\caupres@authornames}{}
+\newcommand{\caupres@authoremails}{}
+\newcommand{\cauauthornames}{\caupres@authornames}
+\newcommand{\cauauthoremails}{\caupres@authoremails}
+\newcommand{\cauauthor}[2]{%
+    \ifnum\value{caupres@authorcount}>0
+        \g@addto@macro\caupres@authornames{ and }%
+        \g@addto@macro\caupres@authoremails{ and }%
+    \fi
+    \g@addto@macro\caupres@authornames{#1}%
+    \g@addto@macro\caupres@authoremails{#2}%
+    \stepcounter{caupres@authorcount}%
+    \g@addto@macro\caupres@authors{\caupres@authorentry{#1}{#2}}%
+}
+\def\cau{\@ifnextchar_{\caupres@authorcommand}{\PackageError{cau_presentation}{Unknown CAU command}{Use \string\cau_author{name}{email}.}}}
+\def\caupres@authorcommand_author#1#2{\cauauthor{#1}{#2}}
+\newcommand{\caupres@authorentry}[2]{%
+    \begin{column}{\dimexpr\textwidth/\value{caupres@authorcount}\relax}
+        \centering
+        \textbf{#1} \\
+        {\small\textit{#2}}
+    \end{column}%
+}
+\newcommand{\caupres@authorcolumns}{%
+    \ifnum\value{caupres@authorcount}>0
+        \begin{columns}[t]
+            \caupres@authors
+        \end{columns}%
+    \fi
+}
+%----------------------------------------------------------------------------------------
+%                  GITHUB REPOSITORY
+%----------------------------------------------------------------------------------------
+\newcommand{\caupres@githublabel}{}
+\newcommand{\caupres@githublink}{}
+\newcommand{\githublabel}{\caupres@githublabel}
+\newcommand{\githublink}{\caupres@githublink}
+\newcommand{\github}[2]{%
+    \renewcommand{\caupres@githublabel}{#1}%
+    \renewcommand{\caupres@githublink}{#2}%
+}
+\newcommand{\caupres@githublinkline}{%
+    \ifx\caupres@githublink\@empty\else
+        \tiny\textit{\caupres@githublabel}\url{\caupres@githublink}%
+    \fi
+}
+%----------------------------------------------------------------------------------------
+%                  CLOSING SLIDE
+%----------------------------------------------------------------------------------------
+\newcommand{\closing}[2]{%
+    \begin{frame}%[plain]
+        \frametitle{~}%
+        \begin{center}
+            {\Huge #1}%
+
+            \bigskip\bigskip%
+
+            {\LARGE #2}%
+            \begin{tikzpicture}[remember picture, overlay]
+                \caupresentationheaderlogoright
+                \node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {%
+                    \tikz\node[opacity=0.15] {%
+                        \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}%
+                    };%
+                };%
+            \end{tikzpicture}%
+
+            \bigskip\bigskip%
+            \bigskip\bigskip%
+            \bigskip\bigskip%
+
+            \caupres@authorcolumns
+            \bigskip
+            \caupres@githublinkline
+        \end{center}
+    \end{frame}%
+}
+%----------------------------------------------------------------------------------------
+%                  DISCUSSION CLOSING SLIDE
+%----------------------------------------------------------------------------------------
+\newcommand{\closingdiscussion}[2]{%
+    \begin{frame}[plain]
+        \frametitle{#1}%
+        \begin{center}
+
+            \bigskip\bigskip%
+            \bigskip\bigskip%
+
+            \begin{enumerate}
+                #2
+            \end{enumerate}
+
+            \begin{tikzpicture}[remember picture, overlay]
+                \caupresentationheaderlogoright
+                \node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {%
+                    \tikz\node[opacity=0.15] {%
+                        \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}%
+                    };%
+                };%
+            \end{tikzpicture}%
+
+            \bigskip\bigskip%
+            \bigskip\bigskip%
+
+            \caupres@authorcolumns
+            \bigskip
+            \caupres@githublinkline
+        \end{center}
+    \end{frame}%
+}
+\expandafter\let\csname closing_discussion\endcsname\closingdiscussion
+%----------------------------------------------------------------------------------------
+%                  TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+\newcommand{\caupresentationtableofcontents}{%
+    \setbeamerfont{section in toc}{size=\small}%
+    \setbeamerfont{subsection in toc}{size=\tiny}%
+    \begin{frame}
+        \frametitle{Outline}%
+        \tableofcontents%
+    \end{frame}%
+}
+% Backwards-compatible alias for existing presentations.
+\providecommand{\presentationtableofcontents}{\caupresentationtableofcontents}
+%----------------------------------------------------------------------------------------
+%                  FOOTER
+%----------------------------------------------------------------------------------------
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.5ex,dp=1ex,center]{footline}%
+            \insertshortauthor
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.5ex,dp=1ex,center]{footline}%
+            \insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.5ex,dp=1ex,center]{footline}%
+            \insertframenumber{} / \inserttotalframenumber
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+}
+%----------------------------------------------------------------------------------------
+%                  BIBLIOGRAPHY APPEARANCE
+%----------------------------------------------------------------------------------------
+\setbeamerfont{bibliography item}{size=\tiny}
+\setbeamerfont{bibliography entry author}{size=\tiny}
+\setbeamerfont{bibliography entry title}{size=\tiny}
+\setbeamerfont{bibliography entry location}{size=\tiny}
+\setbeamerfont{bibliography entry note}{size=\tiny}
+%----------------------------------------------------------------------------------------
+%                  BIBLIOGRAPHY AND PDF METADATA
+%----------------------------------------------------------------------------------------
+\defbibheading{subbibliography}[\bibname]{%
+    \vspace{1ex}\noindent\textbf{#1}\par\smallskip%
+}
+\renewcommand*{\bibfont}{\tiny}
+%----------------------------------------------------------------------------------------
+%                  HYPERREF/LINKS SETTINGS
+%----------------------------------------------------------------------------------------
+\ifcaupres@hidelinks
+    \hypersetup{hidelinks,pdfstartview=FitH}
+\else
+    \hypersetup{pdfstartview=FitH}
+\fi
+\makeatother
+\endinput

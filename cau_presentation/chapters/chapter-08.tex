@@ -1,0 +1,90 @@
+%----------------------------------------------------------------------------------------
+%	NEW CHAPTER TITLE SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Chapter 4)}
+	\begin{tikzpicture}[remember picture, overlay]
+        \caupresentationheaderlogoright
+		\node[anchor=center, xshift=5.5cm, yshift=-1.5cm] at (current page.center) {
+            \tikz\node[opacity=0.15] {
+                \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{siegel.pdf}
+            };
+        };
+    \end{tikzpicture}
+	% \begin{block}{} % Empty block title % Set background color (adjust 'blue!20' as needed)
+    %     \centering
+    %     {\large \textbf{Theoretical Framework}} % Slightly smaller text
+    % \end{block}
+	\begin{center}
+        \begin{minipage}{0.6\textwidth} % Adjust the width of the block
+            \begin{block}{} % Empty block title
+                \centering
+                {\large \textbf{Conclusion and Discussion}} % Slightly smaller text
+            \end{block}
+        \end{minipage}
+    \end{center}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\subsection{Seminar Project Summary}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Seminar Project Summary}
+
+    \begin{block}{Main Research Hypothesis}
+		Comparing different (configurations of) optimised clustering algorithms to identify (volatility driven) exchange rate regimes in the EUR/USD spot exchange rate yields promising results.
+	\end{block}
+
+    \begin{block}{Additional Research Hypothesis I}
+		Incorporating commodity prices (WTI Crude Oil Prices and Natural Gas Prices/ their rolling volatilities) as external variables improves the regime identification results.
+	\end{block}
+
+    \begin{block}{Additional Research Hypothesis II}
+		In comparison with the benchmark models, the clustering techniques seemed to be able to identify regimes more granular, but despite that were not able to yield more reliable/robust results for the standard UIP-relationship.
+	\end{block}
+
+\end{frame}
+%----------------------------------------------------------------------------------------
+\subsection{Seminar Project Limitations}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Seminar Project Limitations}
+
+    \begin{block}{Evaluation Metrics}
+		Only used one metric for clustering (Silhouette Score).
+	\end{block}
+
+    \begin{block}{Crisis Periods}
+		May include more periods or find a suitable solution for overlapping crisis periods.
+	\end{block}
+
+    \begin{block}{Hyperparameter Tuning}
+		Hyperparameter tuning did not finish in time for all model configurations.
+	\end{block}
+\end{frame}
+%----------------------------------------------------------------------------------------
+\subsection{Future Research}
+%----------------------------------------------------------------------------------------
+%	NEW SLIDE
+%----------------------------------------------------------------------------------------
+\begin{frame}
+	\frametitle{Future Research - Possible Extensions}
+    \begin{block}{Other Spot rate pairs}
+		Extend the analysis to other spot exchange rate pairs, e.g. focus on the Commodity Currencies with a strong commodity linkage.
+	\end{block}
+    \begin{block}{Other commodities}
+		Extend the analysis to also include other commodities, e.g. Natural Gas, Brent Oil, Gold, etc..
+	\end{block}
+    \begin{block}{Other macroeconomic/external variables}
+		Extend the analysis by incorporating other macroeconomic variables, e.g. Interest Rates, Inflation Rates, etc..
+	\end{block}
+    \begin{block}{Other data frequencies}
+		Extend the analysis by using intraday data to capture more granular dynamics.
+	\end{block}
+    \begin{block}{Other non-linear models}
+		Apply Machine Learning techniques to enhance predictive capabilities and better capture non-linearities.
+	\end{block}
+\end{frame}

@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper]{../../../cau_thesis/cau_thesis}
+
+\graphicspath{{../../../cau_thesis/}}
+\title{Design Example: Classic CAU Thesis}
+\author{Ada Lovelace}
+\thesisauthor{Ada Lovelace}
+\stunumber{1234567}
+\stuemail{ada.lovelace@student.uni-kiel.de}
+\privatemail{ada@example.org}
+\submissiondate{01.09.2026}
+\submissiondateCover{September 2026}
+\chair{Chair of Quantitative Methods}
+\institute{Institute of Computer Science}
+\faculty{Faculty of Engineering}
+\typedocument{Master Thesis}
+\programme{M.Sc. Data Science}
+\cooperation{In cooperation with an external research partner}
+\location{Kiel, Germany}
+\license{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+\githubrepo{Project Repository}{https://example.org/repository}
+\firstsupervisorname{Prof. Dr. First Supervisor}
+\firstsupervisortitle{Professor of Applied Methods}
+\firstsupervisordepartment{Christian-Albrechts-University of Kiel}
+\secondsupervisorname{Prof. Dr. Second Supervisor}
+\secondsupervisortitle{Professor of Data Science}
+\secondsupervisordepartment{Christian-Albrechts-University of Kiel}
+
+\begin{document}
+\sloppy
+\hfuzz=\maxdimen
+\hbadness=10000
+\input{../../../cau_thesis/title_pages/titlepage.tex}
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+This compact design example shows the classic CAU thesis title page together
+with representative thesis content. It is intended for visual inspection of
+headings, paragraphs, lists, links, and bibliography output.
+
+\section{Motivation}
+A reusable thesis template should provide a stable structure while leaving room
+for project-specific content. The sample text keeps the document short but
+exercises the most common layout elements.
+
+\section{Example List}
+\begin{itemize}
+  \item Metadata is configured before \verb|\begin{document}|.
+  \item The title page is imported from \verb|cau_thesis/title_pages|.
+  \item Body content starts after the front matter.
+\end{itemize}
+
+\chapter{Methods}
+\section{Displayed Equation}
+The following equation is included to demonstrate math spacing:
+\begin{equation}
+  y = \alpha + \beta x + \varepsilon.
+\end{equation}
+
+\section{Example Table}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Element & Purpose \\
+    \midrule
+    Title page & Thesis metadata and institutional branding \\
+    Chapter heading & Main document hierarchy \\
+    Bibliography & Reference formatting \\
+    \bottomrule
+  \end{tabular}
+  \caption{Selected design elements in the sample document.}
+\end{table}
+
+\chapter{Conclusion}
+This sample can be used as a quick full-document preview for the classic cover
+setting.
+
+\end{document}

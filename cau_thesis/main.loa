@@ -1,0 +1,2 @@
+\renewcommand \l@algorithm {\@dottedtocline {1}{0em}{3.2em}}
+\contentsline {algorithm}{\numberline {5.1}{\ignorespaces Example Algorithm}}{21}{algorithm.5.1}%
