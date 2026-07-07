@@ -41,6 +41,11 @@ jobs:
             tex: cau-thesis-doc.tex
             pdf: doc/cau-thesis-doc.pdf
 
+          - name: cau-presentation-main
+            cwd: cau_presentation
+            tex: main.tex
+            pdf: cau_presentation/main.pdf
+
           - name: cau-presentation-example
             cwd: cau_presentation
             tex: examples/presentation-example.tex
@@ -143,12 +148,20 @@ jobs:
       - name: Prepare example PDFs and previews
         run: |
           mkdir -p examples previews
+          mkdir -p examples/thesis examples/presentation examples/documentation
+          mkdir -p examples/cover_page_samples examples/design_examples
           find examples -maxdepth 1 -name "*.pdf" -delete
+          find examples/thesis -maxdepth 1 -name "*.pdf" -delete
+          find examples/presentation -maxdepth 1 -name "*.pdf" -delete
+          find examples/documentation -maxdepth 1 -name "*.pdf" -delete
+          find examples/cover_page_samples -maxdepth 1 -name "*.pdf" -delete
+          find examples/design_examples -maxdepth 1 -name "*.pdf" -delete
           find previews -maxdepth 1 -name "*.png" -delete
 
           cp dist/example-artifacts/cau-thesis-main/main.pdf examples/cau-thesis-main.pdf
           cp dist/example-artifacts/cau-thesis-example/thesis-example.pdf examples/cau-thesis-example.pdf
           cp dist/example-artifacts/cau-thesis-doc/cau-thesis-doc.pdf examples/cau-thesis-doc.pdf
+          cp dist/example-artifacts/cau-presentation-main/main.pdf examples/cau-presentation-main.pdf
           cp dist/example-artifacts/cau-presentation-example/presentation-example.pdf examples/cau-presentation-example.pdf
           cp dist/example-artifacts/titlepage-sample/titlepage_sample.pdf examples/titlepage-sample.pdf
           cp dist/example-artifacts/hard-cover-titlepage-sample/hard_cover_titlepage_sample.pdf examples/hard-cover-titlepage-sample.pdf
@@ -157,6 +170,19 @@ jobs:
           cp dist/example-artifacts/titlepage-submission-sample/titlepage_submission_sample.pdf examples/titlepage-submission-sample.pdf
           cp dist/example-artifacts/design-example-classic/design_example_classic.pdf examples/design-example-classic.pdf
           cp dist/example-artifacts/design-example-minimal/design_example_minimal.pdf examples/design-example-minimal.pdf
+
+          cp examples/cau-thesis-main.pdf examples/thesis/cau-thesis-main.pdf
+          cp examples/cau-thesis-example.pdf examples/thesis/cau-thesis-example.pdf
+          cp examples/cau-thesis-doc.pdf examples/documentation/cau-thesis-doc.pdf
+          cp examples/cau-presentation-main.pdf examples/presentation/cau-presentation-main.pdf
+          cp examples/cau-presentation-example.pdf examples/presentation/cau-presentation-example.pdf
+          cp examples/titlepage-sample.pdf examples/cover_page_samples/titlepage-sample.pdf
+          cp examples/hard-cover-titlepage-sample.pdf examples/cover_page_samples/hard-cover-titlepage-sample.pdf
+          cp examples/titlepage-alt-sample.pdf examples/cover_page_samples/titlepage-alt-sample.pdf
+          cp examples/titlepage-alt-math-sample.pdf examples/cover_page_samples/titlepage-alt-math-sample.pdf
+          cp examples/titlepage-submission-sample.pdf examples/cover_page_samples/titlepage-submission-sample.pdf
+          cp examples/design-example-classic.pdf examples/design_examples/design-example-classic.pdf
+          cp examples/design-example-minimal.pdf examples/design_examples/design-example-minimal.pdf
 
           for pdf in examples/*.pdf; do
             name="$(basename "$pdf" .pdf)"
@@ -169,6 +195,7 @@ jobs:
           name: example-pdfs
           path: |
             examples/*.pdf
+            examples/**/*.pdf
             previews/*.png
           if-no-files-found: error
 
@@ -178,7 +205,7 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f examples/*.pdf previews/*.png
+          git add -f examples/*.pdf examples/**/*.pdf previews/*.png
           if git diff --cached --quiet; then
             echo "Example PDFs and previews are already up to date."
           else
@@ -218,6 +245,7 @@ jobs:
 
           cp -r cau_presentation/* dist/packages/cau-presentation/
           cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md dist/packages/cau-presentation/
+          cp dist/artifacts/cau-presentation-main/main.pdf dist/packages/cau-presentation/main.pdf
           cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-presentation/examples/presentation-example.pdf
 
           cp -r cau_thesis dist/packages/cau-latex-templates/cau_thesis
@@ -227,6 +255,7 @@ jobs:
           cp dist/artifacts/cau-thesis-main/main.pdf dist/packages/cau-latex-templates/cau_thesis/main.pdf
           cp dist/artifacts/cau-thesis-example/thesis-example.pdf dist/packages/cau-latex-templates/cau_thesis/examples/thesis-example.pdf
           cp dist/artifacts/cau-thesis-doc/cau-thesis-doc.pdf dist/packages/cau-latex-templates/doc/cau-thesis-doc.pdf
+          cp dist/artifacts/cau-presentation-main/main.pdf dist/packages/cau-latex-templates/cau_presentation/main.pdf
           cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-latex-templates/cau_presentation/examples/presentation-example.pdf
 
           find dist/packages -type f \( -name "*.aux" -o -name "*.bbl" -o -name "*.bcf" -o -name "*.blg" -o -name "*.fdb_latexmk" -o -name "*.fls" -o -name "*.loa" -o -name "*.log" -o -name "*.out" -o -name "*.run.xml" -o -name "*.synctex.gz" -o -name "*.toc" \) -delete

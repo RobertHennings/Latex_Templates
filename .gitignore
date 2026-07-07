@@ -3,13 +3,11 @@
 # ---------------------------------------------------------------
 .DS_Store
 Thumbs.db
-
 # ---------------------------------------------------------------
 #                           EDITOR SETTINGS
 # ---------------------------------------------------------------
 .vscode/
 .idea/
-
 # ---------------------------------------------------------------
 #                           LATEX BUILD FILES
 # ---------------------------------------------------------------
@@ -33,7 +31,6 @@ Thumbs.db
 *.synctex.gz
 *.synctex
 *.synctex(busy)
-
 # ---------------------------------------------------------------
 #                           TEMPORARY OFFICE FILES
 # ---------------------------------------------------------------
@@ -42,7 +39,6 @@ Thumbs.db
 ~$*.pptx
 ~$*.docx
 ~$*.xlsx
-
 # ---------------------------------------------------------------
 #                           PYTHON CACHE / ENVIRONMENTS
 # ---------------------------------------------------------------
@@ -50,7 +46,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
-
 # ---------------------------------------------------------------
 #                           GENERATED OUTPUTS
 # ---------------------------------------------------------------
@@ -61,7 +56,6 @@ template_pdf/
 */template_pdf/
 template_word/
 */template_word/
-
 # ---------------------------------------------------------------
 #                           TRACKED PROJECT ASSETS
 # ---------------------------------------------------------------
@@ -72,26 +66,16 @@ template_word/
 !*.xlsx
 !*.otf
 !*.ttf
-
 # Required CAU thesis assets.
 !cau_thesis/figures/*.png
 !cau_thesis/logos/*.pdf
 !cau_thesis/logos/*.png
 !cau_thesis/tables/*.xlsx
-
 # Required CAU presentation assets.
 !cau_presentation/figures/*.png
 !cau_presentation/data/*.json
-
 # Generated documentation, example PDFs, and README preview screenshots.
 !doc/*.pdf
 !examples/*.pdf
 !previews/
 !previews/*.png
-
-# ---------------------------------------------------------------
-#                           LOCAL ONLY
-# ---------------------------------------------------------------
-streamlit_dashboard/
-
-# Do not track proprietary fonts or restricted assets unless licenses allow it.

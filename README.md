@@ -18,12 +18,12 @@ The buttons below open the release ZIP packages directly in Overleaf. The ZIP fi
 
 ## Example Previews
 
-Each preview image links to the corresponding generated PDF in `examples/`. The CI workflow creates all root-level `examples/*.pdf` files and stores first-page PNG screenshots in the top-level `previews/` folder.
+Each preview image links to the corresponding generated PDF in `examples/`. The CI workflow creates root-level `examples/*.pdf` files for these preview links, mirrors the PDFs into categorized `examples/` subfolders, and stores first-page PNG screenshots in the top-level `previews/` folder.
 
 | CAU Thesis | CAU Presentation |
 |---|---|
-| [<img src="previews/cau-thesis-main.png" alt="CAU thesis main preview" width="320">](examples/cau-thesis-main.pdf) | [<img src="previews/cau-presentation-example.png" alt="CAU presentation example preview" width="320">](examples/cau-presentation-example.pdf) |
-| [<img src="previews/cau-thesis-example.png" alt="CAU thesis minimal example preview" width="320">](examples/cau-thesis-example.pdf) | Compact Beamer example using `cau_presentation`. |
+| [<img src="previews/cau-thesis-main.png" alt="CAU thesis main preview" width="320">](examples/cau-thesis-main.pdf) | [<img src="previews/cau-presentation-main.png" alt="CAU presentation main preview" width="320">](examples/cau-presentation-main.pdf) |
+| [<img src="previews/cau-thesis-example.png" alt="CAU thesis minimal example preview" width="320">](examples/cau-thesis-example.pdf) | [<img src="previews/cau-presentation-example.png" alt="CAU presentation minimal example preview" width="320">](examples/cau-presentation-example.pdf) |
 
 | Title Page | Hard-Cover Title Page |
 |---|---|
