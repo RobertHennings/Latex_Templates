@@ -1,0 +1,359 @@
+name: LaTeX CI
+
+on:
+  push:
+    branches: [main, master, updated_formatting]
+    tags:
+      - "cau-thesis-v*"
+      - "cau-presentation-v*"
+      - "all-v*"
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Compile PDFs
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: cau-thesis-main
+            cwd: cau_thesis
+            tex: main.tex
+            pdf: cau_thesis/main.pdf
+
+          - name: cau-thesis-example
+            cwd: cau_thesis
+            tex: examples/thesis-example.tex
+            pdf: cau_thesis/examples/thesis-example.pdf
+
+          - name: cau-thesis-doc
+            cwd: doc
+            tex: cau-thesis-doc.tex
+            pdf: doc/cau-thesis-doc.pdf
+
+          - name: cau-presentation-example
+            cwd: cau_presentation
+            tex: examples/presentation-example.tex
+            pdf: cau_presentation/examples/presentation-example.pdf
+
+          - name: titlepage-sample
+            cwd: examples/cover_page_samples/latex_sources
+            tex: titlepage_sample.tex
+            pdf: examples/cover_page_samples/latex_sources/titlepage_sample.pdf
+
+          - name: hard-cover-titlepage-sample
+            cwd: examples/cover_page_samples/latex_sources
+            tex: hard_cover_titlepage_sample.tex
+            pdf: examples/cover_page_samples/latex_sources/hard_cover_titlepage_sample.pdf
+
+          - name: titlepage-alt-sample
+            cwd: examples/cover_page_samples/latex_sources
+            tex: titlepage_alt_sample.tex
+            pdf: examples/cover_page_samples/latex_sources/titlepage_alt_sample.pdf
+
+          - name: titlepage-alt-math-sample
+            cwd: examples/cover_page_samples/latex_sources
+            tex: titlepage_alt_math_sample.tex
+            pdf: examples/cover_page_samples/latex_sources/titlepage_alt_math_sample.pdf
+
+          - name: titlepage-submission-sample
+            cwd: examples/cover_page_samples/latex_sources
+            tex: titlepage_submission_sample.tex
+            pdf: examples/cover_page_samples/latex_sources/titlepage_submission_sample.pdf
+
+          - name: design-example-classic
+            cwd: examples/design_examples/latex_sources
+            tex: design_example_classic.tex
+            pdf: examples/design_examples/latex_sources/design_example_classic.pdf
+
+          - name: design-example-minimal
+            cwd: examples/design_examples/latex_sources
+            tex: design_example_minimal.tex
+            pdf: examples/design_examples/latex_sources/design_example_minimal.pdf
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify source exists
+        run: |
+          test -f "${{ matrix.cwd }}/${{ matrix.tex }}"
+          ls -la "${{ matrix.cwd }}"
+
+      - name: Compile ${{ matrix.cwd }}/${{ matrix.tex }}
+        working-directory: ${{ matrix.cwd }}
+        run: |
+          latexmk -r "$GITHUB_WORKSPACE/latexmkrc" -pdf "${{ matrix.tex }}"
+          if [ ! -f "$GITHUB_WORKSPACE/${{ matrix.pdf }}" ] && [ -f "$(basename "${{ matrix.pdf }}")" ]; then
+            mkdir -p "$GITHUB_WORKSPACE/$(dirname "${{ matrix.pdf }}")"
+            cp "$(basename "${{ matrix.pdf }}")" "$GITHUB_WORKSPACE/${{ matrix.pdf }}"
+          fi
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ matrix.pdf }}
+          if-no-files-found: error
+
+      - name: Commit documentation PDF
+        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/') && matrix.name == 'cau-thesis-doc'
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f doc/cau-thesis-doc.pdf
+          if git diff --cached --quiet; then
+            echo "Documentation PDF is already up to date."
+          else
+            git commit -m "DOC: update built thesis documentation PDF"
+            git pull --rebase --autostash
+            git push
+          fi
+
+  example-pdfs:
+    name: Build and Commit Example PDFs
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    needs: build
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install PDF preview tools
+        run: apt-get update && apt-get install -y poppler-utils
+
+      - name: Download compiled project PDFs
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/example-artifacts
+
+      - name: Prepare example PDFs and previews
+        run: |
+          mkdir -p examples previews
+          find examples -maxdepth 1 -name "*.pdf" -delete
+          find previews -maxdepth 1 -name "*.png" -delete
+
+          cp dist/example-artifacts/cau-thesis-main/main.pdf examples/cau-thesis-main.pdf
+          cp dist/example-artifacts/cau-thesis-example/thesis-example.pdf examples/cau-thesis-example.pdf
+          cp dist/example-artifacts/cau-thesis-doc/cau-thesis-doc.pdf examples/cau-thesis-doc.pdf
+          cp dist/example-artifacts/cau-presentation-example/presentation-example.pdf examples/cau-presentation-example.pdf
+          cp dist/example-artifacts/titlepage-sample/titlepage_sample.pdf examples/titlepage-sample.pdf
+          cp dist/example-artifacts/hard-cover-titlepage-sample/hard_cover_titlepage_sample.pdf examples/hard-cover-titlepage-sample.pdf
+          cp dist/example-artifacts/titlepage-alt-sample/titlepage_alt_sample.pdf examples/titlepage-alt-sample.pdf
+          cp dist/example-artifacts/titlepage-alt-math-sample/titlepage_alt_math_sample.pdf examples/titlepage-alt-math-sample.pdf
+          cp dist/example-artifacts/titlepage-submission-sample/titlepage_submission_sample.pdf examples/titlepage-submission-sample.pdf
+          cp dist/example-artifacts/design-example-classic/design_example_classic.pdf examples/design-example-classic.pdf
+          cp dist/example-artifacts/design-example-minimal/design_example_minimal.pdf examples/design-example-minimal.pdf
+
+          for pdf in examples/*.pdf; do
+            name="$(basename "$pdf" .pdf)"
+            pdftoppm -png -singlefile -f 1 -r 144 "$pdf" "previews/$name"
+          done
+
+      - name: Upload example PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-pdfs
+          path: |
+            examples/*.pdf
+            previews/*.png
+          if-no-files-found: error
+
+      - name: Commit example PDFs and previews
+        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f examples/*.pdf previews/*.png
+          if git diff --cached --quiet; then
+            echo "Example PDFs and previews are already up to date."
+          else
+            git commit -m "DOC: update built example PDFs and previews"
+            git pull --rebase --autostash
+            git push
+          fi
+
+  release-packages:
+    name: Build Release Packages
+    runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download compiled PDFs
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/artifacts
+
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install -y zip
+
+      - name: Prepare release directories
+        run: |
+          mkdir -p dist/releases dist/packages/cau-thesis dist/packages/cau-presentation dist/packages/cau-latex-templates
+
+          cp -r cau_thesis/* dist/packages/cau-thesis/
+          mkdir -p dist/packages/cau-thesis/doc
+          cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md dist/packages/cau-thesis/
+          cp dist/artifacts/cau-thesis-main/main.pdf dist/packages/cau-thesis/main.pdf
+          cp dist/artifacts/cau-thesis-example/thesis-example.pdf dist/packages/cau-thesis/examples/thesis-example.pdf
+          cp dist/artifacts/cau-thesis-doc/cau-thesis-doc.pdf dist/packages/cau-thesis/doc/cau-thesis-doc.pdf
+
+          cp -r cau_presentation/* dist/packages/cau-presentation/
+          cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md dist/packages/cau-presentation/
+          cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-presentation/examples/presentation-example.pdf
+
+          cp -r cau_thesis dist/packages/cau-latex-templates/cau_thesis
+          cp -r cau_presentation dist/packages/cau-latex-templates/cau_presentation
+          cp -r doc dist/packages/cau-latex-templates/doc
+          cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md latexmkrc dist/packages/cau-latex-templates/
+          cp dist/artifacts/cau-thesis-main/main.pdf dist/packages/cau-latex-templates/cau_thesis/main.pdf
+          cp dist/artifacts/cau-thesis-example/thesis-example.pdf dist/packages/cau-latex-templates/cau_thesis/examples/thesis-example.pdf
+          cp dist/artifacts/cau-thesis-doc/cau-thesis-doc.pdf dist/packages/cau-latex-templates/doc/cau-thesis-doc.pdf
+          cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-latex-templates/cau_presentation/examples/presentation-example.pdf
+
+          find dist/packages -type f \( -name "*.aux" -o -name "*.bbl" -o -name "*.bcf" -o -name "*.blg" -o -name "*.fdb_latexmk" -o -name "*.fls" -o -name "*.loa" -o -name "*.log" -o -name "*.out" -o -name "*.run.xml" -o -name "*.synctex.gz" -o -name "*.toc" \) -delete
+
+      - name: Create ZIP files
+        run: |
+          cd dist/packages
+          zip -r ../releases/cau-thesis.zip cau-thesis
+          zip -r ../releases/cau-presentation.zip cau-presentation
+          zip -r ../releases/cau-latex-templates.zip cau-latex-templates
+
+      - name: Upload release package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases/*.zip
+          if-no-files-found: error
+
+  deploy-overleaf-zips:
+    name: Deploy Overleaf ZIPs to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: release-packages
+    if: startsWith(github.ref_name, 'all-v')
+
+    steps:
+      - name: Download release packages
+        uses: actions/download-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases
+
+      - name: Prepare Pages site
+        run: |
+          mkdir -p public/downloads
+          cp dist/releases/*.zip public/downloads/
+          cat > public/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>CAU Kiel LaTeX Template ZIP Packages</title>
+          </head>
+          <body>
+            <h1>CAU Kiel LaTeX Template ZIP Packages</h1>
+            <ul>
+              <li><a href="downloads/cau-thesis.zip">cau-thesis.zip</a></li>
+              <li><a href="downloads/cau-presentation.zip">cau-presentation.zip</a></li>
+              <li><a href="downloads/cau-latex-templates.zip">cau-latex-templates.zip</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+          path: public
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
+  release-cau-thesis:
+    name: Release CAU Thesis
+    runs-on: ubuntu-latest
+    needs: release-packages
+    if: startsWith(github.ref_name, 'cau-thesis-v')
+
+    steps:
+      - name: Download release packages
+        uses: actions/download-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases
+
+      - name: Publish CAU Thesis release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CAU Thesis ${{ github.ref_name }}
+          files: dist/releases/cau-thesis.zip
+          generate_release_notes: true
+
+  release-cau-presentation:
+    name: Release CAU Presentation
+    runs-on: ubuntu-latest
+    needs: release-packages
+    if: startsWith(github.ref_name, 'cau-presentation-v')
+
+    steps:
+      - name: Download release packages
+        uses: actions/download-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases
+
+      - name: Publish CAU Presentation release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CAU Presentation ${{ github.ref_name }}
+          files: dist/releases/cau-presentation.zip
+          generate_release_notes: true
+
+  release-all:
+    name: Release CAU LaTeX Templates
+    runs-on: ubuntu-latest
+    needs: release-packages
+    if: startsWith(github.ref_name, 'all-v')
+
+    steps:
+      - name: Download release packages
+        uses: actions/download-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases
+
+      - name: Publish combined release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CAU LaTeX Templates ${{ github.ref_name }}
+          files: |
+            dist/releases/cau-latex-templates.zip
+            dist/releases/cau-thesis.zip
+            dist/releases/cau-presentation.zip
+          generate_release_notes: true
