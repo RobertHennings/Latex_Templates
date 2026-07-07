@@ -98,7 +98,8 @@ jobs:
       - name: Compile ${{ matrix.cwd }}/${{ matrix.tex }}
         working-directory: ${{ matrix.cwd }}
         run: |
-          latexmk -r "$GITHUB_WORKSPACE/latexmkrc" -pdf "${{ matrix.tex }}"
+          latexmk -r "$GITHUB_WORKSPACE/latexmkrc" -C "${{ matrix.tex }}"
+          latexmk -r "$GITHUB_WORKSPACE/latexmkrc" -xelatex "${{ matrix.tex }}"
           if [ ! -f "$GITHUB_WORKSPACE/${{ matrix.pdf }}" ] && [ -f "$(basename "${{ matrix.pdf }}")" ]; then
             mkdir -p "$GITHUB_WORKSPACE/$(dirname "${{ matrix.pdf }}")"
             cp "$(basename "${{ matrix.pdf }}")" "$GITHUB_WORKSPACE/${{ matrix.pdf }}"
@@ -291,7 +292,7 @@ jobs:
         run: |
           mkdir -p public/downloads
           cp dist/releases/*.zip public/downloads/
-          cat > public/index.html <<'EOF'
+          cat > public/index.html <<'HTML'
           <!doctype html>
           <html lang="en">
           <head>
@@ -307,7 +308,7 @@ jobs:
             </ul>
           </body>
           </html>
-          EOF
+          HTML
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
