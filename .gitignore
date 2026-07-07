@@ -74,6 +74,7 @@ template_word/
 # Required CAU presentation assets.
 !cau_presentation/figures/*.png
 !cau_presentation/data/*.json
+!cau_presentation/figures/*.pdf
 # Generated documentation, example PDFs, and README preview screenshots.
 !doc/*.pdf
 !examples/*.pdf
