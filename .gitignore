@@ -20,6 +20,7 @@ Thumbs.db
 *.fls
 *.lof
 *.lot
+*.loa
 *.fdb_latexmk
 *.nav
 *.snm
@@ -40,6 +41,7 @@ Thumbs.db
 ~$*
 ~$*.pptx
 ~$*.docx
+~$*.xlsx
 
 # ---------------------------------------------------------------
 #                           PYTHON CACHE / ENVIRONMENTS
@@ -67,22 +69,29 @@ template_word/
 !*.png
 !*.jpg
 !*.jpeg
+!*.xlsx
 !*.otf
 !*.ttf
 
-# Keep required PDF assets and generated documentation/examples
-!kielinstitute/common/logos/*.pdf
-!kielinstitute/common/covers/*.pdf
-!kielinstitute-doc/*.pdf
-!examples/latex_sources/*.pdf
+# Required CAU thesis assets.
+!cau_thesis/figures/*.png
+!cau_thesis/logos/*.pdf
+!cau_thesis/logos/*.png
+!cau_thesis/tables/*.xlsx
+
+# Required CAU presentation assets.
+!cau_presentation/figures/*.png
+!cau_presentation/data/*.json
+
+# Generated documentation, example PDFs, and README preview screenshots.
+!doc/*.pdf
 !examples/*.pdf
-!examples/previews/
-!examples/previews/*.png
+!previews/
+!previews/*.png
+
 # ---------------------------------------------------------------
 #                           LOCAL ONLY
 # ---------------------------------------------------------------
 streamlit_dashboard/
 
-# Do not track bundled proprietary fonts unless licenses allow it
-# kielinstitute/common/fonts/cambria/
-# kielinstitute/common/fonts/suisse/
+# Do not track proprietary fonts or restricted assets unless licenses allow it.
