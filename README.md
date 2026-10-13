@@ -2,7 +2,7 @@
 
 Version: 1.0 (2026-07-07)
 
-`cau-latex-templates` is a LaTeX template bundle for Christian-Albrechts-Universität zu Kiel (CAU) thesis and presentation formats. It provides a reusable thesis document class, a reusable Beamer presentation style, full working example projects, compact installable examples, documentation, and release ZIP packages for local use or Overleaf.
+`cau-latex-templates` is a LaTeX template bundle for Christian-Albrechts-Universität zu Kiel (CAU) thesis, executive-summary, and presentation formats. It provides reusable document classes and a Beamer presentation style, full working example projects, compact installable examples, documentation, and release ZIP packages for local use or Overleaf.
 
 The project is designed for students, researchers, and editors who want to start from a complete example, replace the metadata/content, and compile a polished CAU-style PDF with `latexmk`.
 
@@ -14,6 +14,7 @@ The buttons below open the release ZIP packages directly in Overleaf. The ZIP fi
 |---|---|---|
 | CAU Thesis | [![Open in Overleaf](https://img.shields.io/badge/Open%20in-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Froberthennings.github.io%2FLatex_Templates%2Fdownloads%2Fcau-thesis.zip&engine=xelatex&main_document=cau-thesis%2Fmain.tex) | [cau-thesis.zip](https://roberthennings.github.io/Latex_Templates/downloads/cau-thesis.zip) |
 | CAU Presentation | [![Open in Overleaf](https://img.shields.io/badge/Open%20in-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Froberthennings.github.io%2FLatex_Templates%2Fdownloads%2Fcau-presentation.zip&engine=xelatex&main_document=cau-presentation%2Fmain.tex) | [cau-presentation.zip](https://roberthennings.github.io/Latex_Templates/downloads/cau-presentation.zip) |
+| CAU Executive Summary | [![Open in Overleaf](https://img.shields.io/badge/Open%20in-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Froberthennings.github.io%2FLatex_Templates%2Fdownloads%2Fcau-exec-summary.zip&engine=xelatex&main_document=cau-exec-summary%2Fcau_exec_summary%2Fexecutive_summary.tex) | [cau-exec-summary.zip](https://roberthennings.github.io/Latex_Templates/downloads/cau-exec-summary.zip) |
 | All Templates | [![Open All in Overleaf](https://img.shields.io/badge/Open%20All%20in-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Froberthennings.github.io%2FLatex_Templates%2Fdownloads%2Fcau-latex-templates.zip&engine=xelatex&main_document=cau-latex-templates%2Fcau_thesis%2Fmain.tex) | [cau-latex-templates.zip](https://roberthennings.github.io/Latex_Templates/downloads/cau-latex-templates.zip) |
 
 ## Example Previews
@@ -41,20 +42,26 @@ Each preview image links to the corresponding generated PDF in `examples/`. The 
 |---|---|
 | [<img src="previews/design-example-classic.png" alt="CAU classic design example preview" width="320">](examples/design-example-classic.pdf) | [<img src="previews/design-example-minimal.png" alt="CAU minimal design example preview" width="320">](examples/design-example-minimal.pdf) |
 
+| CAU Executive Summary |
+|---|
+| [<img src="previews/cau-exec-summary.png" alt="CAU executive summary preview" width="320">](examples/cau-exec-summary.pdf) |
+
 ## What Is Included
 
-This repository ships two independent but related LaTeX templates:
+This repository ships three related LaTeX templates:
 
 - `cau_thesis/` contains the `cau_thesis` document class and a thesis project skeleton.
+- `cau_exec_summary/` contains the `cau_exec_summary` class and an executive-summary project.
 - `cau_presentation/` contains the `cau_presentation` Beamer style and a presentation project skeleton.
 
-Both projects are intentionally self-contained. Build each project from inside its own folder so relative paths for chapters, figures, logos, bibliography files, and title pages resolve predictably.
+The thesis and presentation projects are self-contained. The executive-summary class extends the thesis class and uses its logos and bibliography, so keep `cau_exec_summary/` beside `cau_thesis/` and build the summary from inside its project folder.
 
 ## What Is Included in Detail
 
 ### Publication Classes and Styles
 
 - `cau_thesis/cau_thesis.cls` — reusable CAU thesis class, loaded with `\documentclass{cau_thesis}`.
+- `cau_exec_summary/cau_exec_summary.cls` — reusable executive-summary class extending `cau_thesis`.
 - `cau_presentation/cau_presentation.sty` — reusable CAU Beamer style, loaded with `\usepackage{cau_presentation}`.
 
 ### Full Example Projects
@@ -62,9 +69,10 @@ Both projects are intentionally self-contained. Build each project from inside i
 These folders are the best starting point for editing a real document. They include template entry points, metadata examples, chapter/slide section files, bibliography files, figures, logos, title pages, and generated PDFs where available.
 
 - `cau_thesis/` — full CAU thesis example and thesis class package.
+- `cau_exec_summary/` — full executive-summary example and summary class package.
 - `cau_presentation/` — full CAU Beamer presentation example and presentation style package.
 
-The thesis folder uses `main.tex` as its full editable document. The presentation folder also uses `main.tex` and reads slide content from `chapters/`.
+The thesis and presentation folders use `main.tex` as their full editable documents. The executive-summary folder uses `executive_summary.tex`; its class loads `cau_thesis.cls` and references the adjacent thesis logos and bibliography.
 
 ### Compact Installable Examples
 
@@ -246,11 +254,22 @@ Useful figure/table helpers include:
 \caupresentationclickablefigure[<graphics options>]{<file>}{<caption>}{<url>}
 ```
 
+## Quick Start: Edit an Executive Summary
+
+Start with `cau_exec_summary/executive_summary.tex`. Keep the `cau_exec_summary/` and `cau_thesis/` folders together because the summary class loads the thesis class and uses its assets.
+
+```sh
+cd cau_exec_summary
+latexmk -xelatex executive_summary.tex
+```
+
+The preamble exposes `\headerboxcolor{<color>}`, `\headerlogoleft{<file>}`, `\headerlogoright{<file>}`, and `\headerlogorighttransparency{<0–1>}` to configure the header and logos. The transparency setting uses `1` for fully opaque and `0` for fully transparent.
+
 ## Full Example Folder Anatomy
 
 A typical full template folder contains:
 
-- `main.tex` — main editable document.
+- `main.tex` or `executive_summary.tex` — main editable document.
 - `chapters/` — modular thesis chapters or presentation slide sections.
 - `bibliography.bib` or `references.bib` — bibliography database.
 - `figures/`, `logos/`, `tables/`, or `data/` — source assets referenced by the template.
@@ -258,9 +277,11 @@ A typical full template folder contains:
 - `examples/` — compact smoke-test examples.
 - local `.cls` or `.sty` files — reusable template implementation.
 
-When writing a new thesis or presentation, copy the relevant full example folder and replace the metadata, content files, figures, bibliography, and body text.
+When writing a new thesis, executive summary, or presentation, copy the relevant full example folder and replace the metadata, content files, figures, bibliography, and body text. Keep the executive-summary folder beside `cau_thesis/` so its class and asset paths continue to resolve.
 
 ## Build Compact Examples
+
+The CI workflow also compiles the full executive-summary project from `cau_exec_summary/executive_summary.tex`; use the command in [Quick Start: Edit an Executive Summary](#quick-start-edit-an-executive-summary) to build it locally.
 
 Compile compact thesis and presentation examples from their project folders:
 
@@ -296,6 +317,7 @@ The templates use CAU/Kiel branding assets where available and otherwise rely on
 Current behavior:
 
 - Thesis graphics are searched through relative `figures/`, `logos/`, and `tables/` paths configured by `cau_thesis.cls`.
+- Executive-summary logos and bibliography are loaded from the adjacent `cau_thesis/` folder.
 - Presentation graphics are searched from the presentation folder and its configured figure/data paths.
 - Logos, example figures, spreadsheets, PDFs, and other non-source assets may have separate redistribution restrictions.
 - Before public redistribution or CTAN upload, review all non-source assets and exclude anything with unclear redistribution terms.
@@ -313,7 +335,7 @@ cp cau_presentation/cau_presentation.sty ~/texmf/tex/latex/cau-latex-templates/
 mktexlsr ~/texmf
 ```
 
-If you install only the reusable files, keep any required logos, figures, title pages, and bibliography files next to your document or update paths accordingly.
+For thesis and presentation projects, keep any required logos, figures, title pages, and bibliography files beside the sources or update their paths. The executive-summary class extends `cau_thesis` and uses relative paths to its adjacent class, logos, and bibliography; use the complete project or release bundle rather than installing that class file by itself.
 
 See `INSTALL.md` for additional installation notes.
 
@@ -337,7 +359,8 @@ The release packages are:
 
 - `cau-thesis.zip` — thesis folder plus shared documentation files and built PDFs.
 - `cau-presentation.zip` — presentation folder plus shared documentation files and built PDFs.
-- `cau-latex-templates.zip` — combined thesis and presentation bundle plus shared documentation files.
+- `cau-exec-summary.zip` — executive-summary project plus the thesis class, logos, and bibliography it depends on.
+- `cau-latex-templates.zip` — combined thesis, executive-summary, and presentation bundle plus shared documentation files.
 
 Before a public release, confirm redistribution rights for all included logos, images, spreadsheets, PDFs, and other non-source assets.
 
@@ -394,6 +417,10 @@ latexmk -xelatex main.tex
 - **Package name:** `cau-latex-templates`
 - **License:** Intended for LPPL 1.3c or later for reusable LaTeX source files; bundled third-party assets retain their own licenses.
 - **Maintainer:** Robert Hennings.
+
+## Open an issue
+
+[Directly Open an Issue here.](https://github.com/RobertHennings/Latex_Templates/issues)
 
 ## Authors
 

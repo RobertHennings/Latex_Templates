@@ -48,6 +48,37 @@
 \RequirePackage{import} % <- for importing files
 \RequirePackage{titlesec} % <- for customizing section titles
 \RequirePackage{footnote}
+\newcommand{\cau@compactlistspacing}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\itemsep}{-0.3em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+}
+% Apply the spacing after LaTeX initializes each list; an environment-start
+% hook would be overwritten by the standard itemize/enumerate setup.
+\apptocmd{\itemize}{\cau@compactlistspacing}{}{}
+\apptocmd{\enumerate}{\cau@compactlistspacing}{}{}
+%------------------------------------------------------------------------------------
+%                  CODE LISTING STYLE
+%------------------------------------------------------------------------------------
+\lstset{
+    basicstyle=\ttfamily\small,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    framerule=0.4pt,
+    rulecolor=\color{gray!40},
+    breaklines=true,
+    showstringspaces=false,
+    keepspaces=true,
+    columns=fullflexible,
+    aboveskip=1em,
+    belowskip=1em,
+    upquote=true
+}
 %------------------------------------------------------------------------------------
 %	                  ASSETS PATHS
 %------------------------------------------------------------------------------------
@@ -73,11 +104,11 @@
 \sloppy
 \frenchspacing
 \allowdisplaybreaks
+\hfuzz=\maxdimen
+\vfuzz=\maxdimen
 \hbadness=10000
 \vbadness=10000
-\hfuzz=120pt
-\AtBeginDocument{\hfuzz=200pt\vfuzz=700pt\hbadness=10000\vbadness=10000}
-\vfuzz=120pt
+\AtBeginDocument{\hfuzz=\maxdimen\vfuzz=\maxdimen\hbadness=10000\vbadness=10000\pagestyle{empty}}
 %----------------------------------------------------------------------------------------
 %	                  CUSTOM COLORS
 %----------------------------------------------------------------------------------------
@@ -90,13 +121,10 @@
 %------------------------------------------------------------------------------------
 % Working references from the beamer class project of the seminar
 \RequirePackage[backend=biber, style=alphabetic, hyperref=true]{biblatex}
-% Keep each printed bibliography subsection together so link annotations do not
-% leak into headers or footers at page breaks.
+% Let bibliography sections break across pages so long lists do not overflow.
 \let\regularprintbibliography\printbibliography
 \RenewDocumentCommand{\printbibliography}{O{}}{%
-    \par\noindent\begin{minipage}{\linewidth}%
-        \regularprintbibliography[#1]%
-    \end{minipage}\par%
+    \regularprintbibliography[#1]%
 }
 % Add a running number at the very left before the [label]: "1. [ABC12] ..."
 \newcounter{bibcount}
@@ -112,7 +140,9 @@
         \setlength{\itemindent}{0pt}%
         \setlength{\listparindent}{0pt}%
         \setlength{\itemsep}{\bibitemsep}%
-        \setlength{\parsep}{\bibparsep}}%
+        \setlength{\parsep}{\bibparsep}%
+        % Permit page breaks between entries, but never between lines of one entry.
+        \interlinepenalty=10000\relax}%
     \renewcommand*{\makelabel}[1]{\makebox[\labelwidth][l]{##1}}}
 {\endlist}
 {\item}
@@ -380,21 +410,22 @@
 \newenvironment{rcases}
 {\left.\begin{aligned}}
         {\end{aligned}\right\rbrace}
-% Boxed multi-line equation with equation numbering on the right
-\NewDocumentCommand{\boxedequationblock}{m m}{%
-    \begin{equation}
+% Content-sized box for equation environments placed inside this wrapper.
+\newenvironment{boxedequationblock}{%
+    \begingroup
+    \let\cau@originalequation\equation
+    \let\cau@originalendequation\endequation
+    \RenewDocumentEnvironment{equation}{+b}{%
+        \cau@originalequation
         \begingroup
-        \setlength{\fboxrule}{0.8pt}% border thickness
-        \setlength{\fboxsep}{3pt}% padding inside box
-        \fbox{%
-            $\displaystyle
-                \begin{aligned}
-                    #2
-                \end{aligned}$%
-        }
+        \setlength{\fboxrule}{0.8pt}%
+        \setlength{\fboxsep}{8pt}%
+        \boxed{##1}%
         \endgroup
-        \label{#1}
-    \end{equation}
+        \cau@originalendequation
+    }{}%
+}{%
+    \endgroup
 }
 % \renewcommand{\baselinestretch}{1.25}                % Zeilenabstand
 \renewcommand{\baselinestretch}{1.10}                % Zeilenabstand
@@ -434,6 +465,24 @@
     \end{tikzpicture}%
 }
 %------------------------------------------------------------------------------------
+%                  ABBREVIATIONS TABLE
+%------------------------------------------------------------------------------------
+\newenvironment{abbreviations_table}{%
+    \setlength{\LTleft}{0pt}%
+    \setlength{\LTright}{\fill}%
+    \setlength{\LTpre}{0pt}%
+    \setlength{\LTpost}{0pt}%
+    \begin{longtable}{@{}>{\bfseries}p{0.20\textwidth}p{0.72\textwidth}@{}}%
+}{%
+    \end{longtable}%
+}
+
+\newenvironment{symbols_table}{%
+    \begin{tabular}{@{}l l@{}}%
+}{%
+    \end{tabular}%
+}
+%------------------------------------------------------------------------------------
 %                  CAPTION-SAFE CITATION FOOTNOTES
 %------------------------------------------------------------------------------------
 \counterwithout{footnote}{chapter}
@@ -453,10 +502,14 @@
 \theoremstyle{definition}
 \newtheorem{assumption}{Assumption}
 \renewcommand*{\theassumption}{\Alph{assumption}}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}[chapter]
+\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{theorem}}
+\newtheorem{lemma}{Lemma}[chapter]
+\renewcommand{\thelemma}{\arabic{chapter}.\arabic{lemma}}
+\newtheorem{corollary}{Corollary}[chapter]
+\renewcommand{\thecorollary}{\arabic{chapter}.\arabic{corollary}}
+\newtheorem{proposition}{Proposition}[chapter]
+\renewcommand{\theproposition}{\arabic{chapter}.\arabic{proposition}}
 %------------------------------------------------------------------------------------
 %	                  DEFINITIONS
 %------------------------------------------------------------------------------------
@@ -473,6 +526,11 @@
 %     skipabove=8pt,
 %     skipbelow=8pt
 % ]{definition}
+%------------------------------------------------------------------------------------
+%	                  THEOREMS
+%------------------------------------------------------------------------------------
+% \newtheorem{theorem}{Theorem}[chapter]
+% \renewcommand{\thetheorem}{\arabic{chapter}.\arabic{theorem}}
 %------------------------------------------------------------------------------------
 %	                  CAPTION FORMATTING
 %------------------------------------------------------------------------------------
@@ -491,11 +549,38 @@
 %------------------------------------------------------------------------------------
 %	                  TABLE OF CONTENTS
 %------------------------------------------------------------------------------------
-\setcounter{secnumdepth}{3}
+\setcounter{secnumdepth}{4} % Number up to subsubsections
+\setcounter{tocdepth}{3}    % Include up to subsubsections in To
 \setlength{\cftbeforetoctitleskip}{-3em} % Move ToC header upwards
 \setlength{\cftbeforechapskip}{0.3em}
 \setlength{\cftbeforesecskip}{0.15em}
 \setlength{\cftbeforesubsecskip}{0.1em}
+% Use a physical hanging indent for wrapped subsubsection titles. The default
+% tocloft layout uses left-skip glue, which pdfTeX includes in continuation-line
+% hyperlink annotations and can therefore draw from the outer text margin.
+\renewcommand*{\l@subsubsection}[2]{%
+    \ifnum\c@tocdepth>\tw@
+        \vskip\cftbeforesubsubsecskip
+        {%
+            \rightskip\@tocrmarg
+            \parfillskip-\rightskip
+            \parindent\z@
+            \interlinepenalty\@M
+            \parshape 2
+                \cftsubsubsecindent
+                \dimexpr\linewidth-\cftsubsubsecindent\relax
+                \dimexpr\cftsubsubsecindent+\cftsubsubsecnumwidth\relax
+                \dimexpr\linewidth-\cftsubsubsecindent-\cftsubsubsecnumwidth\relax
+            \leavevmode
+            \@tempdima\cftsubsubsecnumwidth
+            \let\@cftbsnum\cftsubsubsecpresnum
+            \let\@cftasnum\cftsubsubsecaftersnum
+            \let\@cftasnumb\cftsubsubsecaftersnumb
+            {\cftsubsubsecfont #1}\nobreak
+            \cftsubsubsecfillnum{#2}%
+        }%
+    \fi
+}
 %------------------------------------------------------------------------------------
 %	                  KEYWORDS ENVIRONMENT
 %------------------------------------------------------------------------------------
@@ -535,6 +620,10 @@
 \renewcommand{\@cftmakeloftitle}{}
 \renewcommand{\@cftmakelottitle}{}
 \@ifundefined{listalgorithmname}{}{\renewcommand{\listalgorithmname}{}}
+\renewcommand{\cftlofprehook}{\begingroup\let\addvspace\@gobble}
+\renewcommand{\cftlofposthook}{\endgroup}
+\renewcommand{\cftlotprehook}{\begingroup\let\addvspace\@gobble}
+\renewcommand{\cftlotposthook}{\endgroup}
 \makeatother
 
 % \makeatletter
@@ -550,23 +639,14 @@
 % }
 % \makeatother
 
-% Inject the format override directly into the Algorithm file stream (.loa)
-\makeatletter
-\addtocontents{loa}{%
-    \protect\renewcommand\protect\l@algorithm{\protect\@dottedtocline{1}{0em}{3.2em}}%
-}
-\makeatother
-
 % 3. Your custom clean-header list layout
 \makeatletter
 \newcommand{\listofalgorithmshere}{%
     \begingroup
-    \let\clearpage\relax
-    \let\cleardoublepage\relax
-    \let\float@listhead\@gobble
-    \renewcommand{\listalgorithmname}{}%
+    \setlength{\parskip}{\z@}%
+    \let\addvspace\@gobble
     \vspace*{0.3cm}
-    \listofalgorithms
+    \@starttoc{loa}%
     \endgroup
 }
 \makeatother
@@ -577,6 +657,79 @@
 % Set the indentation for figure and table entries in the List of Figures and List of Tables
 \cftsetindents{fig}{0em}{3.2em} % Adjust the second value to set the distance between the figure number and the caption text
 \cftsetindents{tab}{0em}{3.2em} % Adjust the second value to set the distance between the table number and the caption text
+\setlength{\cftbeforefigskip}{0.15em}
+\setlength{\cftbeforetabskip}{0.15em}
+% Use a physical hanging indent for wrapped List of Figures captions so
+% continuation-line hyperlink annotations begin beneath the caption text.
+\makeatletter
+\renewcommand*{\l@figure}[2]{%
+    \ifnum\c@lofdepth>\z@
+        \vskip\cftbeforefigskip
+        {%
+            \rightskip\@tocrmarg
+            \parfillskip-\rightskip
+            \parindent\z@
+            \interlinepenalty\@M
+            \parshape 2
+                \cftfigindent
+                \dimexpr\linewidth-\cftfigindent\relax
+                \dimexpr\cftfigindent+\cftfignumwidth\relax
+                \dimexpr\linewidth-\cftfigindent-\cftfignumwidth\relax
+            \leavevmode
+            \@tempdima\cftfignumwidth
+            \let\@cftbsnum\cftfigpresnum
+            \let\@cftasnum\cftfigaftersnum
+            \let\@cftasnumb\cftfigaftersnumb
+            {\cftfigfont #1}\nobreak
+            \cftfigfillnum{#2}%
+        }%
+    \fi
+}
+\renewcommand*{\l@table}[2]{%
+    \ifnum\c@lotdepth>\z@
+        \vskip\cftbeforetabskip
+        {%
+            \rightskip\@tocrmarg
+            \parfillskip-\rightskip
+            \parindent\z@
+            \interlinepenalty\@M
+            \parshape 2
+                \cfttabindent
+                \dimexpr\linewidth-\cfttabindent\relax
+                \dimexpr\cfttabindent+\cfttabnumwidth\relax
+                \dimexpr\linewidth-\cfttabindent-\cfttabnumwidth\relax
+            \leavevmode
+            \@tempdima\cfttabnumwidth
+            \let\@cftbsnum\cfttabpresnum
+            \let\@cftasnum\cfttabaftersnum
+            \let\@cftasnumb\cfttabaftersnumb
+            {\cfttabfont #1}\nobreak
+            \cfttabfillnum{#2}%
+        }%
+    \fi
+}
+\newcommand*{\l@algorithm}[2]{%
+    \vskip\cftbeforefigskip
+    {%
+        \rightskip\@tocrmarg
+        \parfillskip-\rightskip
+        \parindent\z@
+        \interlinepenalty\@M
+        \parshape 2
+            \cftfigindent
+            \dimexpr\linewidth-\cftfigindent\relax
+            \dimexpr\cftfigindent+\cftfignumwidth\relax
+            \dimexpr\linewidth-\cftfigindent-\cftfignumwidth\relax
+        \leavevmode
+        \@tempdima\cftfignumwidth
+        \let\@cftbsnum\@empty
+        \let\@cftasnum\@empty
+        \let\@cftasnumb\@empty
+        {\cftfigfont #1}\nobreak
+        \cftfigfillnum{#2}%
+    }%
+}
+\makeatother
 %------------------------------------------------------------------------------------
 %	                  FOOTNOTE FORMATTING
 %------------------------------------------------------------------------------------

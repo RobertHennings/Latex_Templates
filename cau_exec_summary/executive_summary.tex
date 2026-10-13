@@ -1,0 +1,107 @@
+%------------------------------------------------------------------------------------
+%	                   DOCUMENT CONFIGURATIONS
+%------------------------------------------------------------------------------------
+\documentclass[11pt,a4paper]{cau_exec_summary}
+%------------------------------------------------------------------------------------
+%	                  CLASS SETTINGS
+%------------------------------------------------------------------------------------
+\linkboxcolor{CAU_MAIN}
+\showlinkboxes{true}
+\headerboxcolor{CAU_MAIN}
+% ---------------------------------------------------------------
+%                     COVER PAGE SETTINGS
+% ---------------------------------------------------------------
+\headerlogoleft{cau_logo.png}
+\headerlogoright{siegel.pdf}
+\headerlogorighttransparency{0.8}
+\typedocument{Executive Summary of the Thesis}
+\title{Optimal Market Making in Intraday Electricity Markets via Hawkes Process Modeling}
+\thesisauthor{Robert Hennings}
+\programme{M.Sc. in Quantitative Finance}
+\firstsupervisorname{}
+\thesisterm{Winter term 2026/2027}
+%------------------------------------------------------------------------------------
+%	                  REFERENCES
+%------------------------------------------------------------------------------------
+\addbibresource{../cau_thesis/bibliography.bib}
+%------------------------------------------------------------------------------------
+%	                  DOCUMENT START
+%------------------------------------------------------------------------------------
+\begin{document}
+%------------------------------------------------------------------------------------
+%	                  SHORT OVERVIEW AND INFO
+%------------------------------------------------------------------------------------
+\executivesummaryfrontmatter
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\section{Research Focus and Context}
+Modern day spot-electricity markets are organised around the central concept of the from the financial world inherited Limit Order Book (LOB). With the underlying M7 system of the Deutsche Börse, the EPEX SPOT operates the main european short term exchange for electricity products. Alongside the Day-Ahead Market, the Continuous Intraday Market is opearted with contract deliveries that range from hourly products (24 hours tradable) over 30-Min products (48 products) down to the scale of 15-Minute contracts (96 products) for the next upcoming day. To facilitate and guarantee a smooth continuous trading process at all times, Market Makers stand ready to provide liquidity in these LOBs. By posting Limit Orders (LO) on both sides, the bid- and the ask side and advancing the queue positions, the MM earns the resulting bid-ask spread as compensation, so that other market participants receive the opposite side of their submitted Market orders, what consumes liquidity from the book. During this posting process the MM is faced by various risks that have to be balanced throughout the trading session.
+
+For balancing these risks the MM needs to decide how far to post his LOs into the book, relative to the current best bid/-ask level. Either posting closer to the currrent best bid/-ask level and getting executed more frequently but at the cost of a lower realised bid-ask spread as compensation or posting further away, earning a higher spread less frequent. So the ultimate goal is to find the optimal posting strategy, consisting out of dynamically readjusting the best-quote offset distances for the submitted LOs on both sides (under imposed constraints). This should be the main research focus of the master thesis project, with an empirical application to L3 Market-by-Order data for hourly produts of the German bidding zone. The model based foundation is laid out by the works in \cite{luckner2021hawkes}.
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\section{A brief overview of LOB models}
+According to the current strand of the LOB and market microstructure research, two main categories of LOB models can be distinguished. 
+
+
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\section{Modeling Approach and central concepts}
+Since the ultimate goal of the MM is to optimize for (risk adjusted) reward or Profit and Loss (P\&L), the two main affecting building blocks that impact the dynamics of the shape of the LOB and are in close interplay are:
+\begin{itemize}
+    \item the general Order flow component, in combination with
+    \item the MM's actions/reactions/strategy/rulebook.
+\end{itemize}
+A bridging role is played by the concept of the fill probability, acting as execution proxy for the submitted LOs, linking the order flow and the expected profit of the MM's P\&L.
+Throughout the thesis, these three central aspects will be defined and properly related to each other.
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\subsection{Modeling Order Flow}
+From the general order flow (i.e. order type events) hitting the LOB, six event types can be broadly defined. These are the following ones:
+\begin{enumerate}
+    \item Submission of a Buy Market Order (liquidity consuming)
+    \item Submission of a Sell Market Order (liquidity consuming)
+    \item Submission of a Buy LO (liquidity providing)
+    \item Submission of a Sell LO (liquidity providing)
+    \item Cancellation of a Buy LO (liquidity consuming)
+    \item Cancellation of a Sell LO (liquidity providing),
+\end{enumerate}
+where these types can be further classified into aggressive event types (those affecting the mid-price) or non-aggressive ones (not affecting the mid-price), yielding a total of 6x2 = 12 order event types. The MM, is primarily concerned with the six \emph{aggressive} order event types. Therefore the minimal or starting setup 
+consists out of modeling the two Market Order (MO) event types, can be extended to the six-variate case and all encompassing to the full 12-variate case, at least from a theoretical standpoint. From already explored modeling frameworks concentrated on 
+using point processes for representing order flow, the multivariate Hawkes process provides the central modeling framework. Being able to empirically capture key characteristsics of order flow like clustering and memory behaviors, this class of stochastic processes offers great flexibility. Their representation of the conditional event intensities ($\lambda_{i}$) allows for a deconstruction into the component of the baseline intensity ($\mu_{i}$), accounting for exogeneous events independent of the past history, and the component of the excitation kernel matrix ($\phi_{i}$) integrating past event occurrences. This latter part determines how strong past events influence future events and therefore controlling the strength of endogeneous feedback mechanisms. The excitation kernel matrix further quantifies how the different considered event types influence themselves (event self-excitation) but also the others as well (event cross-excitation) through a chosen excitation kernel function type. Here some main modeling design questions arise due to the great flexibility of the framework, that have to be answered:
+\begin{itemize}
+    \item Overall dimensionality d: Choosing a Bivariate or a multivariate setting and what dependencies should be included?
+    \item The baseline intensity $\mu_{i}$: How should the baseline intensity be chosen? As a (time-dependent) scalar of a more comlex functional relation?
+    \item The excitation kernel function type $\phi_{i}$: What functional type can and should be chosen?
+\end{itemize}
+
+
+Their conditional event intensities evolve with past order-flow events, allowing the model to represent self-excitation and interactions between event types. Applied to intraday electricity trading, this framework can describe how the observed order flow changes the near-term likelihood of executions \parencite{deschatre2022electricity,favetto2019european}.
+
+The market-making problem links these estimated arrival dynamics to quote placement. A quote that is more attractive to counterparties may increase the probability of execution, while a quote that is too aggressive can accumulate inventory and expose the strategy to subsequent price movements. The decision problem therefore considers execution opportunities together with the evolving inventory position and the remaining time until delivery or the end of the trading horizon \parencite{von2017optimal,korhonen2025market}.
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\section{Evaluation and Contribution}
+The research connects event-based modeling of order flow with the practical problem of choosing market-making quotes. The empirical and computational evaluation is intended to examine whether Hawkes-based intensity estimates capture relevant arrival patterns and whether incorporating those dynamics can improve the assessment of quoting decisions relative to simpler arrival assumptions.
+
+The contribution is twofold: first, it frames intraday electricity order flow as a potentially clustered, state-dependent process; second, it uses that representation as an input to an inventory-aware market-making problem. This provides a structured way to investigate how short-term trading activity, fill likelihood, and inventory risk interact in a market where positions must be managed close to physical delivery.
+%------------------------------------------------------------------------------------
+%	                  SECTION
+%------------------------------------------------------------------------------------
+\section{Scope and Outlook}
+
+%------------------------------------------------------------------------------------
+%	                  REFERENCES
+%------------------------------------------------------------------------------------
+\section{References}
+\printbibliography[heading=none]
+\end{multicols}
+%------------------------------------------------------------------------------------
+%	                  DOCUMENT END
+%------------------------------------------------------------------------------------
+\end{document}

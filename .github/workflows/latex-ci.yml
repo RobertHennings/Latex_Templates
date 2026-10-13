@@ -6,6 +6,7 @@ on:
     tags:
       - "cau-thesis-v*"
       - "cau-presentation-v*"
+      - "cau-exec-summary-v*"
       - "all-v*"
   pull_request:
     branches: [main, master]
@@ -50,6 +51,11 @@ jobs:
             cwd: cau_presentation
             tex: examples/presentation-example.tex
             pdf: cau_presentation/examples/presentation-example.pdf
+
+          - name: cau-exec-summary
+            cwd: cau_exec_summary
+            tex: executive_summary.tex
+            pdf: cau_exec_summary/executive_summary.pdf
 
           - name: titlepage-sample
             cwd: examples/cover_page_samples/latex_sources
@@ -149,11 +155,12 @@ jobs:
       - name: Prepare example PDFs and previews
         run: |
           mkdir -p examples previews
-          mkdir -p examples/thesis examples/presentation examples/documentation
+          mkdir -p examples/thesis examples/presentation examples/executive-summary examples/documentation
           mkdir -p examples/cover_page_samples examples/design_examples
           find examples -maxdepth 1 -name "*.pdf" -delete
           find examples/thesis -maxdepth 1 -name "*.pdf" -delete
           find examples/presentation -maxdepth 1 -name "*.pdf" -delete
+          find examples/executive-summary -maxdepth 1 -name "*.pdf" -delete
           find examples/documentation -maxdepth 1 -name "*.pdf" -delete
           find examples/cover_page_samples -maxdepth 1 -name "*.pdf" -delete
           find examples/design_examples -maxdepth 1 -name "*.pdf" -delete
@@ -164,6 +171,7 @@ jobs:
           cp dist/example-artifacts/cau-thesis-doc/cau-thesis-doc.pdf examples/cau-thesis-doc.pdf
           cp dist/example-artifacts/cau-presentation-main/main.pdf examples/cau-presentation-main.pdf
           cp dist/example-artifacts/cau-presentation-example/presentation-example.pdf examples/cau-presentation-example.pdf
+          cp dist/example-artifacts/cau-exec-summary/executive_summary.pdf examples/cau-exec-summary.pdf
           cp dist/example-artifacts/titlepage-sample/titlepage_sample.pdf examples/titlepage-sample.pdf
           cp dist/example-artifacts/hard-cover-titlepage-sample/hard_cover_titlepage_sample.pdf examples/hard-cover-titlepage-sample.pdf
           cp dist/example-artifacts/titlepage-alt-sample/titlepage_alt_sample.pdf examples/titlepage-alt-sample.pdf
@@ -177,6 +185,7 @@ jobs:
           cp examples/cau-thesis-doc.pdf examples/documentation/cau-thesis-doc.pdf
           cp examples/cau-presentation-main.pdf examples/presentation/cau-presentation-main.pdf
           cp examples/cau-presentation-example.pdf examples/presentation/cau-presentation-example.pdf
+          cp examples/cau-exec-summary.pdf examples/executive-summary/cau-exec-summary.pdf
           cp examples/titlepage-sample.pdf examples/cover_page_samples/titlepage-sample.pdf
           cp examples/hard-cover-titlepage-sample.pdf examples/cover_page_samples/hard-cover-titlepage-sample.pdf
           cp examples/titlepage-alt-sample.pdf examples/cover_page_samples/titlepage-alt-sample.pdf
@@ -235,7 +244,9 @@ jobs:
 
       - name: Prepare release directories
         run: |
-          mkdir -p dist/releases dist/packages/cau-thesis dist/packages/cau-presentation dist/packages/cau-latex-templates
+          mkdir -p dist/releases dist/packages/cau-thesis dist/packages/cau-presentation
+          mkdir -p dist/packages/cau-exec-summary/cau_exec_summary dist/packages/cau-exec-summary/cau_thesis
+          mkdir -p dist/packages/cau-latex-templates
 
           cp -r cau_thesis/* dist/packages/cau-thesis/
           mkdir -p dist/packages/cau-thesis/doc
@@ -249,7 +260,14 @@ jobs:
           cp dist/artifacts/cau-presentation-main/main.pdf dist/packages/cau-presentation/main.pdf
           cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-presentation/examples/presentation-example.pdf
 
+          cp -r cau_exec_summary/* dist/packages/cau-exec-summary/cau_exec_summary/
+          cp cau_thesis/cau_thesis.cls cau_thesis/bibliography.bib dist/packages/cau-exec-summary/cau_thesis/
+          cp -r cau_thesis/logos dist/packages/cau-exec-summary/cau_thesis/
+          cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md dist/packages/cau-exec-summary/
+          cp dist/artifacts/cau-exec-summary/executive_summary.pdf dist/packages/cau-exec-summary/cau_exec_summary/executive_summary.pdf
+
           cp -r cau_thesis dist/packages/cau-latex-templates/cau_thesis
+          cp -r cau_exec_summary dist/packages/cau-latex-templates/cau_exec_summary
           cp -r cau_presentation dist/packages/cau-latex-templates/cau_presentation
           cp -r doc dist/packages/cau-latex-templates/doc
           cp README.md INSTALL.md CHANGELOG.md CONTRIBUTING.md PACKAGING.md latexmkrc dist/packages/cau-latex-templates/
@@ -258,6 +276,7 @@ jobs:
           cp dist/artifacts/cau-thesis-doc/cau-thesis-doc.pdf dist/packages/cau-latex-templates/doc/cau-thesis-doc.pdf
           cp dist/artifacts/cau-presentation-main/main.pdf dist/packages/cau-latex-templates/cau_presentation/main.pdf
           cp dist/artifacts/cau-presentation-example/presentation-example.pdf dist/packages/cau-latex-templates/cau_presentation/examples/presentation-example.pdf
+          cp dist/artifacts/cau-exec-summary/executive_summary.pdf dist/packages/cau-latex-templates/cau_exec_summary/executive_summary.pdf
 
           find dist/packages -type f \( -name "*.aux" -o -name "*.bbl" -o -name "*.bcf" -o -name "*.blg" -o -name "*.fdb_latexmk" -o -name "*.fls" -o -name "*.loa" -o -name "*.log" -o -name "*.out" -o -name "*.run.xml" -o -name "*.synctex.gz" -o -name "*.toc" \) -delete
 
@@ -266,6 +285,7 @@ jobs:
           cd dist/packages
           zip -r ../releases/cau-thesis.zip cau-thesis
           zip -r ../releases/cau-presentation.zip cau-presentation
+          zip -r ../releases/cau-exec-summary.zip cau-exec-summary
           zip -r ../releases/cau-latex-templates.zip cau-latex-templates
 
       - name: Upload release package artifacts
@@ -304,6 +324,7 @@ jobs:
             <ul>
               <li><a href="downloads/cau-thesis.zip">cau-thesis.zip</a></li>
               <li><a href="downloads/cau-presentation.zip">cau-presentation.zip</a></li>
+              <li><a href="downloads/cau-exec-summary.zip">cau-exec-summary.zip</a></li>
               <li><a href="downloads/cau-latex-templates.zip">cau-latex-templates.zip</a></li>
             </ul>
           </body>
@@ -365,6 +386,26 @@ jobs:
           files: dist/releases/cau-presentation.zip
           generate_release_notes: true
 
+  release-cau-exec-summary:
+    name: Release CAU Executive Summary
+    runs-on: ubuntu-latest
+    needs: release-packages
+    if: startsWith(github.ref_name, 'cau-exec-summary-v')
+
+    steps:
+      - name: Download release packages
+        uses: actions/download-artifact@v4
+        with:
+          name: release-packages
+          path: dist/releases
+
+      - name: Publish CAU Executive Summary release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CAU Executive Summary ${{ github.ref_name }}
+          files: dist/releases/cau-exec-summary.zip
+          generate_release_notes: true
+
   release-all:
     name: Release CAU LaTeX Templates
     runs-on: ubuntu-latest
@@ -386,4 +427,5 @@ jobs:
             dist/releases/cau-latex-templates.zip
             dist/releases/cau-thesis.zip
             dist/releases/cau-presentation.zip
+            dist/releases/cau-exec-summary.zip
           generate_release_notes: true

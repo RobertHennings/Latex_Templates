@@ -45,11 +45,6 @@
 %	                  DOCUMENT START
 %------------------------------------------------------------------------------------
 \begin{document}
-\hfuzz=\maxdimen
-\vfuzz=\maxdimen
-\hbadness=10000
-\vbadness=10000
-\pagestyle{empty}
 %------------------------------------------------------------------------------------
 %	                  HARD COVER TITLE PAGE
 %------------------------------------------------------------------------------------
@@ -97,48 +92,36 @@ May the volume be with him.
 \chapter*{List of Abbreviations} % by using * we are not showing this chapter in the table of contents
 \markboth{~}{} % Clear header for the table of contents
 \addcontentsline{toc}{chapter}{List of Abbreviations}
-\vfill
-\begin{tabular}{@{}l l@{}}
-    % Order Book and Trading Mechanics related abbreviations
-    \textbf{LOB}       & Limit Order Book                                  \\
-    \textbf{LO}        & Limit Order                                       \\
-    \textbf{MO}        & Market Order                                      \\
-    \textbf{OI}        & Open Interest                                     \\
-    \textbf{API}       & Application Programming Interface                 \\
-    \textbf{MM}        & Market Maker                                      \\
-    \textbf{NHPP}      & Non-Homogeneous Poisson Process                   \\
-    % Stats related abbreviations
-    \textbf{ACF}       & Autocorrelation Function                          \\
-    \textbf{PACF}      & Partial Autocorrelation Function                  \\
-    \textbf{PDF}       & Probability Density Function                      \\
-    \textbf{CDF}       & Cumulative Probability Density Function           \\
-    \textbf{ECDF}      & Empirical Cumulative Probability Density Function \\
-    \textbf{QQ}        & Quantile-Quantile                                 \\
-    \textbf{MLE}       & Maximum Likelihood Estimation                     \\
-    % Power Markets related abbreviations
-    \textbf{RES}       & Renewable Energy Sources                          \\
-    \textbf{EPEX SPOT} & European Power Exchange Spot Market               \\
-    \textbf{EEX}       & European Energy Exchange                          \\
-    \textbf{CID}       & Continuous Intraday                               \\
-    \textbf{IDA}       & Intraday Auction                                  \\
-    \textbf{EEG}       & Erneuerbare Energien Gesetz                       \\
-    % Machine Learning related abbreviations
-    \textbf{AI}        & Artificial Intelligence                           \\
-    \textbf{RL}        & Reinforcement Learning                            \\
-    \textbf{DRL}       & Deep Reinforcement Learning                       \\
-    \textbf{DQN}       & Deep Q-Network                                    \\
-    \textbf{DDPG}      & Deep Deterministic Policy Gradient                \\
-    \textbf{PPO}       & Proximal Policy Optimization                      \\
-    \textbf{A2C}       & Advantage Actor-Critic                            \\
-    \textbf{A3C}       & Asynchronous Advantage Actor-Critic               \\
-    \textbf{TD3}       & Twin Delayed Deep Deterministic Policy Gradient   \\
-    \textbf{SAC}       & Soft Actor-Critic                                 \\
-    \textbf{RNN}       & Recurrent Neural Network                          \\
-    \textbf{LSTM}      & Long Short-Term Memory                            \\
-    \textbf{GRU}       & Gated Recurrent Unit                              \\
-    \textbf{CNN}       & Convolutional Neural Network                      \\
-\end{tabular}
-\vfill
+\begin{abbreviations_table}
+    % Must be ordered alphabetically
+    RES & Renewable Energy Sources \\ CID & Continuous Intraday\\ IDM &
+    Intraday Market\\ ICE & Intercontinental Exchange\\ EEX & European
+    Energy Exchange\\ EPEX SPOT & European Power Exchange Spot Market\\
+    IDA & Intraday Auction\\ LOB & Limit Order Book\\ API & Application
+    Programming Interface\\ MO & Market Order\\ LO & Limit Order\\ CA &
+    Cancellations\\ HJB & Hamilton-Jacobi-Bellman Equation\\ DRL & Deep
+    Reinforcement Learning\\ MLE & Maximum Likelihood Estimation\\ DA &
+    Day-Ahead Market\\ GWh & Gigawatt Hour\\ CET & Central European
+    Time\\ TSO & Transmission System Operator\\ SDAC & Single Day-Ahead
+    Coupling\\ NEMO & Nominated Electricity Market Operator\\ PPA & Power
+    Purchase Agreement\\ MTU & Market Time Unit\\ SIDC & Single Intraday
+    Coupling\\ SOB & Shared Orderbook\\ MWh & Megawatt Hour\\ FOK & Fill
+    or Kill\\ IOC & Immediate or Cancel\\ AON & All or None\\ MM & Market
+    Maker\\ ZI & Zero Intelligence\\ DMM & Designated Market Maker\\
+    i.i.d & independent and identically distributed\\ HPP & Homogeneous
+    Poisson Process\\ NHPP & Non-Homogeneous Poisson Process\\ MHP &
+    Marked Hawkes Process\\ SDHP & State Dependent Hawkes Process \\
+    SDMHP & State Dependent Marked Hawkes Process \\ NHP & Neural Hawkes
+    Process \\ KKT & Karush-Kuhn-Tucker\\ LSTM & Long Short-Term Memory\\
+    L\{X\} & (Price) Level X of the LOB\\ DPP & Dynamic Programming
+    Principle\\ PDE & Partial Differential Equation\\ ACF &
+    Autocorrelation Function \\ PACF & Partial Autocorrelation Function
+    \\ PDF & Probability Density Function \\ CDF & Cumulative Probability
+    Density Function \\ ECDF & Empirical Cumulative Probability Density
+    Function \\ QQ & Quantile-Quantile \\ MLE & Maximum Likelihood
+    Estimation \\ EEG & Erneuerbare Energien Gesetz \\ EUPHEMIA &
+    Pan-European Hybrid Electricity Market Integration Algorithm \\
+\end{abbreviations_table}
 %------------------------------------------------------------------------------------
 %	                  LIST OF SYMBOLS
 %------------------------------------------------------------------------------------
@@ -146,10 +129,11 @@ May the volume be with him.
 \markboth{~}{} % Clear header for the table of contents
 \addcontentsline{toc}{chapter}{List of Symbols}
 \vfill
-\begin{tabular}{@{}l l@{}}
+\begin{symbols_table}
     % Order Book and Trading Mechanics related abbreviations
     \textit{t}    & discrete time index t                \\
     \textit{T}    & discrete terminal time index T       \\
+    $\lambda(t)$  & Hawkes Process intensity             \\
     $\delta$      & order book depth                     \\
     $\Delta p$    & tick size                            \\
     $P(\delta)$   & fill-probability of order book depth \\
@@ -162,7 +146,7 @@ May the volume be with him.
     \textit{S}    & Midprice                             \\
     \textit{X}    & Cash-Process                         \\
     \textit{W}    & Brownian Motion                      \\
-\end{tabular}
+\end{symbols_table}
 \vfill
 %------------------------------------------------------------------------------------
 %	                  LIST OF FIGURES
@@ -194,17 +178,19 @@ May the volume be with him.
 \input{chapters/01-introduction}
 The ever increasing power generation attributed to renewable energy sources (RES),
 predominantly in Germany within Europe, with a current share of 57,2 \% of produced
-gross-electricity by RES (2025)\footnote{See Data from \cite{ageb_bruttostromerzeugung_2026}, last accessed: 2026-05-13 19:08.}, highlights the rapid decarbonization of the energy sector.
+gross-electricity by RES (2025)\footnote{See Data from \cite{ageb_bruttostromerzeugung_2026}, last accessed: 2026-05-13 19:08.},
+highlights the rapid decarbonization of the energy sector.\footnote{\cite[See ][, p.2]{eurelectric2026shortterm}}
 By regulatory design, RES have a feed-in priority\footnote{See \cite{eu_red_2018} for the relevant EU directive and \cite{ec_recommendation_supportschemes_2024} for the support scheme recommendation, as well as the national EEG \cite{eeg_2023_feed_in}.}, meaning that they are guaranteed to be
 integrated into the electricity grid and are given priority over other sources of electricity
 generation, thereby directly impacting the price formation process.
 
-As the RES production is heavily weather dependent, this uncertainty
-is transferred into the (european) electricity markets, resulting in
+As the RES production, as just one of many influencial external
+variables, is itself heavily weather dependent, this uncertainty is
+transferred into the (european) electricity markets, resulting in
 increased price volatility and a growing demand for balancing the
 short term imbalances as well as forecasting errors in the continuous
 intraday markets (CID), where the financial trading of these
-positions can be carried out.
+positions is carried out.
 %------------------------------------------------------------------------------------
 \section{The financialization of the electricity market}\label{sec:financialization}
 % \section{Electronic markets for electricity}\label{sec:electronic_markets}
@@ -400,9 +386,13 @@ excitation kernel functions.
 %------------------------------------------------------------------------------------
 \section{Structure of the Thesis}\label{sec:thesis_structure}
 %------------------------------------------------------------------------------------
-The thesis is organised as follows, after having laid out the
-motivation for the chosen research topic along with its main research
-objectives and their added new insights in
+The thesis is organised into three main parts, where the first one
+comprises the theoretical background, the second one the empirical
+characteristics of the LOB in the EPEX SPOT CID market and the third
+one the mathematical modelling and its numerical analysis. The
+structure of the thesis is outlined as follows, after having laid out
+the motivation for the chosen research topic along with its main
+research objectives and their added new insights in
 \hyperref[ch:introduction]{1 Introduction} the theoretical background
 follows. In chapter \hyperref[ch:theoretical_background]{2
     Theoretical Background} we provide the necessary theoretical details
@@ -455,10 +445,13 @@ which is the main focus of this work.
 %------------------------------------------------------------------------------------
 \section{The structure of the European Power Market}\label{sec:structure_european_power_market}
 %------------------------------------------------------------------------------------
-The core structure of the european power market is fourfold,
-consisting of the Derivatives Market, the Day-Ahead or Forward
-Market, the Intraday Market, and the Balancing Market. Their
-(chronological) order can be seen in
+The core structure of the european wholesale power market is
+fourfold, consisting of the Derivatives Market, the Day-Ahead or
+Forward Market, the Intraday Market, and the Balancing
+Market.\footnote{The Day-Ahead and the Intraday Market together are
+    most commonly referred to as \textit{Spot Markets}, \cite[see ][,
+        p.136.]{bnetza_monitoringreport_energy_2025}} Their (chronological)
+order can be seen in
 \hyperref[fig:european_power_market_design]{Figure 2.1}, where a
 special emphasis is put on the timely ordering of the different
 markets and their events, as this plays a crucial role for modelling.
@@ -511,53 +504,59 @@ the nearly 10:1 relation of the volumes is verified.
 \subsection{The Derivatives Market}\label{sub_sec:derivatives_market}
 %------------------------------------------------------------------------------------
 The derivatives market of the EEX is the most one in terms of trading
-volume, where the traded contracts are primarily settled financially,
-meaning that the contracts are not necessarily linked to a physical
-delivery of electricity, but rather serve as financial instruments
-for hedging and speculation over the medium term.\footnote{A full
-    list of all tradable instruments and their specifications can be
-    found
+volume, where the traded contracts are primarily settled
+financially\footnote{\cite[See ][, p.
+        136]{bnetza_monitoringreport_energy_2025}}, meaning that the
+contracts are not necessarily linked to a physical delivery of
+electricity, but rather serve as financial instruments for hedging
+and speculation over the medium term.\footnote{A full list of all
+    tradable instruments and their specifications can be found
     \href{https://www.eex.com/fileadmin/EEX/Downloads/Trading/Specifications/Contract_Details/eex-contract-details-xls-data_20260407.xlsx}{here}.}
 The product range includes futures, options, and other derivatives
 based on electricity prices, that can be traded for various delivery
 periods, such as respective next 11 days and the next 2 weekends, the
 current and the next 4 weeks, the current and the next 24 months, 11
 quarters and 10 years. Exchange trading can be conducted from 8:00 am
-to 6:00 pm (CET).
+to 6:00 pm (CET). In the european landscape, alongside the EEX, also
+the International Commodities Exchange (ICE) and the Nasdaq OMX are
+competing for trading volumes for a broader range of delivery areas.
 %------------------------------------------------------------------------------------
 \subsection{The Day-Ahead Market}\label{sub_sec:day_ahead_market}
 %------------------------------------------------------------------------------------
 In contrast to the Derivatives Market of the EEX, where the traded
 contracts are primarily settled financially, a physical delivery is
 mandatory on the Day-Ahead Market (also referred to as \textit{Spot
-    Market}). The main purpose of the Day-Ahead Market is to already lock
-in certain volumes for the next day (D). Based on newly arrived
-forecasts, updated information and the need to balance out the supply
-and demand, market participants can adjust their positions in the
-Intraday Market. Market participants can submit so-called bidding
-curves, stating precisely how much power they would want to generate
-or consume at each price tick between the minimum and maximum prices
-at each operational subperiod of the next following day, i.e. 24
-hours, 30 Minutes and 15 Minutes, resulting in 96 subperiods in
-total. Submitted prices at which the produces would want to sell
-power is by regulatory design set to the marginal cost of production,
-that dictates a natural merit-order hierarchy of the different
-production technologies. RES naturally operate at the lowest marginal
-costs, often assumed to be zero, therefore occupying the lowest price
-levels and the left side of the supply curve, while conventional
-power plants, such as coal, gas and nuclear, operate at higher
-marginal costs, occupying the higher price levels and the right side
-of the supply curve. These biddingcurves have to be submitted up
-until the gate closure time, which is typically around 12:00 CET on
-the day before delivery (D-1), allowing them to react to the latest
-information. Most general Market areas are further divided into
-bidding zones, which are defined by the transmission system operators
-(TSOs) and represent areas with similar supply and demand conditions.
-The geographical area of Germany is divided into four control areas,
-according to the four TSOs, which are TenneT (DE1), 50Hertz (DE2),
-Amprion (DE3) and TransnetBW (DE4), that are encoded in the send
-orders as can be seen in the data. The price formation is then
-carried out through a uniform price auction, where the market
+    Market}).\footnote{\cite[See ][, p.
+        136]{bnetza_monitoringreport_energy_2025}} The Day-Ahead Market is a
+sealed-bid, uniform price, multi-unit implicit
+auction.\footnote{\cite[See ][, p.233]{balardy2022empirical}} Its
+main purpose is to already lock in certain volumes for the next day
+(D). Based on newly arrived forecasts, updated information and the
+need to balance out the supply and demand, market participants can
+adjust their positions in the Intraday Market. Market participants
+can submit so-called bidding curves, stating precisely how much power
+they would want to generate or consume at each price tick between the
+minimum and maximum prices at each operational subperiod of the next
+following day, i.e. 24 hours, 30 Minutes and 15 Minutes, resulting in
+96 subperiods in total. Submitted prices at which the produces would
+want to sell power is by regulatory design set to the marginal cost
+of production, that dictates a natural merit-order hierarchy of the
+different production technologies. RES naturally operate at the
+lowest marginal costs, often assumed to be zero, therefore occupying
+the lowest price levels and the left side of the supply curve, while
+conventional power plants, such as coal, gas and nuclear, operate at
+higher marginal costs, occupying the higher price levels and the
+right side of the supply curve. These biddingcurves have to be
+submitted up until the gate closure time, which is typically around
+12:00 CET on the day before delivery (D-1), allowing them to react to
+the latest information. Most general Market areas are further divided
+into bidding zones, which are defined by the transmission system
+operators (TSOs) and represent areas with similar supply and demand
+conditions. The geographical area of Germany is divided into four
+control areas, according to the four TSOs, which are TenneT (DE1),
+50Hertz (DE2), Amprion (DE3) and TransnetBW (DE4), that are encoded
+in the send orders as can be seen in the data. The price formation is
+then carried out through a uniform price auction, where the market
 clearing price is determined by the intersection of the aggregated
 supply and demand curves, which are formed by the submitted orders
 (for every granularity of the next following day, i.e. 96 15-Min
@@ -582,6 +581,24 @@ demand conditions in each zone, which is a crucial aspect for the
 price formation process and the resulting price dynamics in the
 Intraday Market, as the latter one is directly linked to the
 Day-Ahead Market through the trading of the same contracts.
+
+The exchanges landscape in Europe is here more fragmented, as there
+are multiple smaller nominated electricity market operators (NEMOs)
+that operate Day-Ahead Markets.
+
+Microstructurally: batch market: aggregates liquidity in a single
+point in time, it aggregates liquidity at a single point in time,
+eliminating intra-auction adverse selection and any latency race (cf.
+Budish et al., 2015). Its uniform price is the reference for the
+entire downstream complex: futures settle against it, intraday prices
+are quoted (in the empirical literature) as spreads to it, and many
+support schemes and PPAs index to it. Order types include simple
+hourly (now quarter-hourly) step and interpolated orders, block
+orders (fill-or-kill across multiple MTUs, with linked and exclusive
+variants), and, on some NEMOs, more exotic constructs (loop blocks,
+big blocks, scalable complex orders); a storage order type is under
+public consultation with expected SDAC go-live in Q4 2027 (ENTSO-E,
+2026b).
 %------------------------------------------------------------------------------------
 %	                  FIGURE - START
 %------------------------------------------------------------------------------------
@@ -602,11 +619,12 @@ As the physical delivery of the traded contracts is also mandatory on
 the intraday market, purely financially motivated participants seek
 to avoid not-netted positions heavily, as they would have to be
 balanced out in the balancing market, which is the most expensive
-market, as it is the last market before delivery. The main purpose of
+one, as it is the last market before delivery. The main purpose of
 the Intraday Market is to balance out the previously locked in
-Day-Ahead positions that may deviate due to Power Plant Outages,
-optimisation of power plant usage (generator), optimisation of demand
-(costumer), renewable energy producer – changes of
+Day-Ahead positions\footnote{\cite[See ][,
+        p.238]{balardy2022empirical}} that may deviate due to Power Plant
+Outages, optimisation of power plant usage (generator), optimisation
+of demand (costumer), renewable energy producer – changes of
 forecasts\cite{kiesel_efc16_2016}. The CID Market starts on the day
 before delivery (D-1) at 15:00 CET after closing of the Day-Ahead
 Market with opening the order books for all 24 hours of the next
@@ -615,7 +633,10 @@ following day resulting in 24 books in parallel (with the hour 01:
 resolutions can be traded up until 5 Minutes before delivery. Due to
 this nature the contract lifetime lasts from 8 hours and 55 Minutes
 (for the first hour of the next following day D) up until 31 hours
-and 55 Minutes (for the last hour of the next following day D). This
+and 55 Minutes (for the last hour of the next following day D).
+Engaged participants therefore can trade up to 32 contracts
+simultaneously, just considering the hourly
+resolution.\footnote{\cite[See ][, p.234]{balardy2022empirical}} This
 natural ordering of the hours over the course of the day, also groups
 them inherently into ``peak' and ``off-peak' hours, stressing their
 different dynamics during their contract lifetime for trading.
@@ -624,10 +645,11 @@ Simplified examples for hourly products can be seen in
 table listing all hourly specificas can be found in the appendix in
 \hyperref[tab:epex_parallel_durations]{Table A.1}. The main CID
 market parameters are summarized below in
-\hyperref[tab:epex_cid_parameters]{Table 2.1}. The CID market is
-accompanied by three intraday auctions (IDA), which are single
-auctions, similar to the Day-Ahead market, that take place at
-specific times each day:
+\hyperref[tab:epex_cid_parameters]{Table 2.1}. The pay-as-bid CID
+market is accompanied by three intraday auctions (IDA), which are
+single pay-as-cleared auctions, similar to the Day-Ahead market, that
+take place at specific times each day:
+% Idea: Make a Table out of this bullet List
 \begin{itemize}
     \item \textbf{IDA 1}: At 15:00 CET on the day before delivery (D-1).
     \item \textbf{IDA 2}: At 22:00 CET on the day before delivery (D-1).
@@ -646,14 +668,31 @@ Trading on it for a specific contract is finally shut down 30 Minutes before del
 still leaving trading open for participants of the same delivery-area up until 5 Minutes before delivery.
 Its official chronological start is therefore at 15:20 CET at the day before delivery D-1.
 The XBID related market closing times each day:
+% Idea: Make a Table out of this bullet List
 \begin{itemize}
     \item \textbf{Around IDA 1}: From 14:40 to 15:20 CET on the day before delivery (D-1).
     \item \textbf{Around IDA 2}: From 21:40 to 22:20 CET on the day before delivery (D-1).
     \item \textbf{Around IDA 3}: From 09:40 to 10:20 CET on the day of delivery (D).
 \end{itemize}
-
+that are also dsiplayed in the following figure \hyperref[fig:ida_acutions_xbid_closure]{Figure 2.4}:
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{8cm}{ida_acutions_xbid_closure.png}
+    \captionfootcite{Schematic Overview of the IDA Auctions and XBID Closure Times.}{Based on \cite{kiesel_efc19_2019}, as of 16.05.2026.}\label{fig:ida_acutions_xbid_closure}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
 These periods are specifically important, since this harsh reductions
 in volumes can be also seen in volume plots later on.
+
+On a european level, the EPEX SPOT and the Nord Pool exchange
+concentrate the majority of the intraday trading volumes.
+% Continuous double acuction on a SOB
 %------------------------------------------------------------------------------------
 %	                  TABLE - START
 %------------------------------------------------------------------------------------
@@ -696,8 +735,13 @@ As bridge to the previous subchapter: Balancing market exists as to
 balance out the deviations from the locked in Intraday Market volumes
 
 The following table will be provided in the Appendix: Test
+
+Sequence of the market: aggregates progessively better information,
+participants trade against the arrival of information, microstructure
+is of each stage is disciplined by the next stages price, sequence
+also a term structure of price risk
 %------------------------------------------------------------------------------------
-\section{Organisation of Intraday Power Trading}\label{sec:organisation_of_power_trading}
+\section{Microstructure and Organisation of Intraday Power Trading}\label{sec:microstructure_and_organisation_of_power_trading}
 %------------------------------------------------------------------------------------
 As the main trading takes place on-exchange and is not
 broker-facilitated, the core price building mechanism is represented
@@ -758,7 +802,9 @@ there is a sell order.
 \end{definition}
 
 The natural difference between the best bid and ask prices is called
-the \textit{bid-ask spread}, which represents the cost of trading and
+the \textit{bid-ask spread}, which represents the immediate cost of
+executing a trade aggressively\footnote{\cite[See][, p.70,
+    ]{cartea2015algorithmic} \cite[See ][, p.35-36]{demsetz1968cost}} and
 is a key indicator of market liquidity. The bid-ask spread is defined
 as the difference between the best ask price and the best bid price,
 and it reflects the cost that market participants incur when
@@ -776,25 +822,36 @@ larger cost to trading.
 From the full bid-ask spread, the half spread can be derived, which
 represents the cost of trading for a single side of the market, either
 buying or selling.
-\begin{definition}[(Quoted) Half spread]
+\begin{definition}[(Quoted) Half spread]\label{def:half_spread}
     \begin{equation}
-        \text{Half spread}_{t} = \frac{1}{2} \cdot \text{Bid-ask spread}_{t}
+        {(H_{t})_{t \geqslant 0}} = \frac{1}{2} \cdot \text{Bid-ask spread}_{t}
     \end{equation}
-    \label{def:half_spread}
 \end{definition}
 
 This means that incoming MOs can potentially deplete the entire
 volume at the best bid or ask price, leading to a subsequent
 mid-price movement. The mid-price is defined as the arithmetic
 average of the best bid and ask prices and often treated as a proxy
-for the true underlying price of the asset.
+for the true underlying price of the asset. It assesses how close the
+price of a trade is to the ´true underlying market
+price´.\footnote{\cite[See][, p.71]{cartea2015algorithmic}, of course
+    in some situations the true market price may lie closer to either the
+    best bid or ask than the mid-price would suggest.}
 
-\begin{definition}[Mid-price]
+\begin{definition}[Mid-price]\label{def:mid_price}
     \begin{equation}
-        \text{Mid-price}_{t} = \frac{1}{2}\cdot(P^{\text{bid}}_{t} + P^{\text{ask}}_{t})
+        (S_{t})_{t \geqslant 0} = \frac{1}{2}\cdot(P^{\text{bid}}_{t} + P^{\text{ask}}_{t})
     \end{equation}
-    \label{def:mid_price}
 \end{definition}
+
+The best bid and best ask can also be expressed
+as:\footnote{\cite[See ][, p.80]{luckner2021hawkes}}
+\begin{equation}\label{eq:best_bid_half_spread}
+    \text{Best Bid}(t) = S_{t} - H_{t}
+\end{equation}
+\begin{equation}\label{eq:best_ask_half_spread}
+    \text{Best Ask}(t) = S_{t} + H_{t}
+\end{equation}
 
 \begin{definition}[Market Order (MO)]
     A \textit{buy} (respective \textit{sell}) market order is
@@ -847,12 +904,25 @@ modalities available:
     \item \textbf{Market Sweep Orders}: These are orders that are designed to quickly execute against multiple price levels in the LOB, allowing traders to quickly fill large orders without having to worry about the time it takes for the order to be executed.
 \end{itemize}
 
+Once an order has been submitted, the trader has the following three
+actions available, given that the order is placed in the LOB:
+\begin{itemize}
+    \item \textbf{Cancel}: the order is removed from the LOB and it ceases to exist.
+    \item \textbf{Modify}: the trader can modify the price or quantity of the order, and in the case of an iceberg order, the visible quantity. When the price or quantity is modified, the order loses priority in the queue.
+    \item \textbf{Deactivate/Activate}: the trader can also choose to ’hibernate’ i.e. deactivate the order. In the case of hibernation the order is not visible in the LOB and can not be matched against. The reason why someone would like to hibernate their order could be, for example, in the case of losing a connection to the exchange.
+\end{itemize}
+
 Here the table of the EU Report with Percentages
 
-The LOB in every state, can essentially be modelled by the two
-central inputs, that are the arrival of limit orders and market
-orders, as these trigger the resting LOs and result in trade
-executions.
+The information carried by a LOB is a multivariate time series which
+records the order arrival times and volumes at each price
+level.\footnote{\cite[See ][, p.13]{law2015pure}} In that context, we
+here explicitly stress its state based representation, for an easier
+later formulation in modelling approaches. The LOB in every state,
+can essentially be modelled by the two central inputs, that are the
+arrival of limit orders and market orders, as these trigger the
+resting LOs and result in trade executions.\footnote{See
+    \cite{wu2020single}, p.1}
 
 Here the mathematical definition of the LOB:
 \begin{definition}[LOB]
@@ -862,19 +932,38 @@ Here the mathematical definition of the LOB:
     \label{def:lob}
 \end{definition}
 
-\begin{equation}
-    \text{LOB}(t) = \{(p_i, q_i, t_i) | i = 1, 2, ..., N(t)\}
-\end{equation}
-where \(p_i\) is the price level of the \(i\)-th order,
-\(q_i\) is the quantity of the \(i\)-th order, \(t_i\) is the time of arrival of the \(i\)-th order, and
-\(N(t)\) is the total number of orders in the LOB at time \(t\).
+where \(p_i\) is the price level of the \(i\)-th order, \(q_i\) is
+the quantity of the \(i\)-th order, \(t_i\) is the time of arrival of
+the \(i\)-th order, and \(N(t)\) is the total number of orders in the
+LOB at time \(t\).
 
 Here the derived optimal depths with a surrounding solid line box:
 
-\boxedequationblock{eq:optimal_depths_box}{%
-    \delta^{*}_{b}(q,t) & = \arg\max_{\delta>0} \mathbb{E}\big[U(\mathrm{PNL}_T) \mid q_t=q\big] \\
-    \delta^{*}_{a}(q,t) & = \arg\max_{\delta>0} \mathbb{E}\big[U(\mathrm{PNL}_T) \mid q_t=q\big]
-}
+\begin{boxedequationblock}
+    \begin{equation}\label{eq:optimal_depths_box}
+        \begin{aligned}
+            \delta^{\mathrm{SL},*}
+            &= \frac{1}{\kappa^{\mathrm{BM}}}
+               + \bigl(|q-1|-|q|+1\bigr)\epsilon^{\mathrm{BM}}
+               + \bigl(|q-1|-|q|-1\bigr)h \\
+            &\quad + \alpha(1-2q)
+               - \upsilon\bigl(t,S^{\mathrm{BM}},n,h+\epsilon^{\mathrm{BM}},S^{\mathrm{BM}}\Lambda\bigr) \\
+            &\quad + \upsilon\bigl(t,n,h+\epsilon^{\mathrm{BM}},S^{\mathrm{BM}}\Lambda\bigr), \\[0.5em]
+            \delta^{\mathrm{BL},*}
+            &= \frac{1}{\kappa^{\mathrm{SM}}}
+               + \bigl(|q+1|-|q|+1\bigr)\epsilon^{\mathrm{SM}}
+               + \bigl(|q+1|-|q|-1\bigr)h \\
+            &\quad + \alpha(1+2q)
+               - \upsilon\bigl(t,S^{\mathrm{SM}},n,h+\epsilon^{\mathrm{SM}},S^{\mathrm{SM}}\Lambda\bigr) \\
+            &\quad + \upsilon\bigl(t,n,h+\epsilon^{\mathrm{SM}},S^{\mathrm{SM}}\Lambda\bigr).
+        \end{aligned}
+    \end{equation}
+\end{boxedequationblock}
+
+Also must reference sparse order books as here is the case because
+other LOB Models are derived from highly liquid underlyings often in
+quote driven marekts and not order driven markets see here:
+\cite{bergault2025simulating}
 
 %------------------------------------------------------------------------------------
 \subsection{Order types and classification}\label{sub_sec:order_types}
@@ -889,54 +978,319 @@ position in the price-time priority queue, leaving the next order in
 line to become the new best bid or ask price.
 
 Here the categorization into 12 types, where we focus on those types
-tha actually move the mid price, see also the descriptive breakdown
-or orders of a day and their percentage share.
+tha actually move the mid price (altering the best bid or ask), see
+also the descriptive breakdown or orders of a day and their
+percentage share.
 
 According to \cite{law2019market}, the main order types in a limit
 order book (LOB) can be categorized as can be seen in the table
 below:
+%------------------------------------------------------------------------------------
+%	                  TABLE - START
+%------------------------------------------------------------------------------------
 \begin{table}[htbp]
     \centering
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|l|c|c|}
-        \hline
-        Order Type & Order Arrival Event                    & Bid Price Effect & Ask Price Effect \\
-        \hline
-        1          & aggressive market buy                  & 0                & +                \\
-        2          & aggressive market sell                 & -                & 0                \\
-        3          & aggressive limit buy                   & +                & 0                \\
-        4          & aggressive limit sell                  & 0                & -                \\
-        5          & aggressive limit buy cancellation      & -                & 0                \\
-        6          & aggressive limit sell cancellation     & 0                & +                \\
-        \hline
-        7          & non-aggressive market buy              & 0                & 0                \\
-        8          & non-aggressive market sell             & 0                & 0                \\
-        9          & non-aggressive limit buy               & 0                & 0                \\
-        10         & non-aggressive limit sell              & 0                & 0                \\
-        11         & non-aggressive limit buy cancellation  & 0                & 0                \\
-        12         & non-aggressive limit sell cancellation & 0                & 0                \\
-        \hline
-    \end{tabular}}
+        \begin{tabular}{|l|l|c|c|c|}
+            \hline
+            Order Type & Order Arrival Event                    & Bid Price Effect & Ask Price Effect & Counting Process $N$ \\
+            \hline
+            1          & aggressive market buy                  & 0                & +                & $N_{1}(t)$           \\
+            2          & aggressive market sell                 & -                & 0                & $N_{2}(t)$           \\
+            3          & aggressive limit buy                   & +                & 0                & $N_{3}(t)$           \\
+            4          & aggressive limit sell                  & 0                & -                & $N_{4}(t)$           \\
+            5          & aggressive limit buy cancellation      & -                & 0                & $N_{5}(t)$           \\
+            6          & aggressive limit sell cancellation     & 0                & +                & $N_{6}(t)$           \\
+            \hline
+            7          & non-aggressive market buy              & 0                & 0                & $N_{7}(t)$           \\
+            8          & non-aggressive market sell             & 0                & 0                & $N_{8}(t)$           \\
+            9          & non-aggressive limit buy               & 0                & 0                & $N_{9}(t)$           \\
+            10         & non-aggressive limit sell              & 0                & 0                & $N_{10}(t)$          \\
+            11         & non-aggressive limit buy cancellation  & 0                & 0                & $N_{11}(t)$          \\
+            12         & non-aggressive limit sell cancellation & 0                & 0                & $N_{12}(t)$          \\
+            \hline
+        \end{tabular}}
     \vfill
     \footnotesize\textit{+/0/- indicate whether the order type causes an increase, no change, or decrease in the bid or ask price, respectively.}
     \captionfootcite{Main Order Types in a Limit Order Book.}{Based on \cite{law2019market}, as of 16.05.2026.}\label{tab:order_types}
 \end{table}
 %------------------------------------------------------------------------------------
+%	                  TABLE - END
+%------------------------------------------------------------------------------------
+Explaining the top six \emph{aggressive} order types more
+closely\footnote{\cite[See ][, p.15]{oxford_hawkes_2020}}:
+\begin{enumerate}
+    \item The placement of a limit order inside the bid-ask spread. This will
+          cause the price to decrease/in- crease if it is a sell/buy limit
+          order placed below/above the best ask/bid price.
+    \item The cancellation of the last remaining limit order in the first queue
+          on either the bid/ask side of the book. The cancellation of such a
+          sell/buy limit order will cause the price to increase/decrease.
+    \item The execution of the last remaining limit order at either the best
+          bid/ask price. This corresponds to the placement of a sell/buy market
+          order at the best bid/ask price that consumes all of the available
+          liquidity at that price and has the same effect on the price as the
+          cancellation of the limit order.
+\end{enumerate}
+To describe ONLY the top of the book, the following system can be used (ONLY top book queues)
+According to \cite{law2015pure} we can write: \(N(t) = (N_{1}(t),
+N_{2}(t), \ldots, N_{12}(t))\) as the multivariate point process of
+the twelve order types. It further follows that, we can infer the
+absolute numbers of the shaping variables: \(M_{a}(t)\) as the buy
+market orders, \(M_{b}(t)\) as the sell market orders, \(S_{a}(t)\)
+as the ask price and \(S_{b}(t)\) as the bid price. As the tick size,
+\(\delta\), is fixed and each (minimal) price jump is one tick, the
+relations hold:
+\begin{equation}
+    M_{a}(t) = N_{1}(t) + N_{5}(t)
+\end{equation}
+\begin{equation}
+    M_{b}(t) = N_{2}(t) + N_{6}(t)
+\end{equation}
+\begin{equation}
+    S_{a}(t) = S_{a}(0) + (N_{1}(t) + N_{4}(t) - N_{12}(t)) \cdot \delta
+\end{equation}
+\begin{equation}
+    S_{b}(t) = S_{b}(0) + (N_{11}(t) - N_{2}(t) - N_{3}(t)) \cdot \delta
+\end{equation}
+
+Therefore the top book spread evolves as:
+\begin{equation}
+    \text{Spread}(t) = S_{a}(t) - S_{b}(t) = \text{Spread}(0) + (N_{1}(t) + N_{4}(t) - N_{12}(t)) \cdot \delta - (N_{11}(t) - N_{2}(t) - N_{3}(t)) \cdot \delta
+\end{equation}
+
+In order to avoid a situation where the spread would became less than
+$\delta$, we impose that the intensities of the aggressive LO
+additions are conditional on the spread based on the following
+relationship, where $\mathbb{1}$ is the indicator function:
+\begin{equation}
+    \lambda_{i}(t) = \lambda_{i}^{'}(t) \mathbb{1}(S(t) > \delta), \quad i = 3, 4
+\end{equation}
+
+So when the spread is equal to one tick, the intensity of aggressive
+LO additions drops to zero. Now, it is clear that our model is
+direction and timing consistent, but since we do not keep track of
+the depths of the price levels, the model is not volume consistent.
+
+This should serve as bridge on how the different arrivals or counting
+processes of these order types impact the price. Also at what times
+the different sites can jump or not. We can formulate the counting
+processes of all the different event types and how they affect the
+different system parameters that impact the final mid-price.
+%------------------------------------------------------------------------------------
+\subsection{LOB Consistency}\label{sub_sec:lob_consistency}
+%-------------------------------------------------------------------------------------
+See here: \cite[][, p.36]{korhonen2025market}: In order for a LOB
+model to be consistent with the real-world LOB dynamics it must
+satisfy the following three rules:
+\begin{enumerate}
+    \item \textbf{Direction consistency}:
+          \begin{itemize}
+              \item On the arrival of a marketable buy (sell) order, only the ask (bid)
+                    price can move up (down), while the bid (ask) price has to stay
+                    unchanged:
+              \item On the arrival of limit buy (sell) order, only the bid (ask) price
+                    can move up (down) while the ask (bid) price has to stay unchanged,
+                    given that the LO arrives inside the spread. Otherwise, both the bid
+                    and ask prices will remain unchanged:
+              \item On the cancellation of a limit buy (sell) order, only the bid (ask)
+                    price can move down (up) if the canceled order is the only order at
+                    the best bid (ask), while the ask (bid) price will remain unchanged.
+                    Otherwise, both the bid and ask prices will remain unchanged:
+          \end{itemize}
+    \item \textbf{Timing consistency}: the bid and ask prices can only move at times when orders
+          arrive or are cancelled:
+    \item \textbf{Volume consistency}:
+          \begin{itemize}
+              \item On the arrival of marketable buy (sell) order whose volume is larger
+                    than the available liquidity at current best ask (bid), the price
+                    moves up (down) and otherwise stays unchanged:
+              \item If the volume of the canceled limit buy (sell) order is equal to the
+                    volume of volume available at the current best bid (ask), the bid
+                    (ask) price moves down (up), and otherwise the price stays unchanged:
+          \end{itemize}
+\end{enumerate}
+One could argue that these rules only apply when no orders can arrive at the same exact moment, but given how the matching engine of the exchange operates the orders are always handled sequentially even in the case that they arrive on the same exact nanosecond. The conditions stated above are necessary in order to model the LOB realistically, regardless of any assumptions about the arrival rates or volume distributions. However, in practice achieving a consistent LOB model is extremely difficult since we would need to keep track of the depths of all the price levels on both sides. In the next section we present the weakly consistent LOB model which only models the best bid and ask queues, and is thus only direction and timing consistent.
+
+%------------------------------------------------------------------------------------
 \subsection{Matching Mechanism}\label{sub_sec:matching_mechanism}
 %------------------------------------------------------------------------------------
 \section{The Market Making Problem}\label{sec:market_making_problem}
 %------------------------------------------------------------------------------------
-Here also the different risk sources, adverse selection, inventory,
-etc. The classical problem formulation based on Ho \& Stoll (1981) is
-to choose the optimal depth size for posting LO into the book (See
-\cite{cartea2015algorithmic}, page 29)
+Market Making essentially consists of posting limit orders
+continuously on both sides of the LOB providing liquidity to the
+market, at rapid speeds, and earning the Bid-Ask spread as
+compensation.\footnote{\cite[See ][, p.1; ]{jain2025impulse}
+    \cite[See ][, p.9 and 20 and also the important specification of MM
+        and Liquidity Privision.]{cartea2015algorithmic}}
+
+The rational behind this way of providing
+immediacy\footnote{\cite[See ][, p.]{demsetz1968cost}} can be
+motivated by considering an information based perespective on market
+participants. A broad classification can be made between
+\textit{informed} and \textit{uninformed} traders, where the former
+have access to private information that allows them to make
+(suspectively) more informed trading decisions.\footnote{\cite[See
+    ][, p.30]{cartea2015algorithmic}} Market Makers (MM) are typically
+considered to be \textit{uninformed} traders, as they do not have
+access to private information and instead rely on the public
+information available in the market. However, they are still exposed
+to the risk of trading with \textit{informed} traders, who may have
+an informational advantage and can exploit the MM's quotes to their
+benefit. This creates a situation of \textit{information asymmetry},
+where the MM is at a disadvantage compared to informed traders. These
+information asymmetries directly translate into the following sources
+of involved risks a MM faces:
+% Maybe also rather in a table than in a bullet list
+\begin{itemize}
+    \item \textbf{Adverse Selection Risk}: This risk arises when the MM trades with informed traders who have access to private information that allows them to make more informed trading decisions. The MM may end up buying at a higher price or selling at a lower price than the true value of the asset, resulting in potential losses.
+    \item \textbf{Inventory Risk}: This risk arises from holding an inventory of assets that may fluctuate in value due to market conditions. The MM may be forced to sell at a loss if the market moves against their position, resulting in potential losses.
+    \item \textbf{Latency Risk}: This risk arises from delays in receiving and processing market data, which can result in the MM's quotes being stale and not reflecting the current market conditions. This can lead to potential losses if the MM is unable to react quickly enough to changing market conditions.
+\end{itemize}
+
+This perspective is also justified by looking at the different
+participant types at the EPEX SPOT, where there are not only utilitiy
+companies but also financial institutions, which are typically
+considered to be more informed traders, as they have access to more
+sophisticated trading strategies.
+
+Now balancing these types of risks is the core problem of market
+making, as the MM must continuously adjust their quotes to manage
+their inventory and minimize their exposure to adverse selection and
+latency risks, while still providing liquidity to the market. The
+main appoaches on how to come up with optimal strategies for market
+making can be depicted in the following table:
+
+In this thesis, the considered MM uses LO and MO for maximising
+expected terminal wealth (cash + inventory) under penalisations for
+the running inventory as well for terminal inventory, by finding the
+set of optimal controls u $\in \mathbb{U}$, where $\mathbb{U}$ is the
+set of admissible controls consisting of a sequence of decision
+variables.\footnote{\cite[See ][, p.]{luckner2021hawkes}}
+
+%------------------------------------------------------------------------------------
+%	                  TABLE - START
+%------------------------------------------------------------------------------------
+\begin{table}[htbp]
+    \centering
+    \scriptsize % Slightly smaller text size to perfectly fit high-density microstructure data
+    \begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+        \toprule
+        \textbf{School of Thought}                                                                                                                                                         & \textbf{Core Philosophy \& Core Assumption} & \textbf{Key Methodologies \& Mathematical Tools} & \textbf{Seminal Frameworks / Examples} & \textbf{Primary Limitation} \\
+        \midrule
+
+        \textbf{1) Economics-Based}                                                                                                                                                        &
+        \textbf{Perfect Rationality}: Agents maximize utility under structural constraints. Focuses on \textit{why} liquidity is priced based on risk aversion and asymmetric information. &
+        $\bullet$ Dynamic programming \newline $\bullet$ Game theory (Nash / Stackelberg) \newline $\bullet$ Expected utility functions                                                    &
+        $\bullet$ \textbf{Inventory Models}: Ho-Stoll, Avellaneda-Stoikov \newline $\bullet$ \textbf{Information Models}: Glosten-Milgrom, Kyle's lambda                                   &
+        Highly stylized; yields closed-form solutions that fail to capture real-world, high-frequency order book dynamics.                                                                                                                                                                                                                                         \\
+        \midrule
+
+        \textbf{2) Physics-Based}                                                                                                                                                          &
+        \textbf{Zero Intelligence (ZI)}: Complex macro market allocations emerge from the statistical mechanics of non-strategic, random order flows.                                      &
+        $\bullet$ Stochastic processes \newline $\bullet$ Poisson arrival rates \newline $\bullet$ Master equations / Particle physics analogies                                           &
+        $\bullet$ \textbf{ZI-LOB Models}: Anufriev-Panchenko, Maslov model \newline $\bullet$ \textbf{Statistical Mechanics}: Santa Fe Institute models (Farmer et al.)                    &
+        Completely ignores strategic behavior; agents do not adapt to adverse selection or toxic order flow.                                                                                                                                                                                                                                                       \\
+        \midrule
+
+        \textbf{3) Mathematically-Based}                                                                                                                                                   &
+        \textbf{State Dependence}: Focuses strictly on data-driven, conditional state transitions of the actual limit order book queue.                                                    &
+        $\bullet$ Markov chains / Jump processes \newline $\bullet$ Point processes (Hawkes processes) \newline $\bullet$ Queueing theory                                                  &
+        $\bullet$ \textbf{Queue-Reactive Model} (Huang, Lehalle, Rosenbaum) \newline $\bullet$ \textbf{Cont-Stoikov-Talreja} Markovian framework                                           &
+        High dimensionality; suffers from the ``curse of dimensionality'' when scaling up the number of tracked book levels.                                                                                                                                                                                                                                       \\
+        \bottomrule
+    \end{tabularx}
+    \captionfootcite{Frameworks of Market Making Microstructure}{Based on: Own Concept.}\label{tab:market_making_frameworks}
+\end{table}
+%------------------------------------------------------------------------------------
+%	                  TABLE - END
+%------------------------------------------------------------------------------------
+For a more detailed overview of the main schools of thought and
+connected concrete concepts, see \cite{jain2024limitreview}.
+
+The resulting concepts and models based off of these theoretical
+strands often lack real world applicability, as they are based on
+highly stylized assumptions or just miss important real world
+caveats.
+
+Here stole everything from: \cite{law2015pure} page 5: In this
+section, we highlight some issues of existing market-making models in
+the con- text of high-frequency trading. 1. In modern financial
+exchanges, prices are only allowed on a predefined fixed grid called
+price ticks. As a result, price is a pure-jump process and it has two
+dimensions, 5 namely times and magnitudes of the jumps. Diffusion can
+only approximate the magnitudes of the jumps but cannot describe the
+properties related to timing of the jumps such as jump clustering. 2.
+The common assumption of Poisson order arrivals is often rejected in
+empirical lit- erature as order arrivals depict strong
+self-excitation behavior [18–20]. 3. All models assume that price and
+order arrivals are independent, which is far from the truth by
+realizing that price rises with large buy market order and falls with
+large sell market order. Because of adverse selection [1, 2], the
+absence of this crucial dependency structure will generate large
+phantom profit for the market maker and cause the average profit of
+the market-making strategy to be overstated. 4. Since almost all
+exchanges nowadays use the price-time2 priority, changing price or
+quantity of limit orders means loss of priority. Nonetheless,
+existing models all use regular control to continuously adjust the
+quotes without any penalty. 5. A critical component of many existing
+models is the demand/supply rate function. For example, in [8], it is
+in the form while in [9], it can be expressed as . Yet the parameters
+are hard to estimate since when the limit order is more than one tick
+from the best quote, the execution probability is minuscule (e.g.
+less than 36. For the sake of simplicity, existing models assume all
+orders are of the same size. Such an assumption will mask the risk of
+overtrading of the market maker. For instance, to continuously
+maintain priority in the queue, the market maker may post more limit
+orders in the order book than his risk tolerance. However, the
+arrival of one giant market order may raise his inventory to an
+unacceptable level, which can potentially lead to bankruptcy. Such
+kind of risk cannot be modeled with all orders having the same size.% for E-mini S&P future [21]). In addition, the quoted price is not continuous but only allowed in a fixed grid of price ticks.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{7cm}{EPEX_member_category.png}
+    \captionfootcite{EPEX SPOT exchange member categories.}{Based on \cite{kiesel_efc19_2019}, as of 31.07.2026, 17:11:50 CET/CEST.}\label{fig:epex_member_category}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In contrast to other financial markets, the trading on the EPEX SPOT
+does not involve designated market maker (DMM) programs, where
+specific participants are incentivized to provide liquidity to the
+market.\footnote{\cite[See ][, p.230]{balardy2022empirical}}
+
+In general, the main theoretical approaches to tackle this problem
+can be categorised into the following streams:
+% Here maybe even a schematic figure
+\begin{enumerate}
+    \item Physics based zero intelligence models
+    \item Economics based rational agent models
+    \item Math based stochastic optimal control models
+\end{enumerate}
+
+A good overview with a more granular perspective can be found in
+\cite{jain2024limitreview} where great emphasis is placed on the
+modelling approaches.
+
+The classical problem formulation based on Ho \& Stoll (1981) is to
+choose the optimal depth size for posting LO into the book (See
+\cite[See ][, p.29]{cartea2015algorithmic})
 
 Also mention the advantage of potentially getting a fee rebate from
 the exchange in contrast to the taker fee that liquidity takers have
 to pay for their orders
 
 Key problem: Balancing the optimal limit order posting depth and the
-fill probabilities
+fill probabilities Latency risk as the EPEX Spot is not offering co
+location services, so the MM is exposed to latency risk, as they are
+not able to react as fast as other market participants that are
+co-located with the exchange servers. This can lead to a situation
+where the MM's quotes are stale and do not reflect the current market
+conditions, resulting in potential losses.
 
 Use stochastic optimal control to tackle the classical problem of
 solving for the optimal depth as distance from the midprice for
@@ -945,21 +1299,54 @@ probabilities or approximate them
 %------------------------------------------------------------------------------------
 %	                  EMPIRICAL LOB CHARACTERISTICS
 %------------------------------------------------------------------------------------
-\chapter{Empirical LOB Characteristics and Market Quality}\label{ch:empirical_characteristics}
+\chapter{Empirical Microstructure: LOB Characteristics and Market Quality}\label{ch:empirical_characteristics}
 %------------------------------------------------------------------------------------
 In the following chapter, so called \textit{quality-parameters} of
 the LOB will be analyzed, which are the key empirical characteristics
-of the LOB, that will be used to calibrate the mathematical model and
-to derive the optimal market making strategy. These
-quality-parameters include
-
+of the LOB. These will be used to first motivate, then calibrate and
+finally evaluate the mathematical model for the derivation of the
+optimal market making strategy. These \textit{quality-parameters}
+include the following aspects, which we defined mathematically
+earlier in section
+\hyperref[sec:microstructure_and_organisation_of_power_trading]{2.2
+    Microstructure and Organisation of Intraday Power
+    Trading}:\footnote{\cite[See][, p.61.]{cartea2015algorithmic}}:
+\begin{itemize}
+    \item Interarrival times % although not directly a quality parameter and not really math. derived in the bespoke section
+    \item Volumes and Volatility
+    \item Spread measures \footnote{\cite[See ][, p.229]{balardy2022empirical}}
+          and the Half Spread
+    \item Market Depths and Trade sizes
+    \item Market Impact
+    \item Message activity and the relationship between cancellations,
+          executions and distance from the midprice
+\end{itemize}
+As these components are important drivers of overall \emph{liquidity}, they are key
+in forming the shape of the LOB, what will be important for later modelling considerations in
+chapter \hyperref[ch:mathematical_modelling]{Mathematical Modelling}.
+Before we start to analyse the empirical characteristics of the LOB, we
+will first provide a brief introduction of the used data.
 %------------------------------------------------------------------------------------
 \section{Data and Data Processing}\label{sec:data}
 %------------------------------------------------------------------------------------
-Here comes a table with the single data columns that can be found:
-
-Here comes a table with the columns: Hour, Year, Number of Days,
-Average Events per Day:
+In order to collect all L3 market-by-order events for the delivery
+area germany, we collect all single order books from the EPEX SPOT
+for the TSOs: 50Hz, Amprion, Tennet and TransnetBW for the time range
+of the full quarter of Q2 2026. The single observations are
+timestamped on millisecond level, which is the highest possible
+granularity that can be achieved with the EPEX SPOT L3 data. A more
+detailed data description can be found in the \hyperref[anhang2]{Data
+    Appendix} under \hyperref[sec:lob_data_description]{LOB Data
+    Description}. The data contains all limit order additions and
+cancellations as well as market orders for each one-hour product. Due
+to the XBID mechanism, the data also includes orders from other
+delivery zones, but the origin of the orders is not included in the
+data. In the following table, a first descriptive breakdown with
+emphasis on the average events per day is provided, that serves as
+first basis for the more detailed analysis of the intraday activity.
+%------------------------------------------------------------------------------------
+%	                  TABLE - START
+%------------------------------------------------------------------------------------
 \begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|c|}
@@ -975,66 +1362,1164 @@ Average Events per Day:
     \caption{Data Overview: Hourly Event Counts and Averages.}\label{tab:data_overview}
 \end{table}
 %------------------------------------------------------------------------------------
-\section{The Intraday activity pattern: Volumes and Volatilty}\label{sec:intraday_activity_pattern}
+%	                  TABLE - END
 %------------------------------------------------------------------------------------
-Samuleson Effect here From previous intraday pattern: Baseline
-intensity has to be dependent on the remaining contract lifetime,
-therefore being non-stationary
+
+%------------------------------------------------------------------------------------
+\section{Intraday activity patterns}\label{sec:intraday_activity_patterns}
+%------------------------------------------------------------------------------------
+Here just follow the Cartea Book for all the setcions, investigate
+data and also cite the literature for these findings here for
+confirmation, Lead Thesis did it as well like that
+%------------------------------------------------------------------------------------
+\subsection{Interarrival Times}\label{sub_sec:interarrival_times}
+%------------------------------------------------------------------------------------
+As already mentioned in XX, when applying a more granular analysis,
+the modelling of prices requires a \emph{discrete}, rather than
+\emph{continuous} viewpoint.\footnote{By interarrival times, we refer
+    to the interval times between movements at either the bid or the ask,
+    \cite[see ][, p.48]{cartea2015algorithmic}.}
+
+In the below figure we can see, that the interarrival times seem to
+be quite good approximated by a power law distribution with very
+heavy tails.\footnote{\cite[See ][, p.48]{cartea2015algorithmic}}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{interarrival_times.png}
+    \captionfootcite{Interarrival Times.}{Based on \cite[See ][, p.49]{cartea2015algorithmic}.}\label{fig:interarrival_times}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the below figure, we can see that changes to the bid- and ask are
+not independent, but have a strong autocorrelated component,
+suggesting that they appear in \emph{clusters}.\footnote{\cite[See
+    ][, p.49]{cartea2015algorithmic}} Rapid changes in the bid/ask are
+followed by further rapid changes, while a relatively long calm
+period is also similarly followed by another calm
+period.\footnote{\cite[See ][, p.49]{cartea2015algorithmic}}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{acf_interarrival_times.png}
+    \captionfootcite{Interarrival Times ACF.}{Based on \cite[See ][, p.49]{cartea2015algorithmic}.}\label{fig:acf_interarrival_times}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+From this we can conclude that the interarrival times are not
+independent and identically distributed (i.i.d.), but rather exhibit
+a strong temporal dependence structure. This has important
+implications for modeling the dynamics of the limit order book, as it
+suggests that past events can provide valuable information about
+future market activity.
+% Result for modelling: Interarrivals are correlated and dependent -> History is relevant, Hawkes Process that uses history of not independent events unlike the Poisson Process
+% Result for modelling: Interarrivals seem to follow a power law distribution with heavy tails, maybe as kernel function for the Hawkes Process (?)
+%------------------------------------------------------------------------------------
+\subsection{Volumes and Volatilty}\label{sub_sec:volumes_and_volatility}
+%------------------------------------------------------------------------------------
+The volume pattern over a trading session or lifetime of a contract
+for the intraday power markets is quite distinctive from other
+financial markets, that typically show a U-shape over the course of a
+normal trading day. Starting off with high volumes near market
+opening, a slight volume lull in the middle of the day, and a peak in
+volume near market close.\footnote{By volume we refer to the trading
+    volume measured in MWh.} This shape generally reflects the quote
+updates based on newly arrived information. In contrast, the intraday
+power markets show a different pattern, with a peak in volume near
+gate closure, but also a significant increase in volume during the
+last hour of trading.\footnote{With activity, also the volume keeps
+    up, as 80\% of total volume is traded within the last three hours of
+    a trading period \cite[See ][, p.238]{balardy2022empirical}.}This is
+due to the fact that market participants have more information about
+the supply and demand conditions for the delivery period as it
+approaches, and they adjust their positions accordingly
+(\textit{trading against information arrival}). It can also be seen
+clearly that the volume picks up at around 6 to 7 hours prior to gate
+closure.\footnote{This is usually the time when the morning shift
+    starts for traders in Europe, as the market is open 24/7, the trading
+    is done in three shifts: morning, evening and night shifts or
+    alternatively, the night shift might be working from a country with a
+    more suitable time-zone like Singapore}. Also algorithmns may try to
+close out any remaining residual volumes at the end of the trading
+sessions, what possibly leads to an increase in volumes towards gate
+closure in combination with execution strategies that try to postpone
+non-urgent transactions to times when spreads are narrow and more
+preferable, what is also the case near gate
+closure.\footnote{\cite[See ][, p.66]{cartea2015algorithmic}} This
+would match the observed tightening of the spread that can be seen in
+\hyperref[sub_sec:spreads]{3.2.3 Spreads}.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{volume_distribution_heatmap.png}
+    \captionfootcite{Volume distribution for hour 14 delivery.}{Based on \cite[See ][, p.63]{cartea2015algorithmic}.}\label{fig:volume_distribution_heatmap}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+Other distinctive features of the volume pattern are the three spikes
+in volume that occur shortly after the IDAs. During the IDAs and the
+final hour of trading, XBID is closed, meaning that the LOB only
+contains orders with delivery at one of the four German delivery
+zones.\footnote{The schematic timeline can be followed in
+    \hyperref[fig:ida_acutions_xbid_closure]{Figure 2.4}.} The effect of
+this can be seen in the figure as the executed volume drops visibly
+during the IDAs and spikes right after when the LOBs are joined
+together and overlapping orders are executed. The Volume also seems
+to exhibit a susbtantial variability, as can be seen in the below
+figure.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{intraday_volume.png}
+    \captionfootcite{Intraday Volume.}{Based on \cite[See ][, p.63]{cartea2015algorithmic}.}\label{fig:intraday_volume}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+To focus on the time-to-delivery dependency of the traded volumes, we
+see in the below functional approach heat maps (left panels) of daily
+volume for the year 2013 for AAPL and MENT. The heat-maps are
+generated by first bucketing traded volume into five-minute windows
+throughout the day, for every day of the year. Then, for each
+five-minute bucket, we compute the distribution of volume. The
+heat-map is a visualisation of the collection of these distributions
+for each five-minute bucket all at once. In the figures we use
+coloured lines to represent the first and third quartiles, as well as
+the median.\footnote{\cite[See][, p.65.]{cartea2015algorithmic}} A
+clear dependency of the volume on the time-to-delivery can be seen,
+as descibed earlier but here with the advantage of being able to spot
+outliers (right panels).
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{intraday_volume_time_of_day.png}
+    \captionfootcite{Intraday Volume as function of the time of day.}{Based on \cite[See ][, p.65]{cartea2015algorithmic}.}\label{fig:intraday_volume_time_of_day}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+Volume itself seems to have significant time-series persistance and
+positive and significant `correlation' with volatility.\footnote{By
+    volatility we refer to the standard deviation of the price changes
+    measured in €/MWh.} Intraday volume has very large
+peaks.\footnote{\cite[See ][, p.64]{cartea2015algorithmic}} This is
+evident by further following the time to delivery timescale but
+graphing the volatility in the below figure.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{intraday_volatility.png}
+    \captionfootcite{Intraday Volatility.}{Based on \cite[See ][, p.63]{cartea2015algorithmic}.}\label{fig:intraday_volatility}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{price_pattern_cent_bounds.png}
+    \captionfootcite{Price pattern with cent-level bounds.}{Based on \cite[See ][, p.69]{cartea2015algorithmic}.}\label{fig:price_pattern_cent_bounds}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the above figure we can see the large accumulation of transactions
+whose prices end in exact dollar-values prices, with the most
+pronounced spike at the round 50 cent value, with slightly less
+pronounced spikes at the round 10th of cents
+values.\footnote{\cite[See ][, p.64]{cartea2015algorithmic}} As
+incoming aggressive MO just hit standing LO in the LOB, is is
+ultimately the MMs who deciide to post their orders at these round
+values for providing liquidity.\footnote{\cite[See ][,
+        p.64]{cartea2015algorithmic}}
+
+Further going into more details and dividing the tradable hourly
+products into peak and off-peak products and also analysing potential
+weekend vs. during the week effects, we can see that the volume
+pattern varies for these subtypes. Samuleson Effect here From
+previous intraday pattern: Baseline intensity has to be dependent on
+the remaining contract lifetime, therefore being non-stationary
 
 Percentage table for the different order types to stress that onyl
 few types are relevant and also focus on only the best 3 price levels
 because mostly only 1 tick moved (?).
+% Result for modelling: Volume is not independent but depends on own history
+% Result for modelling: Volume depends on the time-to-delivery: Add that as state variable
+% Result for modelling: Volume and Volatility are positively correlated
+% Result for modelling: Volume and Bid-Ask Spread are negatively correlated, Bid-ask spread also as possible state variable
+% Result for modelling: Majority of volumes is traded in last three hours or even just the last hours
+%------------------------------------------------------------------------------------
+\subsection{Spreads}\label{sub_sec:spreads}
+%------------------------------------------------------------------------------------
+Spreads measure the immediate cost of executing a trade
+aggressively.\footnote{\cite[See ][, p.70]{cartea2015algorithmic}} In
+comparison to the later analysed \emph{market impact}, that centers
+more around larger trades, spreads measure the execution costs of
+smaller trades in relation to the current `market
+price'.\footnote{\cite[See ][, p.71]{cartea2015algorithmic}}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{bid_ask_spread.png}
+    \captionfootcite{Bid-ask spread distribution as a function of time to delivery.}{Based on \cite[See ][, p.51]{cartea2015algorithmic}.}\label{fig:bid_ask_spread}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+As can be seen in the figure above, the bid-ask spread over a trading
+session seems to follow an L-shape pattern, in line with the findings
+of: XX. The spread decreases with time as there is more activity
+closer to the delivery. This is consistent with the findings of
+\cite[See ][, p.238]{balardy2022empirical}. During the IDAs the
+spread increases significantly, which is expected given that the
+spread is negatively correlated to volume according to XX. The median
+spread of the average trading session is 0.89 €/MWh, which is
+considerably less than what was found in previous studies. For
+comparison, the median spread in 2015 reported by Balardy was about
+3.52 €/MWh. This decrease can be attributed to the annually
+increasing volume in the intraday market. Although the median spread
+is more than three times smaller than the median spread in 2015, it
+is still 89 times the tick size, which compared to equity markets is
+massive. In equity markets the spread is typically few times the tick
+size at most. The weekend effect in liquidity can also be observed
+through the spread as Balardy reports in that the spread is on
+average 13\% higher during the weekends. The tick size also has a
+large effect on the spread distribution. Given that the tick size of
+0.01 €/MWh is quite small compared to the average price per megawatt,
+the observed distribution is not that surprising.
+% As idea here, make a small table comparing other studies bid-ask spreads
+Not surpising, the spread is also connected to volumes, as the more
+frequent the trades, the better the spread, and also to the
+volatility of the spread itself. More frequently traded assets tend
+to have less volatile quoted spreads \cite{balardy2022empirical}. A
+slightly older study conducted by \cite{hagemann2013empirical} found
+a lower mean bid-ask spread of about 2.97€/MWh. As the durations of
+the trading sessions per product differ in their lengths, a smooting
+of the bid-ask spread can be observed, the longer the trading session
+lasts \cite[See ][, p.238]{balardy2022empirical}. Concluding, the
+bid-ask spread generally follows more like an L-shape instead of a
+U-shape pattern as is usually observed in other financial markets
+\cite[See ][, p.238]{balardy2022empirical}. As for the main drivers
+of the bid-ask spread, increased volatility positively affects the
+bid-ask spread, especially pronounced for off-peak produtcs
+\cite[See][, p.246]{balardy2022empirical}. Not surprisingly,
+fundamental variables like load, wind, solar and their associated
+forecast errors (positive and negative) have a negative impact for
+the bid-ask spread \cite[See][, p.247]{balardy2022empirical}. The
+Bid-ask spread has two important dependency relationships: First, the
+impact of the Bid-ask spread on posted LO depths can't be ignored,
+since the bid-ask spread is rarely tick size and often exceeds it by
+several magnitudes.\footnote{\cite[See ][, p.78]{luckner2021hawkes}}
+Second, it is relevant for the arrivals of MO, as we have seen that
+they appear in situations where the spread is favorable for them and
+narrow.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{intraday_spread_pattern_iqr.png}
+    \captionfootcite{Intraday spread pattern (IQR).}{Based on \cite[See ][, p.75]{cartea2015algorithmic}.}\label{fig:intraday_spread_pattern_iqr}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+Pictured in the figure above, quoted spreads are initially high,
+decline rapidly during the first half-hour of trading, and are mostly
+constant throughout the remainder of the day until the last (half)
+hour of trading, when the spread rapidly declines. This pattern in
+quoted spreads is also seen in the effective
+spread.\footnote{\cite[See ][, p.75]{cartea2015algorithmic}} We can
+resonate that during a period with a constant flow of information
+more trading and lower spreads occur together.\footnote{\cite[See ][,
+        p.75]{cartea2015algorithmic}}
+% Result for modelling: Bid-ask spread is also dependent on the time-to-delivery, so add that as state variable
+% Result for modelling: Impact of Bid-ask spread on posted LO depths can't be ignored, since the bid-ask spread is rarely tick size and often exceeds it by several magnitudes. So add that as state variable
+% Result for modelling: Bid-ask spread also importnat for MO arrivals
+% Result for modelling: Bid-ask spread is negatively correlated with volume and positively correlated with volatility, so add that as state variable
+%------------------------------------------------------------------------------------
+\subsection{Market Depths and Trade Size}\label{sub_sec:market_depths_and_trade_size}
+%------------------------------------------------------------------------------------
+Confirmed here as already presented in
+\hyperref[sec:market_making_problem]{2.3 The Market Making Problem},
+market depths and associated trade sizes are not independent of
+another.\footnote{\cite[See ][, p.80]{cartea2015algorithmic}} Depth
+in this context refers to the available volumes resting on the price
+levels in the LOB at a given time, ready for immediate
+execution.\footnote{\cite[See ][, p.79]{cartea2015algorithmic}} This
+behaviour can be motivated as market participants look to minimize
+their market impact, splitting larger block trades into several
+smaller ones. This indicates two phenomens: First, as already stated,
+the depth of the LOB and size of the incoming orders are highly
+correlated. But also secondly, this splitting induces, and at least
+in parts, explains the already observed clustering of MO arrivals. To
+get an intuition for the resting depths of the LOB, the figure below
+shows that the available liquidity on both sides is relatively
+similar and centered around 5 megawatt quantities. Five megawatts is
+also the minimum visible quantity for an iceberg order on EPEX SPOT,
+which might explain the high number of orders with such a quantity.
+Interestingly, the volume on both sides drops visibly after the third
+IDA. This is most likely caused by execution algorithms getting more
+aggressive towards the end of the trading session as they split
+orders into small pieces and try to execute passively in order to get
+a better price. Verifying this is of course not possible since all
+order information is anonymous.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{lob_depth_top_of_book.png}
+    \captionfootcite{Top of the book depth as a function of time to delivery.}{Based on \cite[See ][, p.75]{cartea2015algorithmic}.}\label{fig:lob_depth_top_of_book}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+Looking beyond just the best bid and ask levels, the figure below
+shows the depths for the best five price levels on both sides. In
+combination with the previous figure, it is evident, that the number
+of individual orders at each price level is almost always one or two,
+which means that the order queues are very weak. For market making
+purposes strong queues would be optimal since then the price impact
+and the resulting negative effect on the market makers inventory
+would be smaller. Figure 3.5, which shows the cumulative liquidity
+and the total number of the orders at the top five levels of both
+sides of the LOB, confirms the earlier observation that towards the
+end of the trading session the orders get smaller and the liquidity
+at the top levels of the book gets more scarce.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{lob_depth_top5_levels.png}
+    \captionfootcite{LOB depth for top 5 price levels as a function of time to delivery.}{Based on \cite[See ][, p.75]{cartea2015algorithmic}.}\label{fig:lob_depth_top5_levels}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the figure below, we plot the mean and median distance between the
+top price levels over the average trading session. The distribution
+for both sides is very similar to the bid-ask distribution, excluding
+the IDAs. The distances get smaller towards delivery which would
+indicate that the total liquidity in the LOB increases. During the
+IDAs and the final hour of trading, the distances jump up as a
+natural result of the XBID being turned off.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{mean_median_dist_5_price_levels.png}
+    \captionfootcite{Mean and median distance between the top 5 price levels as a function of time to delivery.}{Based on \cite[See ][, p.75]{cartea2015algorithmic}.}\label{fig:mean_median_dist_5_price_levels}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+As the arrivals of MO depend on the Bid-ask spread in favor for
+tighter conditions, we can also conclude that the posted LO depths
+are dependent as well. Market depths correlate negatively with higher
+bid-ask spreads \cite[see ][, p.237]{balardy2022empirical}, what is
+especially pronounced for off-peak hours and weekeends. Higher
+bid-ask spreads primarily result from higher sell prices and lower
+buy prices \cite[][, p.237]{balardy2022empirical}, leaving business
+days and peak-contracts as the most liquid combinations in the
+market. As the spreads widen, the MM tend to post their LOs closer to
+the midprice, which is also a natural reaction to the lower liquidity
+in the LOB.
+% Result for modelling: market depth and order sizes are not independent
+% Result for modelling: market depth very low with only one or two resting LO per price level -> high market impact due to order walking the book
+% Result for modelling: market depth and correlate negatively with higher bid-ask spreads
+% Result for modelling: Not sufficient to only model best bid and ask but rather also the 1-3 other price levels
+%------------------------------------------------------------------------------------
+\subsection{Market Impact}\label{sub_sec:market_impact}
+%------------------------------------------------------------------------------------
+As we have seen from the previous market-depth analysis, for the CID
+market, the market impact plays a big role since resting LO volumes
+at the best bid and ask are rather small and would be entirely
+consumed quickly by large incoming MO, depleting these price levels,
+`walking the book' and attaining a stepwise worsening average price.
+Price impact measures the cost of executing larger trades via their
+impact of trading on prices.\footnote{\cite[See
+    ][,p.88]{cartea2015algorithmic}} A linear relationship between price
+changes and net order flow is plausible for a wide range of midprice
+changes, what justifies the use of a simple linear model to measure
+the market impact. By the simple linear model, we can see that there
+is a positive relationship between net order flow and price changes.
+That is when net order flow is positive (negative), that is more
+(less) buy than sell MO, the midprice tends to increase
+(decrease).\footnote{\cite[See ][,p.88]{cartea2015algorithmic}} The
+price impact can be further decomposed into two components: the
+permanent and the temporary impact. An exemplary figure of the
+results for the temporary price impact can be seen below:
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{order_flow_mid_price_drift.png}
+    \captionfootcite{Order Flow and effect on the drift of midprice of INTC.}{Based on \cite[See ][, p.75]{cartea2015algorithmic}.}\label{fig:order_flow_mid_price_drift}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+The third picture in the Figure shows how the slope of this linear
+impact model fluctuates throughout the entire day. We see that the
+largest impact tends to occur in the morning, then this impact
+flattens and stays flat throughout the day, and towards the end of
+the day it lessens. Such a pattern is seen in a number of assets and
+is consistent with the reduction in spreads and increases in depth we
+have documented earlier. So, our very preliminary and limited
+analysis suggests that order arrival seems to be followed by further
+order arrival on both sides of the book, and more on its own side
+than on the other side of the book. As we will now see, MOs do not
+arrive at random times. They tend to arrive when spreads are narrow,
+and opportunistically hit orders that are posted closer to the mid
+price, so it is only natural that we should observe a wider spread
+after an execution.\footnote{\cite[See
+    ][,p.87]{cartea2015algorithmic}}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{market_impact.png}
+    \captionfootcite{Market impact.}{Based on \cite[See ][, p.88]{cartea2015algorithmic}.}\label{fig:market_impact}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+% Result for modelling: Market impact overall relevant as market depths are very thin
+% Result for modelling: Time dependent market impact
+% Result for modelling: Linear Market impact is justified and shall be used
+% Result for modelling: Positive Relationship between net order flow and price changes, so include it as a state variable
+%------------------------------------------------------------------------------------
+\subsection{Messages and Cancellations}\label{sub_sec:messages_and_cancellations}
+%------------------------------------------------------------------------------------
+Key components forming the shape of the LOB are the arrival and
+cancellation rates of LOs and MOs. As these are critical inputs for
+the overall optimisation problem of the MM, in the sense that their
+intensities determine the frequency of the LOs being lifted and the
+resulting gain from the spread. Descriptive statistics are provided
+in the table below:
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{num_messages_per_day.png}
+    \captionfootcite{Number of messages per day.}{Based on \cite[See ][, p.91]{cartea2015algorithmic}.}\label{fig:num_messages_per_day}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+Analysing the arrival rates of MOs and LOs, Figure 3.7 shows the
+average intensity of MO arrivals during a trading session for hour 14
+delivery.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{mo_arrival_rates.png}
+    \captionfootcite{MO arrival distribution as a function of time to delivery.}{Based on \cite[See ][, p.91]{cartea2015algorithmic}.}\label{fig:mo_arrival_rates}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+The distinction between aggressive and non-aggressive MOs is that
+aggressive MOs move the current mid-price i.e. the volume of the MO
+is large enough to deplete all the liquidity at the current best bid
+or ask, and non-aggressive MOs have less volume than is currently
+available at the best bid or ask. The intensity of MO arrivals is
+highly correlated with the volume pattern in Figure 3.1, but the
+pattern is smoother and follows an exponential shape. The intensity
+drops significantly only in the final hour of trading, and the IDAs
+seem to have little to no impact on the intensity. The share of
+aggressive MOs to non-aggressive MOs seems to be constant. Von
+luckner and Kiesel also provide strong empirical evidence about the
+clustering of MOs in the German intraday market in. Clustering means
+that successive orders are more likely to be of the same sign, which
+can be attributed to market participants splitting their MOs into
+smaller pieces, following the behavior of other traders or acting on
+the same information in timely proximity. The ability to cancel and
+place new limit orders is critical for the market maker in order to
+change their LO placement in the LOB upon arrival of new market
+events. Figures 3.8 and 3.9 present the intensities of LO arrivals
+and cancellations for the hour 14 delivery. Aggressive LO arrival is
+defined as a LO that arrives inside the spread thus changing the
+mid-price and non-aggressive arrival is an order that arrives at the
+current best bid or ask, or a worse price. Aggressive cancellation is
+defined as a canceled order that moves the mid-price which happens
+when the canceled order is the only order at the best bid or ask. The
+patterns for LO additions and cancellations are almost identical,
+which is not a coincidence: most of the orders are placed and then
+canceled in the next few seconds. The patterns for additions and
+cancels are not as smooth as the MO arrival pattern and are
+significantly affected by the IDAs. During the IDAs, the intensities
+for both additions and cancellations drop significantly and jump
+right after when XBID is turned on again. The drop in intensity in
+the final hour is also very clear. The share of aggressive LO
+additions and cancels is relatively constant with small spikes during
+the IDAs due to lower liquidity in the LOB.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{lo_ca_arrival_rates.png}
+    \captionfootcite{LO and CA arrival distribution as a function of time to delivery.}{Based on \cite[See ][, p.91]{cartea2015algorithmic}.}\label{fig:lo_ca_arrival_rates}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{messages_by_dist_to_mid.png}
+    \captionfootcite{Messages by distance to midprice.}{Based on \cite[See ][, p.93]{cartea2015algorithmic}.}\label{fig:messages_by_dist_to_mid}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+From the above table we find that the distance to the midprice is
+(naturally) shorter, and we can compute that 36\% of orders were
+executed at prices between 1 and 3 cents from the midprice, and 42\%
+at prices between 4 and 6, so that only 22\% of executions were
+relatively far from the midprice (7+ cents away).\footnote{\cite[See
+    ][, p.93]{cartea2015algorithmic}}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{9cm}{surv_func_dist_from_mid.png}
+    \captionfootcite{Survival function of distance from midprice.}{Based on \cite[See ][, p.94]{cartea2015algorithmic}.}\label{fig:surv_func_dist_from_mid}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+In the above figure of total executions, as the distance from the
+price at which the original LO was posted increases. This represents
+an approximation to the 'fill probability' - the probability that a
+posted order is executed, what we will also later use in the
+modelling. Assuming a certain market share of $\rho$ that the MM of
+the total traded volume has, or wishes to achieve, and that is chosen
+in advance, we can use this directly in the sense
+of\footnote{\cite[See ][, p.9]{law2015pure}} multiplying the
+effective arrival rate of market orders hitting his limit orders by
+$\rho$. For example, when $\rho$=5\%, that means the effective
+arrival rate of market orders hitting his limit orders is around 5\%
+of all market orders. He may achieve this by continuously adjusting
+his limit order quantity to be 5\% of the total quantity in the queue
+but the detailed mechanism is outside the scope of this
+study.\footnote{\cite[See ][, p.61]{law2015pure}} The market share
+$\rho$ will be multiplied to the cash and quantity dynamics of the
+market maker while the price will evolve according to all orders in
+the market. When he has limit orders in the bid queue, the increase
+in quantity will be the number of shares v of the market order
+hitting the bid multiplied by the market share $\rho$ (assume market
+maker’s limit orders are distributed evenly within the
+queue).\footnote{\cite[See ][, p.62]{law2015pure}}
+
+This indicates that market buy orders tended to occur much closer to
+the midprice than market sell orders on this particular day, which
+had an overall positive order flow for AAPL shares and a slight price
+increase from market open to market close. In Figure 4.14, we have
+also included total executions separated by the time of day: the
+first half hour after the market opens (Mkt Start), the last half
+hour before the market closes (Mkt Close), and the time in between
+(Intraday). We observe that Mkt Close tends to be below that of
+Intraday, implying that during the last half hour of trading,
+executions tend to be close to the midprice, which is consistent with
+the pattern of the quoted spread in Figure 4.6.
+% Result for modelling: most of executed postings very close to midprice -> Only try to model levels +-3 from midprice or best bid and best ask
+% Result for modelling: definitely filter out the times of the IDA as this will negatively impact and bias the intensity estimations
+% Result for modelling: Clustering of MO arrivals
+% Result for modelling: Consider the best three levels for modelling as there is the majority of activity and volumes
+%------------------------------------------------------------------------------------
+\section{Empirical Intraday activity patterns and stylized facts}\label{sec:empirical_patterns_and_stylized_facts}
+%--------------------------------------------------------------------------------
+As we have seen in the preceeding empirical analysis, the data
+exhibits the following key charactersistics, that set the stage for
+our benchmarking framework for the mathematical modelling and its
+performance assessment:\footnote{\cite[See ][, p.13]{law2015pure}}
+% Maybe make a table out of that where I list all the papers of the power trading sector
+% that confirm the single finding in their research
+\begin{enumerate}
+    \item irregular time intervals between arrivals
+    \item discrete state space of price ticks and volume lot sizes
+    \item intraday seasonality (more activities around market open and close)
+    \item arrival clustering
+    \item self-excitation from its own history
+    \item cross-excitation from other order types
+    \item cross-excitation from the history of other assets
+    \item long memory of excitation effect
+    \item sparse order book characteristsics (low liquidity, low market depth,
+          wide bid-ask spread)\footnote{\cite[See ][,
+                  p.236]{balardy2022empirical}}
+    \item Non-Markovian dynamics (the future evolution of the LOB depends not
+          only on the current state but also on the past history of order
+          arrivals and executions)\footnote{\cite[See ][,
+                  p.52]{cartea2015algorithmic}}
+\end{enumerate}
+
+As with the newest regulatory requirements, the todays standard will
+be the 15-minute contracts, especially item seven proposes a
+complexity increasing hurdle. Suspectively the closer a neighbouring
+contract is, the more cross-excitation impact will be observed,
+suggesting few contracts before and after the current contract, as
+the most relevant ones for the modelling. We chose to ignore this
+complexity for the sake of simplicity and focus on the single
+contract modelling.
 %------------------------------------------------------------------------------------
 \chapter{Mathematical Modelling}\label{ch:mathematical_modelling}
 %------------------------------------------------------------------------------------
+% Centers around Order Flow Modelling
 In order to realistically model the LOB dynamics and derive the
 optimal market making strategy, we need to choose a suitable
 mathematical framework that can replicate the key empirical
 characteristics of the LOB. A natural framework is offered by the
 Hawkes-Process family, which is a class of self-exciting point
 processes that can capture the clustering and dependence structure of
-order arrivals in the LOB. By also including cross-excitation among
+order arrivals in the LOB.\footnote{Note: In theory the order arrival
+intensities can be any predictable non-negative stochastic processes, \cite[see ][, p.39]{korhonen2025market}.} By also including cross-excitation among
 different order types, this process family also offers modelling
 capabilities for complex interactions.
 
+Explicitly not assuming that the MM can adjust bid and ask prices
+continuously, the MM's decision problem is formulated as a form of an
+optimal impulse-control switching problem, see \cite{law2015pure}.
+
+Not only is this assumption not realistic but also not properly
+penalised in the existing discussions, as altering order parameters
+means losing the queue position due to the applied price-time
+priority principle most exchanges operate on.
+
 In the following sections, we will first introduce the basic concepts
-of Hawkes processes, and then describe how we can use this framework
-to model the order arrivals and mid-price dynamics in the electricity
-markets, ultimately leading to the derivation of the optimal market
-making strategy.
+of Hawkes processes, as member of the general point process family,
+and then describe how we can use this framework to model the order
+arrivals and mid-price dynamics in the electricity markets,
+ultimately leading to the derivation of the optimal market making
+strategy. A complete taxonomy of the main process families belongig
+to the point processes is given below.
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{7cm}{point_process_family.png}
+    \captionfootcite{Shcematic overview of the point process family.}{Based on \cite{kiesel_efc19_2019}, own illustration.}\label{fig:point_process_family}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+
 %------------------------------------------------------------------------------------
 \section{The Point Process Family}\label{sec:point_process_family}
 %------------------------------------------------------------------------------------
+Starting with the basic concepts of the general point process family,
+we can define a point process as a random collection of points in
+time, where each point represents the occurrence of an event. This
+basic model for representing event streams assumes that their
+occurrence is random, i.e. independent and can be described by a
+probability
+distribution.\footnote{\cite{palm1943intensitatsschwankungen}}
+%------------------------------------------------------------------------------------
+\subsection{Homogeneous Point Processes}\label{sub_sec:homogeneous_point_processes}
+%------------------------------------------------------------------------------------
+\cite[See ][, p.3]{oxford_hawkes_2020}
+\begin{definition}[Point process]\label{def:point_process}
+    A point process is a stochastic process $(T_k)_{k\in\mathbb{N}}$
+    taking values in $\mathbb{R}_{+}$ such that for every $k\in\mathbb{N}$, $T_k \leq T_{k+1}$.
+\end{definition}
+
+\begin{definition}[Counting Process]\label{def:counting_process}
+    Given a point process $(T_k)_{k\in\mathbb{N}}$, its counting process is defined by
+    \begin{equation}\label{eq:counting_function}
+        N(t)=\sum_{k\in\mathbb{N}}\mathbf{1}_{\{T_k\le t\}}
+    \end{equation}
+    and counts the number of events that have occurred up to time $t$. The
+    process is called \emph{simple} if no two events occur at the same time,
+    i.e., $\mathbb{P}(T_k=T_j)=0$ for all $k\neq j$.
+\end{definition}
+In reality of course, multiple incoming messages can have the exact same assigned timestamp,
+suggesting a \emph{non-simple} point process. However, for the sake of simplicity,
+we will assume a simple point process in our modelling framework, as these cases are very
+rare and only make up x \% of observations (timestamped on nanoseconds).\footnote{Assume no two types
+    of orders can arrive at the exact same time, if the exchange operates multiple
+    servers it can of course accept two incoming order types at the same instant, \cite[see ][p. 45]{law2015pure}}
+
+An important characteristic of the counting process is its so-called
+\emph{conditional intensity}:
+
+\begin{definition}[Conditional Intensity]\label{def:conditional_intensity}
+    The conditional intensity $\lambda(t)$ of a counting process $N(t)$ is defined as the limit
+    \begin{equation}\label{eq:conditional_intensity}
+        \lambda(t) := \lim_{\Delta t \to 0} \frac{\mathbb{P}(N(t+\Delta t)-N(t)=1|\mathcal{F}_t)}{\Delta t}
+    \end{equation}
+    where $\mathcal{F}_t$ is the filtration generated by the counting process up to time $t$,
+    i.e. $\mathcal{F}_t : = \sigma(N(s): 0 \leq s \leq t)$.
+\end{definition}
+
+Another important quantity in the study of point processes is the
+point-wise integral of the conditional intensity of the process,
+$\Lambda(t)$, i.e.
+\begin{definition}[Compensator]\label{def:compensator}
+    \begin{equation}\label{eq:compensator}
+        \Lambda(t) := \int_0^t \lambda(s) ds
+    \end{equation}
+    We call this value the compensator of the process, and we have the
+    following useful result about compensators (Lemma X.Y.Z in XX).
+\end{definition}
+% This is the regular compensator for martingales (Doob Decomposition)
+\begin{theorem}[$\mathcal{F}$-Martingale]\label{thm:f_martingale}
+    Suppose the $\mathcal{F}_t$-adapted counting process $(N(t))_{t \in \left[0, \infty \right)}$ has a left-continuous
+    intensity $\lambda(t)$. Then the process $M(t) := N(t) - \Lambda(t)$
+    is an $\mathcal{F}_t$-martingale, i.e. for every $0 \leq s \leq t$,
+    \begin{equation}\label{eq:f_martingale}
+        \mathbb{E}[M(t) | \mathcal{F}_s] = M(s).
+    \end{equation}
+    Counting processes preserve three notions of regularities, namely:
+    \emph{stationarity}, \emph{simplicity} and \emph{orderliness}.\\
+    A counting process $N$ is said to be (strictly) \emph{stationary} if $N(t + s) - N(s)$
+    has the same distribution for all $s \geq 0$. $N$ is said to be \emph{simple} when:
+    \begin{equation}
+        \mathbb{P}(N({t}) = \textit{0 or 1 for all t}) = 1
+    \end{equation}
+    and orderly, wehn it is first stationary and:
+    \begin{equation}
+        \mathbb{P}(N(t+h) - N(t) \geq 2) = o(h) \textit{as h} \rightarrow 0
+    \end{equation}.
+\end{theorem}
+One of the most prominent members of counting processes is the \emph{Possion Process},
+that can be defined in serveral ways.
+Based on its intensity it may be defined as:
+\begin{definition}[Possion Process]\label{def:possion_process}
+    Let $N$ be a counting process and consider a sequence $\left(s_{i},{} t_{i}\right]$
+    of half-open intervals with $0 \leq s_{i} < t_{i} \leq s_{i+1}$, $i \in \{1, \ldots, k\}$.
+    $N$ is called a Poisson process with intensity $\lambda > 0$ if:
+    \begin{equation}
+        \mathbb{P}[N(t_{i}) - N(s_{i}) = n_{i}, i \in {1, \ldots, k}] = \prod_{i=1}^{k} \frac{(\lambda(t_{i}-s_{i}))^{n_{i}}}{n_{i}!} e^{-\lambda(t_{i}-s_{i})}
+    \end{equation}
+
+    It follows from this definition that a Possion Process satisfies the
+    following conditions:
+    \begin{enumerate}
+        \item The number of events in an interval $\left[s, t\right),~0 \leq s <
+                  t$, follows a Poisson distribution with mean $\lambda (t-s)$
+        \item the process has \emph{independent} increments, i.e. the number of
+              arrivals in disjoint intervals are independent.
+    \end{enumerate}
+\end{definition}
+Allowing the intensity $\lambda$ to vary with time, we transition from
+the homogeneous to the non-homogeneous Possion Process.\footnote{\cite[See ][, p.4]{oxford_hawkes_2020}}
+%------------------------------------------------------------------------------------
+\subsection{Non Homogeneous Point Processes}\label{sub_sec:non_homogeneous_point_processes}
+%--------------------------------------------------------------------------------
+In a non-homogenous Poisson process, the (infinitesimal) probability
+of an event happening at time t may vary with t, but it is still
+independent of other events.\footnote{\cite[See ][,
+        p.1]{mei2017neural}}
+
+An importnat characteristic of the Possion Process is its
+\emph{memorylessness}, i.e. the distribution of future arrival times
+only depends on information available at the current time $t$, and
+not what happened in the past leading to $t$.\footnote{\cite[See ][,
+        p.4]{oxford_hawkes_2020}} To adjust for this \emph{memoryless}
+property, a historic dependency structure has to be introduced,
+leading to the \emph{Hawkes-Process}.
+%------------------------------------------------------------------------------------
 \subsection{One Dimensional Hawkes Processes}\label{sub_sec:one_dimensional_hawkes_processes}
+%------------------------------------------------------------------------------------
+A Hawkes process\footnote{\cite[See ][, p.]{hawkes1971spectra}}
+(Liniger, 2009) supposes that past events can temporarily raise the
+probability of future events, assuming that such excitation is
+positive, additive over the past events, and exponentially decaying
+with time, see \hyperref{thm:f_martingale}{Theorem
+    1}.\footnote{\cite[See ][, p.1]{mei2017neural}} Real world scenarios
+often violate these assumptions, as an event can also be inhibitious
+rather than excitatory, and the excitation effect may not be strictly
+additive over time as effect strengths might dampen down or that an
+exponentially decay can't be guaranteed.\footnote{\cite[See][,
+        p.2]{mei2017neural}} The output of a Hawkes process is essentially an
+event intensity, which is an instantantaneous
+probability.\footnote{\cite[See][, p.2]{mei2017neural}}
+
+\begin{definition}[Hawkes Process]\label{def:hawkes_process}
+    A Hawkes process is a simple point process with a conditional intensity function $\lambda(t)$
+    defined as:
+    \begin{equation}\label{eq:hawkes_intensity}
+        \lambda(t) = \mu + \int_{t_i < t} \phi(t - s) dN_{s}
+    \end{equation}
+    where $\mu \in \mathbb{R}^+$ is the baseline intensity of the process,
+    $\phi(t): \mathbb{R}^+ \to \mathbb{R}^+$ is the excitation kernel function, and $t_i$ are the times of past events.
+\end{definition}\footnote{\cite[See ][, p.5]{oxford_hawkes_2020}}
+
+In dimension $d = 1$, the process exhibits \emph{self-excitation},
+where past event occurences, spark an increase in the likelihood of
+observing events in the near future. Note that in $d=1$, only one
+specific type of event is considered for the self-excitation. It is
+of course possible and rather plausible, that in realistsic
+scenarios, multiple types of events are responsible for future
+excitations, proposing the need to incporporate a dependency
+structure for mutual event type impacts.\footnote{\cite[See ][,
+        p.5]{oxford_hawkes_2020}}
+% This is the exact reason why we need a d-dimensional framework, since for a specific considered event
+% type, like MO arrivals, excitation of additional future MO arrivals also depends on the other queues like LO arrivals, Cancellations
+To motivate a later extension, in effect, Hawkes processes and
+continuous-time Markov chains can have either an event viewpoint or a
+state viewpoint, respectively.\footnote{See \cite{morariu2018hybrid}
+    p.2}
 %------------------------------------------------------------------------------------
 \subsection{Multi Dimensional Hawkes Processes}\label{sub_sec:multi_dimensional_hawkes_processes}
 %------------------------------------------------------------------------------------
+\cite[See ][,p.5]{oxford_hawkes_2020}:
+
+\begin{definition}[Multivariate Hawkes Process]\label{def:multivariate_hawkes_process}
+    A $d$-dimensional counting process $N = (N_1, \ldots, N_d)$, is a
+    multivariate Hawkes process when:
+    \begin{equation}\label{eq:multivariate_hawkes_intensity}
+        \lambda_{i}(t) = \mu_{i} + \sum_{j = 1}^{d} \int_{0}^{t} \phi_{ij}(t - s) dN_{j, s}
+    \end{equation}
+    where $\mu_{i} \in \mathbb{R}^d$ are the baseline intensities, $t_i$ are the times of past events and
+    $\phi_{ij}(t): \mathbb{R}^+ \to \mathbb{R}^{d \times d}$ are the excitation kernel functions,
+    and satisfy:
+    \begin{enumerate}
+        \item $\phi_{ij}(t) \geq 0$ for all $t \in \mathbb{R}$ and $i, j \in \{1, \ldots, d\}$
+        \item $\phi_{ij}(t) = 0$ for all $t \leq 0$ and $i, j \in \{1, \ldots, d\}$
+        \item $\phi_{ij}(t)$ is locally integrable for all $i, j \in \{1, \ldots, d\}$ i.e. $\phi_{ij}(t) \in L_{1, loc}(\Omega)$
+    \end{enumerate}
+\end{definition}
+
+As in XX, two alternative notations of
+\hyperref[eq:multivariate_hawkes_intensity]{Equation 4.9} can be
+considered, allowing for a more compact notation and extended
+interpretation of its components. The first one, being the
+\emph{convolutional} notation:
+\begin{equation}
+    \Lambda(t) = \mu + \Phi * dN_t
+\end{equation}
+where $\Phi * dN_t$ is the convolution of the kernel function $\Phi$ with the counting process $dN_t$.
+The second one, being the \emph{matrix} notation:
+\begin{equation}
+    \lambda(t) = \mu + \int_{0}^{t} \Phi(t - s) dN_{s}
+\end{equation}
+%------------------------------------------------------------------------------------
+\subsection{Adding State Dependencies and Marks}\label{sub_sec:adding_state_dependencies_and_marks}
+%------------------------------------------------------------------------------------
+After having discussed the one- and d-dimensional Hawkes Process, the
+state dependent and marked variants should be introduced.
+Understanding how these two properties are essential for a realistic
+modelling of the LOB dynamics, we must first differentiate them along
+two dimensions:
+\begin{enumerate}
+    \item where information originates from and
+    \item how it affects the intensity ($\lambda_{t}$) of future order
+          arrivals.
+\end{enumerate}
+
+Adding state dependency and marks is also motivated by the findings
+here: \cite[see ][, p.83]{cartea2015algorithmic} where we clearyl see
+that the size of an order (so its magnitude) impacts the arrival
+rates of after following orders heavily. Here it is alos suggested
+that order arrivals seem to be followed by further order arrivals on
+both sides of the book, and more on its own side than on the opposing
+side \cite[see ][, p.83]{cartea2015algorithmic}.
+
+%------------------------------------------------------------------------------------
+\subsubsection{The Marked Hawkes Process (MHP)}\label{sub_sub_sec:the_marked_hawkes_process}
+%--------------------------------------------------------------------------------
+The Marked Hawkes Process can be thought of as containing
+Event-Driven Info. The intensity changes based on a specific property
+attached directly to an incoming event at the exact millisecond it
+arrives. An incoming order has attributes like its size, direction,
+and price level, which are all relevant for the future order arrival
+intensity. The Marked Hawkes Process is therefore a natural extension
+of the standard Hawkes Process, where the intensity is only a
+function of the past event times.
+
+\begin{paragraph}{Mathematical formulation}
+    Every time an event \(i\) occurs at time
+    \(t_{i}\), it carries a "mark" (\(m_{i}\)). In market microstructure,
+    this mark is almost always the Order Size / Volume or Trade
+    Direction:
+    \begin{equation}
+        \lambda_{t} = \mu + \sum_{t_{i}<t} \phi(t-t_{i}, m_{i})
+    \end{equation}
+\end{paragraph}
+
+The intuition behind including marks is that the impact of an event
+on future order arrivals is not only determined by its occurrence but
+also by its characteristics. For example, a large market order
+(carrying the mark $m_{i}$) may have a more significant impact on the
+afterfollowing excitation ripple (a bigger shock through the kernel
+function: \(\phi(t-t_{i}, m_{i})\)) and thus a higher intensity of
+future orders than a small MO, especially considering situations
+where the Market-depth is thin. In this thesis, we will explore if
+incorporating the \emph{Volume} of an order as mark will carry any
+beneficial information for the future order arrival intensity.
+
+Memorywise: The system only looks backward at the history of
+individual events and their specific sizes.
+%------------------------------------------------------------------------------------
+\subsubsection{The State Dependent Hawkes Process (SDHP)}\label{sub_sub_sec:the_state_dependent_hawkes_process}
+%--------------------------------------------------------------------------------
+The State-Dependent Hawkes Process represents Environment-Driven
+Info. The intensity changes based on the ambient state of the entire
+system at time \(t\), regardless of which specific event caused that
+state.
+
+\begin{paragraph}{Mathematical formulation}
+    Introduced to fix a major flaw in pure
+    Hawkes models: traditional Hawkes processes ignore the geometry of
+    the order book. In a state-dependent model, the kernel itself is
+    modulated by a piecewise constant state variable, \(X_{t}\),
+    representing the continuous state of the LOB.
+
+    \begin{equation}
+        \lambda_{t} = \mu(X_{t}) + \sum_{t_{i}<t} \phi_{X_{t_{i}}}(t-t_{i}, X_{t})
+    \end{equation}
+\end{paragraph}
+
+The intuition behind including state dependencies is that the state
+\(X_{t}\) could be the bid-ask spread or the queue imbalance. If the
+spread is at its minimum tick size, the probability of a
+price-improving limit order dropping in is physically zero. The model
+dampens or accelerates intensities based on the geometry of the book
+layout when the order hits.
+
+Memorywise: The system is fully coupled. The arrival of an order
+changes the book state (\(X_{t}\)), and the new book state instantly
+updates the baseline (\(\mu \)) and excitation physics (\(\Phi \)) of
+future orders.
+
+%------------------------------------------------------------------------------------
+\subsubsection{The Unified Approach: The State dependent marked Hawkes Process (SDMHP)}\label{sub_sub_sec:the_unified_approach}
+%--------------------------------------------------------------------------------
+In a combined model, the intensity \(\lambda _{t}\) of order arrivals
+depends simultaneously on the changing geometry of the book
+(\(X_{t}\)) and the specific properties of past historical trades
+(\(m_{i}\)).
+
+\begin{paragraph}{Mathematical formulation}
+    \begin{equation}
+        \lambda_{t} = \mu(X_{t}) + \sum_{t_{i}<t} \phi_{X_{t_{i}}}(t-t_{i}, m_{i}, X_{t})
+    \end{equation}
+    with the following components:
+    \begin{itemize}
+        \item \(X_{t}\): The state of the LOB at time \(t\), which can include variables such as the bid-ask spread, queue imbalance, and other relevant market conditions.
+        \item \(m_{i}\): The mark associated with the \(i\)-th event, which can represent characteristics such as order size or trade direction.
+        \item \(\mu(X_{t})\): The baseline intensity, which is a function of the current state of the LOB, capturing the underlying rate of order arrivals based on the current market conditions.
+        \item \(\phi_{X_{t_{i}}}(t-t_{i}, m_{i}, X_{t})\): The coupled excitation kernel, which depends on the time since the last event \(t-t_{i}\), the mark \(m_{i}\), and the state of the LOB at the time of the event \(X_{t}\).
+    \end{itemize}
+\end{paragraph}
+
+This combined approach allows to properly model such cases:
+\begin{quote}
+    A huge trade (large mark \(m_{i}\)) just executed. Because
+    the bid-ask spread is currently wide (state \(X_{t}\)), this massive
+    trade will trigger a cascade of aggressive cancel-and-replace orders
+    (\(\phi_{X_{t_{i}}}\) becomes heavily excited). However, if the
+    spread were narrow, that exact same size trade would trigger virtually
+    no reaction.
+\end{quote}
+%------------------------------------------------------------------------------------
+\section{Extension: The Neural Hawkes Process (NHP)}\label{sec:extension_neural_hawkes_process}
+%------------------------------------------------------------------------------------
+While computationally beautiful, implementing a State-Dependent
+Marked Hawkes process presents a massive hurdle: Parameter Explosion.
+If you track a limit order book with 10 distinct states (e.g.,
+deciles of queue imbalance) and use 3 types of marks (small, medium,
+and large orders), your kernel combinations multiply exponentially.
+Estimating these parameters in real time using Maximum Likelihood
+Estimation (MLE) or optimization methods like the Karush–Kuhn–Tucker
+(KKT) conditions becomes computationally intensive for high-frequency
+setups. To solve this, modern quantitative research frequently
+utilizes Neural Hawkes Processes (NHP). Instead of computing explicit
+mathematical formulas for every state-mark combination, deep learning
+architectures (like Continuous-Time LSTMs) digest the raw sequence of
+states and marks together, outputting a dynamically changing arrival
+intensity natively.
+
+%------------------------------------------------------------------------------------
 \section{The Hawkes Process based framework for optimal market making}\label{sec:hawkes_process_framework}
 %------------------------------------------------------------------------------------
-\subsection{Excitation Kernels}\label{sub_sec:excitation_kernels}
-%------------------------------------------------------------------------------------
-In the Hawkes-Poission Process, the probability drop-off of an event
-triggered bya past event is called ''kernel''.
+Essentially the framework shall incorporate the accurate modelling of
+events that impact the mid-price and the bid-ask spread, as these are
+the two main reference points from which we desire to obtain the
+optimal depths for the MM quoting policy. Further we assume that the
+MM quoting policy shall not be continuous, as the optimization is
+formulised as an optimal switching problem where the market maker
+will be penalized every time he revises his quotes due to the
+price-time priority of modern exchanges.\footnote{\cite[See][,
+        p.8]{law2015pure}, this essentially assumes the MM can't reposition
+    continuously.} For the switching regimes, we want to obtain the best
+quote depths for the strategy.\footnote{\cite[see][,
+        p.9]{law2015pure}} The effective arrival rate of the market orders
+hitting the market maker is determined from the target market share
+parameter $\rho$ chosen in advance by the market
+maker.\footnote{\cite[see][, p.9]{law2015pure}} Volumes are used as
+marks and the MM is allowed to liquidate excess inventory using
+MO.\footnote{\cite[see][, p.9]{law2015pure}} The control problem is
+now a combined (simultaneous) optimal switching and impulse control
+problem under a pure-jump environment.\footnote{\cite[see][,
+        p.9]{law2015pure}}
 
-Here also a plot comparing the different popular choices for the
-exciattion kernels, but also showing the spline based non-parametric
-kernel estimation variant.
+% State here the full model after having discussed all the extensions mathematically
+% As the exact in detail specifications of the baseline intensity and the kernel functions
+% are still open we will define them here in the subsections
+% As the connection of the oder flow arrival modelling using the Hawkes Process
+% to the mid price is crucial, we will also cover this here in more detail
 %------------------------------------------------------------------------------------
 \subsection{Time-inhomogeneous (Baseline) Intensities}\label{sub_sec:time_inhomogeneous_baseline_intensities}
 %------------------------------------------------------------------------------------
-As we have seen in the empirical analysis, the intraday activity
-pattern is not constant, but rather follows a certain pattern, with
-higher activity during certain hours of the day, which is also known
-as the Samuleson effect. This means that the baseline intensity of
-the Hawkes process, which represents the underlying rate of order
-arrivals, has to be dependent on the remaining contract lifetime,
-therefore being non-stationary. By incorporating time-inhomogeneous
-baseline intensities into our modeling framework, we can better
-capture the dynamics of order arrivals and improve the performance of
-our market making strategy.
+As we have seen in the section
+\hyperref[sub_sec:messages_and_cancellations]{3.2.6 Messages and
+    Cancellations}, the intraday activity pattern is not constant, but
+rather follows a certain pattern, with higher activity during certain
+hours of the contract lifetime, which is also known as the \emph{Samuleson
+effect}. This means that the baseline intensity of the Hawkes process,
+which represents the underlying rate of order arrivals, has to be
+dependent on the remaining contract lifetime, therefore being
+non-stationary. By incorporating time-inhomogeneous baseline
+intensities into our modeling framework, we can better capture the
+dynamics of order arrivals and improve the performance of our market
+making strategy. For the baseline intensity we assume:
+\begin{equation}\label{eq:baseline_intensity}
+    \mu_{j}(t) = \gamma_{j} e^{\eta_{j} t}, \quad j \in \{1, \ldots, 6\},
+\end{equation}
+where:\footnote{\cite[See ][, p.80]{luckner2021hawkes}}
+
+Note the important practical caveat, that when the bid-ask spread is
+equal to the contract’s tick size ($\delta$), it is not possible to
+place LOs inside the bid-ask spread and the intensities of buy and
+sell LOs placed into the bid-ask spread should be zero.
 %------------------------------------------------------------------------------------
-\section{Midprice Dynamics}\label{sec:midprice_dynamics}
+\subsection{Excitation Kernels}\label{sub_sec:excitation_kernels}
 %------------------------------------------------------------------------------------
+In the Hawkes-Poisson Process, the probability drop-off of an event
+triggered by a past event is called ''kernel''.\footnote{Alternatively,
+referred to as ''de-cay/exciting/fertility kernel'', \cite[see ][, p.19]{law2015pure} } Together with the
+previously specified baseline intensities, the kernel functions
+determine the overall intensity of the process. The kernel functions
+can be generally of arbitrary functional shape, where the most common
+choices are the exponential, power-law, and Rayleigh kernels. A
+comparing figure of these kernel function types is provided below.
+
+Here also a plot comparing the different popular choices for the
+exciattion kernels, but also showing the spline based non-parametric
+kernel estimation variant. After the empirical findings from section
+XX, we chose to use the exponential kernel function, specified as:
+\begin{equation}\label{eq:exponential_kernel}
+    \phi_{j, k}(t) = \alpha_{j, k} e^{-\beta_{j, k}t}, \quad j, k \in \{1, \ldots, 6\},
+\end{equation}
+where:\footnote{\cite[See ][, p.80]{luckner2021hawkes}}
+%------------------------------------------------------------------------------------
+\subsection{Midprice Dynamics}\label{sub_sec:midprice_dynamics}
+%------------------------------------------------------------------------------------
+Having fully specified the order arrival rate dynamics, we can now turn
+to the midprice dynamics. This part represents a crucial aspect of our
+framework, as this often done using an arbitrary set process, that is
+\emph{independent} of the order arrival events considered here, which is not
+realistic. There are two possible scenarios, either there is enough
+liquidity at both the best bid and the best ask levels or the
+opposite (a just one sided scenario will be ignored). In the first
+setting an incoming MO (supposedly even with bigger volume) will not
+cause a change in the midprice, while in the second setting even a
+small MO will probably cause either the bid or the ask side to be
+depleted, causing the midprice to change. As we have seen in the
+empirical section, the latter scenario is usually the default in the
+CID market, as the liquidity tends to be low and the bid-ask spread several
+tick sizes wide. Therefore we require a setting where the mid-price
+is impacted by our mid-price moving event types and is of the type of
+a pure jump process, following the considerations of \cite[see][,
+    p.7]{law2015pure}. The directly resulting linkage between the best
+bid and ask prices and incoming MO (that shall be connected) can be
+seen here: \cite[see][, p.8]{law2015pure}
+
+Therefore we assume it is best to not only submit orders to the best
+bid and ask level, but rather consider a setting where the optimal
+depths for posting orders should be determined, as the best bid and
+ask levels can be depleted.
+
+As stated previously, we concentrate on those events that move the
+midprice. These are the \emph{aggressive} events that can be depicted
+in Table XX and their empirical relative shares in Table XX. Namely
+they are: placement of buy and sell LOs into the bid-ask spread,
+depletion of the first or more levels of the LOB, and the placement
+of buy and sell MOs. \footnote{\cite[See ][,
+        p.80]{luckner2021hawkes}} Therefore resulting in the use of a
+6-dimensional Hawkes process. As sanity check we have to note that in
+the case where the bid-ask spread is just tick-size, it is of course
+not possible to place further LO inside the spread, so the
+probability of this event type is zero, and the model should be able
+to capture this. The mid-price must be further connected to say at
+least MO event types, for two reasons: First, otherwiese it can
+happen that a sell MO arrives and the mid-price jumps into the
+opposite direction if not coupled and secondly the MO carrying mark,
+say its attached volume must be considered. A very big MO should have
+a bigger impact on the mid-price as its probably gonna deplete the
+best few levels until its filled than say a small MO, that
+\textit{does not walk the book}. Further, we will extend the proposed
+basis framework of \cite{luckner2021hawkes}, where his considered
+main mid-price moving events are the following six: placement of buy
+and sell LOs into the bid-ask spread, depletion of the first or more
+levels of the LOB, and the placement of buy and sell MOs by the
+following more granular extensions: bid-side MO, LO, cancellations at
+L1, L2, L3. ask-side MO, LO, cancellations at L1, L2, L3.
+% How should the baseline intensities be modelled
+% Must be time varying to capture the intraday activity pattern, but also
+% must be state dependent to capture the current state of the LOB, as
+% the baseline intensity is the underlying rate of order arrivals, which
+% is not only dependent on the time of the day, but also on the current state of the LOB, e.g. if the bid-ask spread is wide, the baseline
+% How should the excitation kernel functions be chosen
+% How can we integrate states with external variables
+% How can we integrate marks with the order size and direction
+
 Here the mathematical definition of the midprice dynamics, which is
 the central variable of interest in our modeling framework. The
 
@@ -1048,31 +2533,30 @@ We need to have the midprice impacted by incoming MO due to realism,
 cause a certain jump of the process, jump size and direction have to
 be realistic (in their direction, foresign and magnitude).
 
+Must be a (pure) jump process since it is a discrete price grid, and
+the midprice can only jump in discrete increments of the tick-size,
+which is 0.01 EUR/MWh in the CID.
+
+As the operating frequency at which LOs are posted inside the bid-ask
+spread and therefore cause it and the mid-price to move is much lower
+when compared with traditional financial markets and occurs randomly,
+it is not uncommon to oberseve phases where there is no change at
+all.\footnote{\cite[See ][, p.78]{luckner2021hawkes}} A natural
+choice is therefore to model the mid-price and the bid-ask spread as
+pure jump process.\footnote{\cite[See ][, p.78]{luckner2021hawkes}}
+
+Based on \cite[See ][, p.262]{cartea2015algorithmic}, the midprice
+dynamics can be used to account for adverse-selection risk a MM
+faces, by either assuming that the midprice undergoes jumps in the
+direction of incoming MO, or by letting the midprice's drift have a
+short term alpha component which is affected by the arrival of MO.
 %------------------------------------------------------------------------------------
-\section{Modelling Order arrivals}\label{sec:modelling_order_arrivals}
+\subsection{Cost functions}\label{sub_sec:cost_fuctions}
 %------------------------------------------------------------------------------------
-Since the LOB and every state can essentially be reconstructed by the
-two main input parameters, that are the arrival of limit orders and
-market orders, we can focus on the modelling of these two main order
-types, as well as cancellations, which are the main drivers of the
-LOB dynamics. From these general order types, we further focus on
-those that are actually relevant, i.e. those that move the mid price,
-which are the so called \textit{aggressive orders}, according to the
-detailed order-categorization based on XYZ laid out earlier in
-chapter XYZ. Another central and shaping input is the volume depth of
-the LOB.\cite{choi2021optimal}
+
+
 %------------------------------------------------------------------------------------
-\subsection{Market Order Arrivals}\label{sub_sec:mo_arrivals}
-%------------------------------------------------------------------------------------
-\subsection{Limit Order Arrivals}\label{sub_sec:lo_arrivals}
-%------------------------------------------------------------------------------------
-\subsection{Cancelations}\label{sub_sec:cancellations}
-%------------------------------------------------------------------------------------
-%------------------------------------------------------------------------------------
-\subsection{The role of Order Imbalance}\label{sub_sec:order_imbalance}
-%------------------------------------------------------------------------------------
-%------------------------------------------------------------------------------------
-\subsection{The Complete Model}\label{sub_sec:complete_model}
+\section{Overview: Modelling Specifications}\label{sub_sec:overview_modelling_specs}
 %------------------------------------------------------------------------------------
 Although possible in theory, the modelling of cross-excitement among
 various hourly products is not pursued in this thesis, as the
@@ -1088,20 +2572,254 @@ Also the idea, i.e when we refit daily, we could use these values as
 prior for the next fit making use of Bayesian updating, see
 \cite{jain2024limit}
 
+Here a table as overview of all different model versions that we fit
+and want to compare their performances in judging whether some
+specifications and inclusions are justified or not.
+
+Having discussed the rich possibilities in that the modelling
+frameworkmcan be specified and extended, we will now turn to the
+specifications of the modelling frameworks we want to test:
+\begin{enumerate}
+    \item We start off by the model proposed by \cite{luckner2021hawkes}, which
+          is a 6-dimensional Hawkes process, where the midprice moving events
+          are the following six: placement of buy and sell LOs into the bid-ask
+          spread, depletion of the first or more levels of the LOB, and the
+          placement of buy and sell MOs.
+    \item Next we separate the bid/ask event directions, considering: bid-side
+          aggressive events, ask-side aggressive events, side-specific arrival
+          intensities and side-specific impact on midprice and spread. This
+          should serve us to test whether asymmetry between buy and sell flow
+          matters.
+    \item On top the event types are added: market orders, limit orders,
+          cancellations
+    \item Additionally we will consider not only the best bid/ask level but
+          rather: L1, L2, L3 on bid side, L1, L2, L3 on ask side,
+          level-specific intensities and excitation and level-specific queue
+          depletion and replenishment.
+    \item Letting intensities react to the current book state is achieved by
+          adding state dependencies using possible variables like: spread,
+          midprice, imbalance, queue sizes at L1–L3, time-of-day /
+          time-to-delivery, possibly volatility regime.
+    \item We will next add marks to incorporate event magnitudes with the
+          following possible components: order size, price impact size,
+          possibly depth consumed, possibly aggressiveness of the order.
+    \item In a more optional setting we can benchmark the so far explored
+          settings against a Reinforcement Learning extension, with this broad
+          formulation: Hawkes simulator, state = intensities + book state +
+          inventory, actions = bid/ask quote placement, reward = PnL minus risk
+          penalties.
+\end{enumerate}
+
+The specifications in that order look like follows. The starting base
+model of \cite{luckner2021hawkes} is a 6-dimensional Hawkes process.
+The vector of event counting processes $N(t)$ is given as:
+\begin{equation}\label{eq:vector_event_counting_processes}
+    N(t) = (N^{BM}(t)m, N^{SM}(t), N^{BL, +}(t), N^{BL, -}(t), N^{SL, +}(t), N^{SL, -}(t))
+\end{equation}
+where
+\begin{itemize}
+    \item $N^{BM}(t)$ is the counting process for buy market orders,
+    \item $N^{SM}(t)$ is the counting process for sell market orders,
+    \item $N^{BL, +}(t)$ is the counting process for buy limit orders placed inside the bid-ask spread,
+    \item $N^{BL, -}(t)$ is the counting process for buy limit orders placed outside the bid-ask spread,
+    \item $N^{SL, +}(t)$ is the counting process for sell limit orders placed inside the bid-ask spread, and
+    \item $N^{SL, -}(t)$ is the counting process for sell limit orders placed outside the bid-ask spread.
+\end{itemize}
+For each of the six processes: $i \in \{1, \ldots, 6\}$ define the conditional intensities:
+\begin{equation}\label{eq:conditional_intensities}
+    \lambda_{i}(t) = \mu_{i}(t, X_{t}) + \sum_{j=1}^{6} \int_{0}^{t} \phi_{ij}(t - s) dN_{j}(s)
+\end{equation}
+where:
+\begin{itemize}
+    \item $\lambda_{i}(t)$ conditional arrival intensity of event type $i$,
+    \item $\mu_{i}(t, X_{t})$ is the baseline intensity for process $i$, which can depend on time $t$ and the current state of the limit order book $X_{t}$,
+    \item $\phi_{ij}(t - s)$ is the excitation kernel function that captures the influence of from event type $j$ to event type $i$,
+    \item $X_{t}$ state vector, e.g. spread, midprice, imbalance, time-to-close at time $t$.
+\end{itemize}
+The mid-price and spread dynamics can be formulated as follows.
+Define the mid-price as $P_{t}$ and the Spread as $S_{t}$ as pure jump processes, driven
+by the price-moving events:
+\begin{equation}
+    dP_{t} = \sum_{i=1}^{6} \Delta_{i}^{P} dN_{i}(t)
+\end{equation}
+and the spread as:
+\begin{equation}
+    dS_{t} = \sum_{i=1}^{6} \Delta_{i}^{S} dN_{i}(t)
+\end{equation}
+where
+\begin{itemize}
+    \item $\Delta_{i}^{P}$ is the price impact of event type $i$ on the mid-price,
+    \item $\Delta_{i}^{S}$ impact of event $i$ on the spread.
+\end{itemize}
+
+State dependency can be added by describing the state using the
+possible variables combined as:
+\begin{equation}
+    X_{t} = (S_{t}, P_{t}, I_{t}, Q_{t}^{L1}, Q_{t}^{L2}, Q_{t}^{L3}, T_{t}, V_{t})
+\end{equation}
+where:
+\begin{itemize}
+    \item $S_{t}$ is the bid-ask spread at time $t$
+    \item $P_{t}$ is the mid-price at time $t$
+    \item $I_{t}$ is the order imbalance at time $t$
+    \item $Q_{t}^{L1}, Q_{t}^{L2}, Q_{t}^{L3}$ are the queue sizes at levels 1, 2, and 3 of the limit order book at time $t$
+    \item $T_{t}$ is the time-to-delivery at time $t$
+    \item $V_{t}$ is the volatility regime at time $t$
+\end{itemize}
+
+Then a baseline can be chosen as:
+\begin{equation}
+    \mu_{i}(t, X_{t}) = f_{i}(S_{t}, P_{t}, I_{t}, Q_{t}^{L1}, Q_{t}^{L2}, Q_{t}^{L3}, T_{t}, V_{t})
+\end{equation}
+or alternatively:
+\begin{equation}
+    \mu_{i}(t, X_{t}) = exp(\alpha_{i} + \beta_{i}^{\top}X_{t}+g_{i}(t))
+\end{equation}
+where:
+\begin{itemize}
+    \item $\alpha_{i}$ channel-specific level,
+    \item $\beta_{i}$ sensitivity to the state variables,
+    \item $g_{i}(t)$ deterministic intraday seasonality..
+\end{itemize}
+
+Including marks $m_{k}$ to each event, for example the order size as
+mark, a marked kernel can be written as:
+\begin{equation}
+    \phi_{ij}(u, m) = a_{i, j} h(m) e^{-\omega_{i, j} u} \mathbb{1}_{u > 0}
+\end{equation}
+where:
+\begin{itemize}
+    \item $a_{i, j}$ strength of excitation,
+    \item $\omega_{i, j}$ decay speed,
+    \item $h(m)$ mark impact function, e.g. $h(m) = m$ or $h(m) = \log(1+m)$
+\end{itemize}
+what lets larger MOs or LOs have bigger effects than smaller ones.
+
+The level resolved extension results from refining each aggregated
+event type further by side, event type and level, resulting in a
+18-dimensional Hawkes process: $i \in$ \{side x type x level\} with:
+\begin{itemize}
+    \item side $\in$ \{bid, ask\},
+    \item type $\in$ \{MO, LO, CA\},
+    \item level $\in$ \{1, 2, 3\}.
+\end{itemize}
+with the intensities becoming:
+\begin{equation}
+    \lambda_{i}(t) = \mu_{i}(t, X_{t}) + \sum_{j=1}^{18} \int_{0}^{t} \phi_{ij}(t - s, m) dN_{j}(s),\\
+    i = 1, \ldots, 18
+\end{equation}
+
+Stability conditions: For exponential kernels, define the integrated
+excitation matrix $G$ as:
+\begin{equation}
+    G_{ij} = \int_{0}^{\infty} \phi_{ij}(u) du = \frac{a_{i, j}}{\omega_{i, j}}
+\end{equation}
+A sufficient stability condition is $\rho(G) < 1$
+with:
+\begin{itemize}
+    \item $\rho(G)$ is the spectral radius of the matrix $G$,
+    \item $G_{ij}$ is the expected number of events of type $i$ triggered by a single event of type $j$.
+\end{itemize}
+
 %------------------------------------------------------------------------------------
-\section{Deriving the optimal strategy: the optimal depths}\label{sub_sec:optimal_depths}
+\section{Deriving the optimal strategy: the optimal depths}\label{sec:optimal_depths}
 %------------------------------------------------------------------------------------
 Here the derivation and solution of the stochastic optimal control
 problem for the optimal depths, which is
 
 %------------------------------------------------------------------------------------
+\subsection{Stochastic Optimal Control}\label{sub_sec:stochastic_optimal_control}
+%------------------------------------------------------------------------------------
+The goal of stochastic control problems is to maximise (minimise)
+some expected profit (cost) function by tuning a strategy which
+itself affects the dynamics of the underlying stochastic system and
+to find the strategy which attains the maximum
+(minimum).\footnote{\cite[See ][, p.100]{cartea2015algorithmic}}
+
+A prominent tool for solving such problems is the \emph{dynamic
+    programming principle} (DPP) and the related non-linear partial
+differential equation (PDE), also knwon as
+\emph{Hamilton-Jacobi-Bellman} (HJB) equation.\footnote{\cite[See ][,
+        p.100]{cartea2015algorithmic}} With the DPP a stochastic control
+problem can be solved by breaking it down into a sequence of smaller
+subproblems, which can be solved recursively. The HJB equation
+provides a necessary condition for optimality and can be used to
+derive the optimal control strategy by solving the PDE subject to
+appropriate boundary conditions.\footnote{\cite[See ][,
+        p.100]{cartea2015algorithmic}}
+
+In the context of this thesis, we are especially interested in the
+setting where a MM wishes to maximise expected terminal wealth by
+using MO and LO.
+%------------------------------------------------------------------------------------
+\subsubsection{Control for Diffusion Processes}\label{sub_sub_sec:control_for_diffusion_processes}
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+\subsubsection{Control for Counting Processes}\label{sub_sub_sec:control_for_counting_processes}
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+\section{Estimation techniques}\label{sec:estimation_techniques}
+%------------------------------------------------------------------------------------
+Here describe the maximum likelihood or GMM estimations for the
+various model parameters, before we head over to the next pratical
+chapter where we apply all together.
+%------------------------------------------------------------------------------------
 \chapter{Numerical Analysis and Simulation}\label{ch:numerical_analysis}
 %------------------------------------------------------------------------------------
-Since we have to model the midprice dynamics with some form of
-process, we simulate this process and let the agent follow the
-optimally derived strategy and then evaluate this simulation study
-based results
+Here the concrete estimation procedures for the arrival rates and
+intensities
+%------------------------------------------------------------------------------------
+\section{Modelling Order arrivals}\label{sec:modelling_order_arrivals}
+%------------------------------------------------------------------------------------
+Since the LOB and every state can essentially be reconstructed by the
+two main input parameters, that are the arrival of limit orders and
+market orders, we can focus on the modelling of these two main order
+types, as well as cancellations, which are the main drivers of the
+LOB dynamics. From these general order types, we further focus on
+those that are actually relevant, i.e. those that move the mid price,
+which are the so called \textit{aggressive orders}, according to the
+detailed order-categorization based on XYZ laid out earlier in
+chapter XYZ. Another central and shaping input is the volume depth of
+the LOB.\cite{choi2021optimal} The basic idea behind modelling order
+arrivals is the following one: some event types are stochastically
+excited or inhibited—in the sense of having their probabilities
+elevated or decreased—by patterns in the sequence of previous
+events.\footnote{\cite[See ][, p.1]{mei2017neural}} Learning this
+pattern enables us to predict which type of event will happen next
+and when.\footnote{\cite[See ][, p.1]{mei2017neural}}
 
+Remembering the critical consideration, that a MM has no intrinsic
+need or desire to hold any inventory, so she will only buy (sell) in
+anticipation of a subsequent sale (purchase), what motivates the
+pursued modelling of order arrivals.\footnote{\cite[See ][,
+        p.21]{cartea2015algorithmic}}
+
+The estimated relative shares per order type here from the data:
+%------------------------------------------------------------------------------------
+%	                  FIGURE - START
+%------------------------------------------------------------------------------------
+\begin{figure}[htbp]
+    \vspace*{0.5cm}
+    \centering
+    \blendfigure{1.0\textwidth}{7cm}{rel_share_order_types.png}
+    \captionfootcite{Relative Percentage share of each order type.}{Based on \cite{law2015pure}, own illustration.}\label{fig:rel_share_order_types}
+\end{figure}
+%------------------------------------------------------------------------------------
+%	                  FIGURE - END
+%------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------
+\subsection{Market Order Arrivals}\label{sub_sec:mo_arrivals}
+%------------------------------------------------------------------------------------
+\subsection{Limit Order Arrivals}\label{sub_sec:lo_arrivals}
+%------------------------------------------------------------------------------------
+\subsection{Cancelations}\label{sub_sec:cancellations}
+%------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------------
+\subsection{The role of Order Imbalance}\label{sub_sec:order_imbalance}
+%------------------------------------------------------------------------------------
 %------------------------------------------------------------------------------------
 \section{Exchange Latency}\label{sec:exchange_latency}
 %------------------------------------------------------------------------------------
@@ -1182,13 +2900,12 @@ Here some examples of different citation styles offered by \LaTeX:
 \autocite{antonio2022inflation}. Footnote citation with page number:
 \autocite[1]{antonio2022inflation}. Inline citation:
 \textcite{rosenberg_2003_exchange_rate_determination}. Inline
-citation: \textcite{antonio2022inflation}. Inline
-citation: \textcite{seabold2010statsmodels}. Inline citation:
+citation: \textcite{antonio2022inflation}. Inline citation:
+\textcite{seabold2010statsmodels}. Inline citation:
 \textcite{seabold2010statsmodels}. Inline citation:
 \textcite{fama2016commodity}. Inline citation:
-\textcite{rosenberg_2003_exchange_rate_determination}. Inline citation:
-\textcite{fama2016commodity}. Example of a
-footnote
+\textcite{rosenberg_2003_exchange_rate_determination}. Inline
+citation: \textcite{fama2016commodity}. Example of a footnote
 citation.\footnote{\cite{fama2016commodity}}.
 
 An example of an equation (numbered and centered) is shown below:
@@ -1198,36 +2915,36 @@ An example of an equation (numbered and centered) is shown below:
 %------------------------------------------------------------------------------------
 %	                  LITERATURE REVIEW
 %------------------------------------------------------------------------------------
-\chapter{Literature Review}
-\label{ch:literature_review}
-\input{chapters/02-literature-review}
-% Here the introduction text
-Here the Literature review text.
-\section{Example Section}
+% \chapter{Literature Review}
+% \label{ch:literature_review}
+% \input{chapters/02-literature-review}
+% % Here the introduction text
+% Here the Literature review text.
+% \section{Example Section}
 %------------------------------------------------------------------------------------
 %	                  METHODOLOGY
 %------------------------------------------------------------------------------------
-\chapter{Methodology}
-\label{ch:methodology}
-\input{chapters/03-methodology}
-% Here the introduction text
-Here the methodology text.
+% \chapter{Methodology}
+% \label{ch:methodology}
+% \input{chapters/03-methodology}
+% % Here the introduction text
+% Here the methodology text.
 %------------------------------------------------------------------------------------
 %	                  DATA
 %------------------------------------------------------------------------------------
-\chapter{Data}
-\label{ch:data}
-\input{chapters/04-data}
-% Here the introduction text
-Here the data text.
+% \chapter{Data}
+% \label{ch:data}
+% \input{chapters/04-data}
+% % Here the introduction text
+% Here the data text.
 %------------------------------------------------------------------------------------
 %	                  EXPERIMENTS
 %------------------------------------------------------------------------------------
-\chapter{Experiments}
-\label{ch:experiments}
-\input{chapters/05-experiments}
-% Here the introduction text
-Here the experiments text.
+% \chapter{Experiments}
+% \label{ch:experiments}
+% \input{chapters/05-experiments}
+% % Here the introduction text
+% Here the experiments text.
 %------------------------------------------------------------------------------------
 %	                  RESULTS
 %------------------------------------------------------------------------------------
